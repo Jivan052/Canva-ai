@@ -3,7 +3,7 @@ import { LandingHero } from "@/components/landing/LandingHero";
 import { UploadSection } from "@/components/landing/UploadSection";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import {  BarChart2 } from "lucide-react";
+import {  BarChart2, Settings2 } from "lucide-react";
 
 const Index = () => {
   return (
@@ -20,7 +20,13 @@ const Index = () => {
           
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#how-it-works" className="text-sm hover:underline">How It Works</a>
-            <Link to="/dashboard" className="text-sm hover:underline">Dashboard</Link>
+            <Link to="/pricing" className="text-sm hover:underline">DFormulator</Link>
+            <Link to="/manual-tools">
+            <Button variant="outline" className="gap-2">
+              <Settings2 className="h-4 w-4" />
+              Manual Data Tools
+            </Button>
+            </Link>
           </nav>
           
           <div>
@@ -28,6 +34,8 @@ const Index = () => {
               <Link to="/dashboard">Get Started</Link>
             </Button>
           </div>
+          
+          
         </div>
       </header>
       
