@@ -27,6 +27,12 @@ const Index = () => {
               Manual Data Tools
             </Button>
             </Link>
+            <Link to="/demo-ai">
+            <Button variant="outline" className="gap-2">
+              <Settings2 className="h-4 w-4" />
+              DemoAI
+            </Button>
+            </Link>
           </nav>
           
           <div>
