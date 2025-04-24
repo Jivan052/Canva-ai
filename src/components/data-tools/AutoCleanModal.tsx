@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useDataOperations } from "@/hooks/useDataOperations";
 import { detectDataIssues } from "@/lib/utils/dataHelpers";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
