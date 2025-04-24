@@ -11,7 +11,6 @@ import {
   Trash2
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { 
   Dialog, 
@@ -32,7 +31,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Separator } from "@/components/ui/separator";
 import { OperationButton } from "./OperationButton";
 import { useDataOperations } from "@/hooks/useDataOperations";
 import { ColumnSelector } from "./ColumnSelector";
