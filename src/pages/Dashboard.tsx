@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { DataOperationsPanel } from "@/components/data-tools/DataOperationsPanel";
 import { DataPreview } from "@/components/data-tools/DataPreview";
@@ -8,7 +9,7 @@ import { AISuggestions } from "@/components/data-tools/AISuggestions";
 import { DataInsights } from "@/components/data-analytics/DataInsights";
 import { AutoCleanModal } from "@/components/data-tools/AutoCleanModal";
 import { useDataOperations } from "@/hooks/useDataOperations";
-import {  BarChart2, Settings2 } from "lucide-react";
+import {  BarChart2, BadgePlus } from "lucide-react";
 import { 
   Upload, Download, PanelRight, PanelLeft, Sparkles, 
   Menu, ChevronRight, Hammer, Settings, ExternalLink,
@@ -23,6 +24,7 @@ import {
   DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator 
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -188,12 +190,18 @@ export default function Dashboard() {
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <h1 className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+            
             <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-black rounded-md flex items-center justify-center">
+              <Link to="/" className="flex items-center space-x-2"> 
+          <div className="w-8 h-8 bg-black rounded-md flex items-center justify-center">\
+            
                 <BarChart2 className="text-white w-5 h-5" />
               </div>
             <span className="font-bold text-lg">AI Data Canvas</span>
+            </Link>
           </div>
+          
+          
             </h1>
 
             {/* Mobile menu */}
@@ -423,8 +431,9 @@ export default function Dashboard() {
                     </label>
                   </Button>
                   <Button variant="outline" size="default" onClick={goToManualTools} className="gap-2">
-                    <Hammer className="h-4 w-4" />
-                    Advanced Tools
+
+                    <BadgePlus />
+                    Multi Resource 
                   </Button>
                 </div>
               </div>

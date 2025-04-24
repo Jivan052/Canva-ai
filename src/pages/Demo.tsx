@@ -7,7 +7,6 @@ import { DashboardLayout } from "@/layouts/DashboardLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDataAnalysis } from "@/hooks/useDataAnalysis";
-import { InsightResult } from "@/utils/deepseekApi";
 import { Button } from "@/components/ui/button";
 import { FileSpreadsheet } from "lucide-react";
 
@@ -20,7 +19,6 @@ const DemoAi = () => {
     analysisStatus,
     progress,
     insights,
-    isLoading
   } = useDataAnalysis({
     onSuccess: () => {
       // Switch to insights tab when analysis is complete

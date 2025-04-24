@@ -20,7 +20,7 @@ const Index = () => {
           
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#how-it-works" className="text-sm hover:underline">How It Works</a>
-            <Link to="/pricing" className="text-sm hover:underline">DFormulator</Link>
+            <Link to="/" className="text-sm hover:underline">DFormulator</Link>
             <Link to="/manual-tools">
             <Button variant="outline" className="gap-2">
               <Settings2 className="h-4 w-4" />
