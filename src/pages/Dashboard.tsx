@@ -24,7 +24,7 @@ import {
   DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator 
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import { MultiResourceImport } from "@/components/data-tools/MultiResourceImport";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -32,6 +32,7 @@ export default function Dashboard() {
   const [leftSidebarOpen, setLeftSidebarOpen] = useState<boolean>(true);
   const [rightSidebarOpen, setRightSidebarOpen] = useState<boolean>(true);
   const [showCleanModal, setShowCleanModal] = useState<boolean>(false);
+  const [showMultiResourceModal, setShowMultiResourceModal] = useState<boolean>(false);
   
   // Handle file upload
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -430,11 +431,10 @@ export default function Dashboard() {
                       />
                     </label>
                   </Button>
-                  <Button variant="outline" size="default" onClick={goToManualTools} className="gap-2">
-
-                    <BadgePlus />
-                    Multi Resource 
-                  </Button>
+                  <Button variant="outline" size="default" onClick={() => setShowMultiResourceModal(true)} className="gap-2">
+                  <BadgePlus />
+                   Multi Resource 
+                   </Button>
                 </div>
               </div>
             </div>
@@ -558,6 +558,12 @@ export default function Dashboard() {
         open={showCleanModal} 
         onOpenChange={setShowCleanModal} 
       />
+
+        {/* Multi-Resource Import Modal */}
+  <MultiResourceImport
+    open={showMultiResourceModal}
+    onOpenChange={setShowMultiResourceModal}
+  />
     </div>
   );
 }
