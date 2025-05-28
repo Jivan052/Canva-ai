@@ -35,7 +35,7 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 px-6 md:px-10 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+    <section id="how-it-works" className="py-20 pt-10 px-6 md:px-10 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
