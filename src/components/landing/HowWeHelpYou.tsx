@@ -1,116 +1,134 @@
 import { Zap, Sparkles, MousePointer, FileText, Users, RefreshCw, Clock, Rocket, Shield } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 export default function HowWeHelpYou() {
   const helpCards = [
     {
       icon: <Zap className="h-6 w-6" />,
       title: "Instant Insights",
-      description: "Instantly see the story your data is hiding. Just send / upload/ connect your data, and our AI agents will create compelling visuals for you,.",
-      gradient: "from-blue-500 to-cyan-500"
+      description: "Instantly see the story your data is hiding. Just upload your data, and our AI agents will create compelling visuals for you.",
+      gradient: "from-blue-500 to-cyan-500",
+      bgClass: "bg-blue-50 hover:bg-blue-100"
     },
     {
       icon: <Sparkles className="h-6 w-6" />,
       title: "Effortless Data Cleaning",
-      description: "Say goodbye to format, typo, input errors and handling multi-currency —DataSquirrel fixes them all automatically, so you can clean.",
-      gradient: "from-purple-500 to-pink-500"
+      description: "Say goodbye to format errors and handling multi-currency — we fix them all automatically, no formulas required.",
+      gradient: "from-purple-500 to-pink-500",
+      bgClass: "bg-purple-50 hover:bg-purple-100"
     },
     {
       icon: <MousePointer className="h-6 w-6" />,
       title: "1-Click Explore & Play",
-      description: "Save yourself the headache of manual adjustments—customize with one-click selections like date grouping, segmentation, filtering, heatmap tables.",
-      gradient: "from-green-500 to-emerald-500"
+      description: "Customize with one-click selections like date grouping, segmentation, filtering, and theme changes.",
+      gradient: "from-green-500 to-emerald-500",
+      bgClass: "bg-green-50 hover:bg-green-100"
     },
     {
       icon: <FileText className="h-6 w-6" />,
       title: "Customizable Reports",
-      description: "Create multiple reports tailored to different audiences. Include only the relevant charts, KPIs, or tabular data, and share them as dashboards.",
-      gradient: "from-orange-500 to-red-500"
+      description: "Create multiple reports tailored to different audiences, with relevant charts, KPIs, or tabular data.",
+      gradient: "from-orange-500 to-red-500",
+      bgClass: "bg-orange-50 hover:bg-orange-100"
     },
     {
       icon: <Users className="h-6 w-6" />,
       title: "Seamless Collaboration",
-      description: "Share interactive visuals via email or a link. Leave comments & annotations directly on charts to facilitate discussions.",
-      gradient: "from-indigo-500 to-blue-500"
+      description: "Share interactive visuals via email or link. Leave comments directly on charts for team discussions.",
+      gradient: "from-indigo-500 to-blue-500",
+      bgClass: "bg-indigo-50 hover:bg-indigo-100"
     },
     {
       icon: <RefreshCw className="h-6 w-6" />,
       title: "Automated Workflows",
-      description: "No more repetitive work. Updated data is processed just as it was the first time. Schedule updates and reporting daily.",
-      gradient: "from-teal-500 to-cyan-500"
+      description: "No more repetitive work. Schedule updates daily, weekly, monthly, quarterly or yearly.",
+      gradient: "from-teal-500 to-cyan-500",
+      bgClass: "bg-teal-50 hover:bg-teal-100"
     },
     {
       icon: <Clock className="h-6 w-6" />,
       title: "Save 80% of your time",
-      description: "Experience how quickly DataSquirrel cleans and converts your data into actionable insights. No learning curve.",
-      gradient: "from-amber-500 to-yellow-500"
+      description: "Quickly clean and convert data into actionable insights. No learning curve, formulas, or coding.",
+      gradient: "from-amber-500 to-yellow-500",
+      bgClass: "bg-amber-50 hover:bg-amber-100"
     },
     {
       icon: <Rocket className="h-6 w-6" />,
       title: "Built to be productive!",
-      description: "DataSquirrel is designed for on-demand analysis like no other platform. It automates data combining, cleaning, pivoting, and visualizing—providing.",
-      gradient: "from-rose-500 to-pink-500"
+      description: "We automate data combining, cleaning, pivoting, and visualizing for instant insights and analytics.",
+      gradient: "from-rose-500 to-pink-500",
+      bgClass: "bg-rose-50 hover:bg-rose-100"
     },
     {
       icon: <Shield className="h-6 w-6" />,
       title: "Secure Data Processing",
-      description: "Our web-based platform ensures GDPR/PDPA compliance, keeping your data secure and anonymizing sensitive information by default.",
-      gradient: "from-slate-600 to-gray-700"
+      description: "GDPR/PDPA compliant, keeping your data secure. Your raw data is never sent to LLM models.",
+      gradient: "from-slate-600 to-gray-700",
+      bgClass: "bg-slate-50 hover:bg-slate-100"
     }
   ];
 
   return (
-    <section id="how-we-help-you" className=" py-8 px-6 md:px-10 bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-20 px-4 md:px-6 bg-background">
+      <div className="container mx-auto max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        <div className="text-center mb-16 space-y-4">
+          <div className="flex items-center justify-center">
+            <Badge variant="outline" className="px-4 py-1 text-sm border-primary/20 bg-primary/5 text-primary">
+              Features
+            </Badge>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+              <span className="relative inline-block text-transparent bg-gradient-to-r from-primary to-purple-500 bg-clip-text">
             How We Help You
+              </span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Discover the powerful features that make DataSquirrel your ultimate data analysis companion
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Discover the powerful features that transform your data into actionable insights
           </p>
+          <Separator className="max-w-md mx-auto" />
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {helpCards.map((card, index) => (
-            <div
+            <Card 
               key={index}
-              className="group relative bg-white rounded-2xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden"
+              className={cn(
+                "group overflow-hidden transition-all duration-300 border border-border/40",
+                "hover:shadow-lg hover:border-primary/20 hover:-translate-y-1",
+                card.bgClass
+              )}
             >
-              {/* Background Gradient Overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
-              
-              {/* Icon & Title Header */}
-              <div className="relative z-10 mb-6">
-                <div className="flex items-center space-x-4">
-                  {/* Icon Container */}
-                  <div className={`w-10 h-10 bg-gradient-to-br ${card.gradient} rounded-2xl flex items-center justify-center text-white shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-2 flex-shrink-0`}>
+              <CardHeader className="pb-2">
+                <div className="flex items-center space-x-3">
+                  <div className={`h-10 w-10 rounded-lg bg-gradient-to-br ${card.gradient} flex items-center justify-center text-white shadow-sm transition-transform duration-300 group-hover:scale-110`}>
                     {card.icon}
                   </div>
-                  
-                  {/* Title */}
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-gray-800 transition-colors duration-200 leading-tight">
-                      {card.title}
-                    </h3>
-                  </div>
+                  <CardTitle className="text-lg font-semibold">{card.title}</CardTitle>
                 </div>
-              </div>
-
-              {/* Content */}
-              <div className="relative z-10">
-                <p className="text-gray-600 leading-relaxed text-sm group-hover:text-gray-700 transition-colors duration-200">
-                  {card.description}
-                </p>
-              </div>
-
-              {/* Hover Effect Border */}
-              <div className={`absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-gradient-to-br group-hover:${card.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
+              </CardHeader>
               
-              {/* Bottom Accent Line */}
-              <div className={`absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r ${card.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`}></div>
-            </div>
+              <CardContent>
+                <CardDescription className="text-sm text-muted-foreground leading-relaxed">
+                  {card.description}
+                </CardDescription>
+              </CardContent>
+              
+              <CardFooter className="pt-0">
+                <div className={`h-0.5 w-full bg-gradient-to-r ${card.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+              </CardFooter>
+            </Card>
           ))}
         </div>
       </div>

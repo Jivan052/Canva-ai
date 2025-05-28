@@ -9,9 +9,39 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useDataAnalysis } from "@/hooks/useDataAnalysis";
 import { Button } from "@/components/ui/button";
 import { FileSpreadsheet } from "lucide-react";
+import { Chatbot } from "./Chatbot";
 
 const DemoAi = () => {
   const [activeTab, setActiveTab] = useState("insights");
+  const [insight, setInsight] = useState([]); // Your existing insights state
+  
+  // Function to send prompts to n8n workflow
+  const handleChatPrompt = async (prompt: string): Promise<string> => {
+    try {
+      // Replace with your actual n8n workflow endpoint
+      const response = await fetch('YOUR_N8N_WORKFLOW_URL', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+          // Add any other data you need to send
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send prompt to n8n');
+      }
+
+      const data = await response.json();
+      return data.response || 'Response received from n8n workflow';
+    } catch (error) {
+      console.error('Error sending prompt to n8n:', error);
+      throw error;
+    }
+  };
+
   
   const {
     analyzeWithFile,
@@ -66,8 +96,8 @@ const DemoAi = () => {
         {/* Upload Section */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList>
+            <TabsTrigger value="upload">Upload </TabsTrigger>
             <TabsTrigger value="insights">Insights</TabsTrigger>
-            <TabsTrigger value="upload">Upload Data</TabsTrigger>
             <TabsTrigger value="visualize">Visualizations</TabsTrigger>
           </TabsList>
           
@@ -107,6 +137,9 @@ const DemoAi = () => {
                   xKey="category"
                   yKeys={["sales", "target"]}
                 />
+                 <div className="mt-6">
+          <Chatbot onSendPrompt={handleChatPrompt} />
+        </div>
               </>
             ) : (
               <div className="flex flex-col items-center justify-center py-12 text-center">
@@ -171,6 +204,10 @@ const DemoAi = () => {
                   xKey="category"
                   yKeys={["sales", "target"]}
                 />
+                 <div className="mt-6">
+          <Chatbot onSendPrompt={handleChatPrompt} />
+        </div>
+
               </>
             ) : (
               <div className="flex flex-col items-center justify-center py-12 text-center">
