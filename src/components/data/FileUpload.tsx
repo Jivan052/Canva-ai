@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 import { csvToJson } from "@/lib/utils/fileHelpers";
 import { useInsight } from "@/contexts/InsightContext";
-
+import { Spinner, ProcessingOverlay } from "@/components/ui/Spinner";
 
 interface FileUploadProps {
   onFileAnalyze?: (file: File, prompt: string) => Promise<void>;
@@ -17,8 +17,10 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [processingStatus, setProcessingStatus] = useState("Preparing...");
   const [prompt, setPrompt] = useState("");
-  const [hasAnalyzedFile, setHasAnalyzedFile] = useState(false); // Track if file has been analyzed
+  const [hasAnalyzedFile, setHasAnalyzedFile] = useState(false);
   const { toast } = useToast();
 
   const { setDataInsights } = useInsight();
@@ -40,96 +42,105 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
     handleFiles(droppedFiles);
   };
 
-  const sendFileToBackend = async (file: File) => {
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append('customPrompt', 'what is average quantityordered');
-
-  try {
-    const response = await axios.post(
-      "https://allan30joseph.app.n8n.cloud/webhook/upload-dataset",
-      formData
-    );
-    console.log("Response:", response.data);
+  // Simulate progress for better UX
+  const startProgressSimulation = () => {
+    setUploadProgress(0);
     
-    setDataInsights(response.data.output);
+    // Quickly go to 20% to show immediate feedback
+    const timer1 = setTimeout(() => {
+      setUploadProgress(20);
+    }, 200);
+    
+    // Then slower progress up to 90%
+    const timer2 = setTimeout(() => {
+      const interval = setInterval(() => {
+        setUploadProgress(prev => {
+          const newValue = prev + (Math.random() * 3);
+          if (newValue >= 90) {
+            clearInterval(interval);
+            return 90;
+          }
+          return newValue;
+        });
+      }, 300);
+      
+      // Clean up interval after 10 seconds max
+      setTimeout(() => clearInterval(interval), 10000);
+      
+      return () => clearInterval(interval);
+    }, 500);
+    
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  };
 
-  } catch (error) {
-    console.error("Upload failed:", error);
-  }
-};
+  const sendFileToBackend = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append('customPrompt', prompt || 'what is average quantityordered');
+
+    setIsUploading(true);
+    setProcessingStatus("Uploading file...");
+    
+    // Start progress simulation
+    const stopProgress = startProgressSimulation();
+
+    try {
+      const response = await axios.post(
+        "https://allan30joseph.app.n8n.cloud/webhook/upload-dataset",
+        formData
+      );
+      console.log("Response:", response.data);
+      
+      // Set progress to 100% when complete
+      setUploadProgress(100);
+      setProcessingStatus("Processing complete");
+      
+      // Process data insights
+      if (response.data && response.data.output) {
+        setDataInsights(response.data.output);
+        setHasAnalyzedFile(true);
+        
+        toast({
+          title: "Analysis complete",
+          description: "Your data has been processed successfully.",
+        });
+      }
+      
+      // Wait a moment to show the complete state
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+    } catch (error) {
+      console.error("Upload failed:", error);
+      
+      toast({
+        title: "Upload failed",
+        description: typeof error === 'object' && error !== null && 'message' in error 
+          ? String(error.message)
+          : "There was a problem with your upload. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      // Clean up progress simulation
+      stopProgress();
+      setIsUploading(false);
+      setUploadProgress(0);
+    }
+  };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const selectedFile = e.target.files?.[0];
+    if (!selectedFile) return;
     
     // Reset input value to allow selecting the same file again
     e.currentTarget.value = '';
-
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-      const content = event.target?.result as string;
-      try {
-        // Handle different file types
-        if (file.name.toLowerCase().endsWith('.csv')) {
-          const jsonData = csvToJson(content);
-          if (!jsonData || !jsonData.length) {
-            throw new Error("CSV appears to be empty or invalid");
-          }
-        
-          await sendFileToBackend(file);
-          
-          toast({
-            title: "File uploaded successfully",
-            description: `Loaded ${file.name} with ${jsonData.length} rows.`,
-          });
-        } else if (file.name.toLowerCase().endsWith('.json')) {
-          const jsonData = JSON.parse(content);
-          const dataArray = Array.isArray(jsonData) ? jsonData : [jsonData];
-          
-          if (!dataArray.length) {
-            throw new Error("JSON data appears to be empty");
-          }
-          
-          
-          await sendFileToBackend(file);
-          
-          toast({
-            title: "File uploaded successfully",
-            description: `Loaded ${file.name} with ${dataArray.length} rows.`,
-          });
-        } else {
-          toast({
-            title: "Unsupported file format",
-            description: "Please upload a CSV or JSON file.",
-            variant: "destructive",
-          });
-          return;
-        }
-      } catch (error) {
-        console.error("Error processing file:", error);
-        toast({
-          title: "Error processing file",
-          description: typeof error === 'object' && error !== null && 'message' in error 
-            ? String(error.message)
-            : "The file couldn't be processed. Check the format and try again.",
-          variant: "destructive",
-        });
-      }
-    };
     
-    reader.onerror = () => {
-      toast({
-        title: "Error reading file",
-        description: "The file couldn't be read. It might be corrupted or too large.",
-        variant: "destructive",
-      });
-    };
-    
-    reader.readAsText(file);
+    handleFiles(Array.from([selectedFile]));
   };
 
-  const handleFiles = (files: FileList) => {
+  const handleFiles = (files: FileList | File[]) => {
     if (files.length > 0) {
       const selectedFile = files[0];
       const fileExt = selectedFile.name.split('.').pop()?.toLowerCase();
@@ -149,10 +160,10 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
   };
 
   const handleAnalyzeOrSend = async () => {
-    if (!prompt.trim()) {
+    if (!prompt.trim() && !file) {
       toast({
-        title: "Prompt required",
-        description: "Please enter a prompt before proceeding",
+        title: "Input required",
+        description: "Please enter a prompt or upload a file",
         variant: "destructive"
       });
       return;
@@ -162,39 +173,23 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
     
     try {
       if (!hasAnalyzedFile && file) {
-        // First time: send file + prompt
-        if (onFileAnalyze) {
-          await onFileAnalyze(file, prompt);
-          setHasAnalyzedFile(true);
-          toast({
-            title: "Analysis successful",
-            description: "Your file has been analyzed with the provided prompt",
-          });
-        } else {
-          // Mock file analysis with prompt
-          await new Promise(resolve => setTimeout(resolve, 2000));
-          setHasAnalyzedFile(true);
-          toast({
-            title: "Analysis successful",
-            description: "Your file has been analyzed with the provided prompt",
-          });
-        }
+        setProcessingStatus("Analyzing file...");
+        await sendFileToBackend(file);
       } else {
-        // Subsequent times: send only prompt
+        // Handle sending prompt only
+        setProcessingStatus("Processing prompt...");
+        
         if (onPromptSend) {
           await onPromptSend(prompt);
-          toast({
-            title: "Prompt sent",
-            description: "Your prompt has been processed",
-          });
         } else {
-          // Mock prompt sending
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          toast({
-            title: "Prompt sent",
-            description: "Your prompt has been processed",
-          });
+          // Simulate processing
+          await new Promise(resolve => setTimeout(resolve, 1500));
         }
+        
+        toast({
+          title: "Prompt sent",
+          description: "Your prompt has been processed",
+        });
       }
       
       // Clear prompt after successful submission
@@ -231,7 +226,7 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full relative">
       <CardContent className="p-6">
         <h3 className="text-xl font-medium mb-6">Upload Excel File</h3>
         
@@ -259,7 +254,14 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
             </Button>
           </div>
         ) : (
-          <div className="p-4 border rounded-md">
+          <div className="p-4 border rounded-md relative">
+            {/* Processing overlay */}
+            <ProcessingOverlay 
+              isLoading={isUploading} 
+              progress={uploadProgress} 
+              status={processingStatus}
+            />
+            
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="flex items-center space-x-2">
@@ -299,12 +301,13 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
             <div className="mt-4 flex justify-end">
               <Button 
                 onClick={handleAnalyzeOrSend} 
-                disabled={isUploading || !prompt.trim()} 
+                disabled={isUploading || (!file && !prompt.trim())} 
                 className="gap-2"
               >
                 {isUploading ? (
                   <>
-                    {getButtonText()} <span className="animate-pulse">...</span>
+                    <span>{getButtonText()}</span>
+                    <Spinner size="sm" />
                   </>
                 ) : (
                   <>

@@ -34,7 +34,7 @@ function ScrollToHash() {
       if (el) {
         setTimeout(() => {
           el.scrollIntoView({ behavior: "smooth" });
-        }, 100); // small delay to allow DOM render
+        }, 100); 
       }
     }
   }, [location]);

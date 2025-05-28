@@ -12,6 +12,7 @@ import { FileSpreadsheet, BarChart, PieChart, LineChart } from "lucide-react";
 import { ChatbotWidget } from "./ChatbotWidget";
 import { useInsight } from "@/contexts/InsightContext";
 
+
 const DemoAi = () => {
   const [activeTab, setActiveTab] = useState("upload");
   const { dataInsights } = useInsight();

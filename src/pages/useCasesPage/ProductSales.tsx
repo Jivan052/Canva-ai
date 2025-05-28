@@ -54,6 +54,7 @@ const bulletPoints = [
 ];
 
 export default function ProductSales() {
+  
   return (
     <>
       <Navbar />
