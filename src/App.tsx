@@ -17,6 +17,7 @@ import HROperation from "./pages/useCasesPage/HROperation";
 import Finance from "./pages/useCasesPage/Finance";
 import Marketing from "./pages/useCasesPage/Marketing";
 import Footer from "./components/landing/Footer";
+import Navbar from "./components/landing/Navbar";
 import { InsightProvider } from "./contexts/InsightContext";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
           <InsightProvider>
           
           <BrowserRouter>
+            <Navbar />
             <Routes>
               <Route path="/" element={<Index />} />
               
