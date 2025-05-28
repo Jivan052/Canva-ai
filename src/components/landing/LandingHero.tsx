@@ -110,7 +110,6 @@ export default function LandingHero() {
               </Button>
             </div>
 
-            {/* Features grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0">
               {features.map((feature, index) => (
                 <Card 
@@ -167,6 +166,7 @@ export default function LandingHero() {
         </div>
       </div>
 
+
       {/* Custom animation styles */}
       <style dangerouslySetInnerHTML={{
         __html: `
@@ -181,6 +181,7 @@ export default function LandingHero() {
           }
         `
       }} />
+
     </section>
   );
 }

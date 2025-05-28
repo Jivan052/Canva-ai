@@ -13,7 +13,7 @@ const Index = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navigation */}
-      <header className="border-b border-border py-4 px-6 md:px-10">
+      <header className="border-b border-border py-4 px-6 md:px-10 sticky top-0 z-50 bg-background">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-black rounded-md flex items-center justify-center">
