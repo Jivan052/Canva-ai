@@ -87,7 +87,7 @@ export default function LandingHero() {
               </button>
             </div>
 
-            {/* Stats/Features Grid */}
+            {/* Stats/Features Grid  */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0">
               {[
                 { icon: "⚡", title: "Instant Analysis", desc: "Results in seconds" },
@@ -145,7 +145,7 @@ export default function LandingHero() {
       </div>
 
       {/* Custom Styles */}
-      <style jsx>{`
+      <style>{`
         @keyframes gradient {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
