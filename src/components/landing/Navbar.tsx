@@ -57,11 +57,11 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
+            <Link to="/#how-it-works" className="block text-sm  hover:scale-105 hover:font-bold hover:text-black/80">
 
-            <Link to="/#how-it-works" className="text-sm hover:underline">
                 How It Works
              </Link>
-            <Link to="/#how-we-help-you" className="text-sm hover:underline">
+            <Link to="/#how-we-help-you" className="block text-sm  hover:scale-105 hover:font-bold hover:text-black/80">
                 Services
             </Link> 
 
@@ -96,45 +96,65 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Pop-up Panel */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-black/30 z-40 flex justify-end md:hidden">
-          <div
-            ref={mobileMenuRef}
-            className="w-80 bg-white h-1/2 px-6 py-2  mt-6 shadow-xl overflow-y-auto rounded-lg"
-          >
-            <div className="flex justify-end mb-4">
-              <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
-                <X className="w-5 h-5" />
-              </Button>
-            </div>
+{isMobileMenuOpen && (
+  <div className="fixed inset-0 bg-black/30 z-40 flex justify-end md:hidden">
+    <div
+      ref={mobileMenuRef}
+      className="w-80 bg-white h-1/2 px-6 py-4 mt-6 shadow-xl overflow-y-auto rounded-lg"
+    >
+      {/* Close Button */}
+      <div className="flex justify-end mb-4">
+        <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
+          <X className="w-5 h-5" />
+        </Button>
+      </div>
 
-            <div className="space-y-4">
-              <a href="/#how-it-works" className="block text-sm hover:underline">
-                How It Works
-              </a>
-              <a href="/#how-we-help-you" className="block text-sm hover:underline">
-                Services
-              </a>
-              <UseCasesDropdown />
-              <Link to="/manual-tools">
-                <Button variant="outline" className="w-full gap-2">
-                  <Settings2 className="h-4 w-4" />
-                  Manual Data Tools
-                </Button>
-              </Link>
-              <Link to="/demo-ai">
-                <Button variant="outline" className="w-full gap-2">
-                  <Settings2 className="h-4 w-4" />
-                  DemoAI
-                </Button>
-              </Link>
-              <Button asChild className="w-full">
-                <Link to="/dashboard">Get Started</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Menu Items */}
+      <div className="space-y-4">
+        <Link
+          to="/#how-it-works"
+          className="block text-sm  hover:scale-105 hover:font-bold hover:text-black/80"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          How It Works
+        </Link>
+        <Link
+          to="/#how-we-help-you"
+          className="block text-sm  hover:scale-105 hover:font-bold hover:text-black/80"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          Services
+        </Link>
+
+        {/* Use Cases Dropdown */}
+        <UseCasesDropdown />
+
+        {/* Tool Buttons */}
+        <Link to="/manual-tools" onClick={() => setIsMobileMenuOpen(false)}>
+          <Button variant="outline" className="w-full gap-2">
+            <Settings2 className="h-4 w-4" />
+            Manual Data Tools
+          </Button>
+        </Link>
+
+        <Link to="/demo-ai" onClick={() => setIsMobileMenuOpen(false)}>
+          <Button variant="outline" className="w-full gap-2">
+            <Settings2 className="h-4 w-4" />
+            DemoAI
+          </Button>
+        </Link>
+
+        {/* Get Started Button */}
+        <Button asChild className="w-full">
+          <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
+            Get Started
+          </Link>
+        </Button>
+      </div>
+    </div>
+  </div>
+)}
+
     </header>
   );
 }
