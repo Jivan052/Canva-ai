@@ -28,8 +28,8 @@ export interface Insight {
 }
 
 interface InsightContextType {
-  insights: Insight[] | null;
-  setInsights: (data: Insight[]) => void;
+  dataInsights: Insight[] | null;
+  setDataInsights: (data: Insight[]) => void;
 }
 
 const InsightContext = createContext<InsightContextType | undefined>(undefined);
@@ -38,7 +38,7 @@ export const InsightProvider = ({ children }: { children: React.ReactNode }) => 
   const [insights, setInsights] = useState<Insight[] | null>(null);
 
   return (
-    <InsightContext.Provider value={{ insights, setInsights }}>
+    <InsightContext.Provider value={{ dataInsights: insights, setDataInsights: setInsights }}>
       {children}
     </InsightContext.Provider>
   );

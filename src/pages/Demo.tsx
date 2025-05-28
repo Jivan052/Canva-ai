@@ -9,25 +9,113 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useDataAnalysis } from "@/hooks/useDataAnalysis";
 import { Button } from "@/components/ui/button";
 import { FileSpreadsheet, BarChart, PieChart, LineChart } from "lucide-react";
-import { ChatbotWidget } from "./ChatbotWidget"; 
+import { ChatbotWidget } from "./ChatbotWidget";
+import { useInsight } from "@/contexts/InsightContext";
 
 const DemoAi = () => {
   const [activeTab, setActiveTab] = useState("insights");
+  const { dataInsights } = useInsight();
+  console.log("Data Insights:", dataInsights);
+  console.log("Data Insights type:", typeof dataInsights);
+  console.log("Is Array:", Array.isArray(dataInsights));
   
-  // Simple handler for chatbot prompts
-  const handleChatPrompt = async (prompt: string): Promise<string> => {
-    // For demonstration purposes, return contextual responses based on keywords
-    await new Promise(resolve => setTimeout(resolve, 1200)); // Simulate API delay
+  // Transform dataInsights into chart data format
+  const transformDataForCharts = () => {
+    if (!dataInsights || !Array.isArray(dataInsights) || dataInsights.length === 0) return null;
     
-    if (prompt.toLowerCase().includes("revenue")) {
-      return "Based on your data, revenue has grown by 200% from January to June, reaching $15,000 in June.";
-    } else if (prompt.toLowerCase().includes("product")) {
-      return "Product C is your best performer with sales of $4,500, while Product B is underperforming at 16% below target.";
-    } else if (prompt.toLowerCase().includes("region")) {
-      return "The North region leads with 35% of your total sales, followed by South (25%), with East and West tied at 20% each.";
-    } else {
-      return "I can help analyze your data. Try asking about revenue trends, product performance, or regional sales distribution.";
+    const charts = [];
+    const metrics = [];
+    
+    dataInsights.forEach((insight, insightIndex) => {
+      if (insight.visualization?.charts) {
+        insight.visualization.charts.forEach((chart, chartIndex) => {
+          // Transform chart data based on type
+          let transformedData = [];
+          
+          if (chart.chartType === 'bar' || chart.chartType === 'line') {
+            transformedData = chart.labels.map((label, index) => ({
+              name: label,
+              value: chart.data[index]
+            }));
+          } else if (chart.chartType === 'pie') {
+            transformedData = chart.labels.map((label, index) => ({
+              name: label,
+              value: chart.data[index]
+            }));
+          }
+          
+          charts.push({
+            id: `chart-${insightIndex}-${chartIndex}`,
+            title: chart.title,
+            description: insight.description,
+            data: transformedData,
+            type: chart.chartType === 'bar' ? 'bar' : chart.chartType === 'line' ? 'line' : 'pie',
+            xKey: 'name',
+            yKeys: ['value'],
+            color: chart.color
+          });
+        });
+      }
+      
+      if (insight.visualization?.metrics) {
+        metrics.push(...insight.visualization.metrics.map(metric => ({
+          ...metric,
+          insightTitle: insight.insight
+        })));
+      }
+    });
+    
+    return { charts, metrics };
+  };
+  
+  // Generate contextual chatbot responses based on dataInsights
+  const handleChatPrompt = async (prompt: string): Promise<string> => {
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    
+    if (!dataInsights || !Array.isArray(dataInsights) || dataInsights.length === 0) {
+      return "Please upload some data first so I can provide insights about your business metrics.";
     }
+    
+    const lowerPrompt = prompt.toLowerCase();
+    
+    // Find relevant insights based on keywords
+    if (lowerPrompt.includes("revenue") || lowerPrompt.includes("sales")) {
+      const revenueInsight = dataInsights.find(insight => 
+        insight.insight.toLowerCase().includes("revenue") || 
+        insight.description.toLowerCase().includes("revenue")
+      );
+      
+      if (revenueInsight) {
+        const changeMetric = revenueInsight.visualization?.metrics?.find(m => 
+          m.title.toLowerCase().includes("change")
+        );
+        return `${revenueInsight.description} ${changeMetric ? `The change was ${changeMetric.value}${changeMetric.unit}.` : ''} Suggestion: ${revenueInsight.suggestion}`;
+      }
+    }
+    
+    if (lowerPrompt.includes("region") || lowerPrompt.includes("growth")) {
+      const regionInsight = dataInsights.find(insight => 
+        insight.insight.toLowerCase().includes("region") || 
+        insight.insight.toLowerCase().includes("west")
+      );
+      
+      if (regionInsight) {
+        const growthMetric = regionInsight.visualization?.metrics?.find(m => 
+          m.title.toLowerCase().includes("growth")
+        );
+        return `${regionInsight.description} ${growthMetric ? `Growth rate: ${growthMetric.value}${growthMetric.unit}.` : ''} Suggestion: ${regionInsight.suggestion}`;
+      }
+    }
+    
+    // General insights summary
+    if (lowerPrompt.includes("summary") || lowerPrompt.includes("overview")) {
+      const insights = dataInsights.map(insight => `• ${insight.insight}: ${insight.description}`).join('\n');
+      return `Here's a summary of your key insights:\n${insights}`;
+    }
+    
+    // Default response with available insights
+    const availableTopics = dataInsights.map(insight => insight.insight).join(', ');
+    return `I can help analyze your data insights. Current topics available: ${availableTopics}. Try asking about specific metrics or request a summary.`;
   };
   
   const {
@@ -41,33 +129,12 @@ const DemoAi = () => {
       setActiveTab("insights");
     }
   });
-  
-  // Sample chart data
-  const monthlyData = [
-    { month: "Jan", revenue: 5000, expenses: 3000, profit: 2000 },
-    { month: "Feb", revenue: 7500, expenses: 4000, profit: 3500 },
-    { month: "Mar", revenue: 10000, expenses: 5000, profit: 5000 },
-    { month: "Apr", revenue: 8500, expenses: 4500, profit: 4000 },
-    { month: "May", revenue: 12000, expenses: 6000, profit: 6000 },
-    { month: "Jun", revenue: 15000, expenses: 7000, profit: 8000 },
-  ];
-  
-  const categoryData = [
-    { category: "Product A", sales: 3200, target: 3000 },
-    { category: "Product B", sales: 2100, target: 2500 },
-    { category: "Product C", sales: 4500, target: 4000 },
-    { category: "Product D", sales: 1800, target: 2000 },
-  ];
-  
-  const regionData = [
-    { name: "North", value: 35 },
-    { name: "South", value: 25 },
-    { name: "East", value: 20 },
-    { name: "West", value: 20 },
-  ];
 
   // Convert analysisStatus to the type expected by DashboardLayout
   const layoutStatus = analysisStatus === "error" ? "idle" : analysisStatus;
+  
+  // Get transformed chart data
+  const chartData = transformDataForCharts();
 
   return (
     <DashboardLayout showAIStatus={true} aiStatus={layoutStatus} progress={progress}>
@@ -105,42 +172,52 @@ const DemoAi = () => {
           </TabsContent>
           
           <TabsContent value="insights" className="space-y-6 mt-6">
-            {insights && insights.length > 0 ? (
+            {dataInsights && Array.isArray(dataInsights) && dataInsights.length > 0 ? (
               <>
+                {/* Display insights as cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {insights.map((insight, index) => (
-                    <InsightCard key={index} {...insight} />
+                  {dataInsights.map((insight, index) => (
+                    <InsightCard 
+                      key={index} 
+                      insight={insight.insight}
+                      description={insight.description}
+                      suggestion={insight.suggestion}
+                    />
                   ))}
-                  
                 </div>
                 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <DataChart
-                    title="Monthly Revenue Overview"
-                    description="Revenue, expenses and profit over time"
-                    data={monthlyData}
-                    type="line"
-                    xKey="month"
-                    yKeys={["revenue", "expenses", "profit"]}
-                  />
-                  
-                  <DataChart
-                    title="Sales by Region"
-                    data={regionData}
-                    type="pie"
-                    xKey="name"
-                    yKeys={["value"]}
-                  />
-                </div>
+                {/* Display metrics cards */}
+                {chartData?.metrics && chartData.metrics.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {chartData.metrics.map((metric, index) => (
+                      <Card key={index}>
+                        <CardContent className="p-6">
+                          <div className="text-2xl font-bold">
+                            {metric.unit === '₹' ? '₹' : ''}{metric.value.toLocaleString()}{metric.unit === '%' ? '%' : ''}
+                          </div>
+                          <p className="text-sm text-muted-foreground">{metric.title}</p>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
                 
-                <DataChart
-                  title="Product Performance vs Target"
-                  description="Sales performance compared to targets"
-                  data={categoryData}
-                  type="bar"
-                  xKey="category"
-                  yKeys={["sales", "target"]}
-                />
+                {/* Display dynamic charts */}
+                {chartData?.charts && chartData.charts.length > 0 && (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {chartData.charts.map((chart) => (
+                      <DataChart
+                        key={chart.id}
+                        title={chart.title}
+                        description={chart.description}
+                        data={chart.data}
+                        type={chart.type}
+                        xKey={chart.xKey}
+                        yKeys={chart.yKeys}
+                      />
+                    ))}
+                  </div>
+                )}
               </>
             ) : (
               <div className="flex flex-col items-center justify-center py-12 text-center">
@@ -159,33 +236,34 @@ const DemoAi = () => {
           </TabsContent>
           
           <TabsContent value="visualize" className="space-y-6 mt-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <DataChart
-                title="Monthly Revenue Overview"
-                description="Revenue, expenses and profit over time"
-                data={monthlyData}
-                type="area"
-                xKey="month"
-                yKeys={["revenue", "expenses", "profit"]}
-              />
-              
-              <DataChart
-                title="Sales by Region"
-                data={regionData}
-                type="pie"
-                xKey="name"
-                yKeys={["value"]}
-              />
-            </div>
-            
-            <DataChart
-              title="Product Performance vs Target"
-              description="Sales performance compared to targets"
-              data={categoryData}
-              type="bar"
-              xKey="category"
-              yKeys={["sales", "target"]}
-            />
+            {chartData?.charts && chartData.charts.length > 0 ? (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {chartData.charts.map((chart) => (
+                  <DataChart
+                    key={`viz-${chart.id}`}
+                    title={chart.title}
+                    description={chart.description}
+                    data={chart.data}
+                    type={chart.type}
+                    xKey={chart.xKey}
+                    yKeys={chart.yKeys}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="mb-4 p-4 rounded-full bg-secondary">
+                  <BarChart className="h-10 w-10 text-muted-foreground" />
+                </div>
+                <h3 className="text-xl font-medium mb-2">No visualizations available</h3>
+                <p className="text-muted-foreground max-w-md mb-6">
+                  Upload data with insights to see dynamic visualizations.
+                </p>
+                <Button onClick={() => setActiveTab("upload")} variant="default">
+                  Upload Data
+                </Button>
+              </div>
+            )}
           </TabsContent>
           
           <TabsContent value="assistant" className="space-y-6 mt-6">
