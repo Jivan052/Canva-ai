@@ -21,7 +21,7 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
   const [hasAnalyzedFile, setHasAnalyzedFile] = useState(false); // Track if file has been analyzed
   const { toast } = useToast();
 
-  const { setInsights } = useInsight();
+  const { setDataInsights } = useInsight();
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -51,7 +51,9 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
       formData
     );
     console.log("Response:", response.data);
-    setInsights(response.data);
+    
+    setDataInsights(response.data.output);
+
   } catch (error) {
     console.error("Upload failed:", error);
   }
