@@ -55,12 +55,16 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <a href="#how-it-works" className="text-sm hover:underline">
+        <Link to="/#how-it-works" className="text-sm hover:underline"> How It Works</Link>
+          {/* <a href="#how-it-works" className="text-sm hover:underline">
             How It Works
-          </a>
-          <a href="#how-we-help-you" className="text-sm hover:underline">
+          </a> */}
+          {/* <a href="#how-we-help-you" className="text-sm hover:underline">
             Services
-          </a>
+          </a> */}
+            <Link to="/#how-we-help-you" className="text-sm hover:underline">
+                Services
+            </Link> 
           <UseCasesDropdown />
           <Link to="/manual-tools">
             <Button variant="outline" className="gap-2">
@@ -105,10 +109,10 @@ export default function Navbar() {
             </div>
 
             <div className="space-y-4">
-              <a href="#how-it-works" className="block text-sm hover:underline">
+              <a href="/#how-it-works" className="block text-sm hover:underline">
                 How It Works
               </a>
-              <a href="#how-we-help-you" className="block text-sm hover:underline">
+              <a href="/#how-we-help-you" className="block text-sm hover:underline">
                 Services
               </a>
               <UseCasesDropdown />

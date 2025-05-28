@@ -18,8 +18,30 @@ import Finance from "./pages/useCasesPage/Finance";
 import Marketing from "./pages/useCasesPage/Marketing";
 import Footer from "./components/landing/Footer";
 import { InsightProvider } from "./contexts/InsightContext";
+import HowItWorks from "./components/landing/HowItWorks";
 
 const queryClient = new QueryClient();
+
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+function ScrollToHash() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/" && location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 100); // small delay to allow DOM render
+      }
+    }
+  }, [location]);
+
+  return null;
+}
+
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -31,7 +53,11 @@ const App = () => (
           <InsightProvider>
           
           <BrowserRouter>
+            <ScrollToHash /> {/* Add this component to handle scrolling to hash links */}
             <Routes>
+
+              
+              {/* ✅ Main Routes */}
               <Route path="/" element={<Index />} />
               
               <Route path="/dashboard" element={<Dashboard />} />
@@ -43,6 +69,9 @@ const App = () => (
               <Route path="/hr-operation" element={<HROperation />} />
               <Route path="/finance" element={<Finance />} />
               <Route path="/marketing" element={<Marketing />} />
+
+              <Route path="/how-it-works" element={<HowItWorks />} />
+              <Route path="/how-we-help-you" element={<HowItWorks />} />
 
 
               <Route path="*" element={<NotFound />} />
