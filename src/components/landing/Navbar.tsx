@@ -45,18 +45,22 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-black rounded-md flex items-center justify-center">
-            <BarChart2 className="text-white w-5 h-5" />
-          </div>
-          <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-            AI Data Canvas
-          </span>
+            <Link to="/" className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-black rounded-md flex items-center justify-center">
+                    <BarChart2 className="text-white w-5 h-5" />
+                </div>
+                <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+                    AI Data Canvas
+                </span>
+            </Link>
         </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-        <Link to="/#how-it-works" className="text-sm hover:underline"> How It Works</Link>
 
+            <Link to="/#how-it-works" className="text-sm hover:underline">
+                How It Works
+             </Link>
             <Link to="/#how-we-help-you" className="text-sm hover:underline">
                 Services
             </Link> 
