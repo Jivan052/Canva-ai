@@ -145,7 +145,8 @@ export default function LandingHero() {
       </div>
 
       {/* Custom Styles */}
-      <style jsx>{`
+      <style>
+        {`
         @keyframes gradient {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
@@ -191,7 +192,8 @@ export default function LandingHero() {
         .animate-bounce-slow {
           animation: bounce-slow 4s ease-in-out infinite;
         }
-      `}</style>
+        `}
+      </style>
     </section>
   );
 }

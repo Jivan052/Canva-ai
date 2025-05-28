@@ -8,40 +8,27 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDataAnalysis } from "@/hooks/useDataAnalysis";
 import { Button } from "@/components/ui/button";
-import { FileSpreadsheet } from "lucide-react";
-import { Chatbot } from "./Chatbot";
+import { FileSpreadsheet, BarChart, PieChart, LineChart } from "lucide-react";
+import { ChatbotWidget } from "./ChatbotWidget"; // Import your chatbot widget from the same directory
 
 const DemoAi = () => {
   const [activeTab, setActiveTab] = useState("insights");
-  const [insight, setInsight] = useState([]); // Your existing insights state
   
-  // Function to send prompts to n8n workflow
+  // Simple handler for chatbot prompts
   const handleChatPrompt = async (prompt: string): Promise<string> => {
-    try {
-      // Replace with your actual n8n workflow endpoint
-      const response = await fetch('YOUR_N8N_WORKFLOW_URL', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt: prompt,
-          // Add any other data you need to send
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send prompt to n8n');
-      }
-
-      const data = await response.json();
-      return data.response || 'Response received from n8n workflow';
-    } catch (error) {
-      console.error('Error sending prompt to n8n:', error);
-      throw error;
+    // For demonstration purposes, return contextual responses based on keywords
+    await new Promise(resolve => setTimeout(resolve, 1200)); // Simulate API delay
+    
+    if (prompt.toLowerCase().includes("revenue")) {
+      return "Based on your data, revenue has grown by 200% from January to June, reaching $15,000 in June.";
+    } else if (prompt.toLowerCase().includes("product")) {
+      return "Product C is your best performer with sales of $4,500, while Product B is underperforming at 16% below target.";
+    } else if (prompt.toLowerCase().includes("region")) {
+      return "The North region leads with 35% of your total sales, followed by South (25%), with East and West tied at 20% each.";
+    } else {
+      return "I can help analyze your data. Try asking about revenue trends, product performance, or regional sales distribution.";
     }
   };
-
   
   const {
     analyzeWithFile,
@@ -51,7 +38,6 @@ const DemoAi = () => {
     insights,
   } = useDataAnalysis({
     onSuccess: () => {
-      // Switch to insights tab when analysis is complete
       setActiveTab("insights");
     }
   });
@@ -93,21 +79,39 @@ const DemoAi = () => {
           </p>
         </div>
 
-        {/* Upload Section */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList>
-            <TabsTrigger value="upload">Upload </TabsTrigger>
+            <TabsTrigger value="upload">Upload</TabsTrigger>
             <TabsTrigger value="insights">Insights</TabsTrigger>
             <TabsTrigger value="visualize">Visualizations</TabsTrigger>
+            <TabsTrigger value="assistant">AI Assistant</TabsTrigger>
           </TabsList>
           
+          <TabsContent value="upload" className="space-y-6 mt-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Upload Data</CardTitle>
+                <CardDescription>
+                  Upload your Excel file or connect to Google Sheets to analyze your data.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FileUpload onFileAnalyze={analyzeWithFile} />
+                  <GoogleSheetConnect onSheetAnalyze={analyzeWithGoogleSheet} />
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
           <TabsContent value="insights" className="space-y-6 mt-6">
-            {insights.length > 0 ? (
+            {insights && insights.length > 0 ? (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {insights.map((insight, index) => (
                     <InsightCard key={index} {...insight} />
                   ))}
+                  
                 </div>
                 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -137,9 +141,6 @@ const DemoAi = () => {
                   xKey="category"
                   yKeys={["sales", "target"]}
                 />
-                 <div className="mt-6">
-          <Chatbot onSendPrompt={handleChatPrompt} />
-        </div>
               </>
             ) : (
               <div className="flex flex-col items-center justify-center py-12 text-center">
@@ -157,72 +158,48 @@ const DemoAi = () => {
             )}
           </TabsContent>
           
-          <TabsContent value="upload" className="space-y-6 mt-6">
+          <TabsContent value="visualize" className="space-y-6 mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <DataChart
+                title="Monthly Revenue Overview"
+                description="Revenue, expenses and profit over time"
+                data={monthlyData}
+                type="area"
+                xKey="month"
+                yKeys={["revenue", "expenses", "profit"]}
+              />
+              
+              <DataChart
+                title="Sales by Region"
+                data={regionData}
+                type="pie"
+                xKey="name"
+                yKeys={["value"]}
+              />
+            </div>
+            
+            <DataChart
+              title="Product Performance vs Target"
+              description="Sales performance compared to targets"
+              data={categoryData}
+              type="bar"
+              xKey="category"
+              yKeys={["sales", "target"]}
+            />
+          </TabsContent>
+          
+          <TabsContent value="assistant" className="space-y-6 mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Upload Data</CardTitle>
+                <CardTitle>Data Assistant</CardTitle>
                 <CardDescription>
-                  Upload your Excel file or connect to Google Sheets to analyze your data with DeepSeek AI.
+                  Ask questions about your data and get AI-powered insights
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FileUpload onFileAnalyze={analyzeWithFile} />
-                  <GoogleSheetConnect onSheetAnalyze={analyzeWithGoogleSheet} />
-                </div>
+                <ChatbotWidget onSendPrompt={handleChatPrompt} />
               </CardContent>
             </Card>
-          </TabsContent>
-          
-          <TabsContent value="visualize" className="space-y-6 mt-6">
-            {insights.length > 0 ? (
-              <>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <DataChart
-                    title="Monthly Revenue Overview"
-                    description="Revenue, expenses and profit over time"
-                    data={monthlyData}
-                    type="area"
-                    xKey="month"
-                    yKeys={["revenue", "expenses", "profit"]}
-                  />
-                  
-                  <DataChart
-                    title="Sales by Region"
-                    data={regionData}
-                    type="pie"
-                    xKey="name"
-                    yKeys={["value"]}
-                  />
-                </div>
-                
-                <DataChart
-                  title="Product Performance vs Target"
-                  description="Sales performance compared to targets"
-                  data={categoryData}
-                  type="bar"
-                  xKey="category"
-                  yKeys={["sales", "target"]}
-                />
-                 <div className="mt-6">
-          <Chatbot onSendPrompt={handleChatPrompt} />
-        </div>
-
-              </>
-            ) : (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="mb-4 p-4 rounded-full bg-secondary">
-                  <FileSpreadsheet className="h-10 w-10 text-muted-foreground" />
-                </div>
-                <h3 className="text-xl font-medium mb-2">No data analyzed yet</h3>
-                <p className="text-muted-foreground max-w-md mb-6">
-                  Upload an Excel file or connect a Google Sheet to generate visualizations.
-                </p>
-                <Button onClick={() => setActiveTab("upload")} variant="default">
-                  Upload Data
-                </Button>
-              </div>
-            )}
           </TabsContent>
         </Tabs>
       </div>
