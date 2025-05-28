@@ -12,6 +12,12 @@ import { ManualDataTools } from "./pages/ManualDataTools";
 import  DemoAi  from "./pages/Demo"; // Import the DemoAi component
 import ChartDisplay from "./components/charts/CharDisplay";
 
+import ProductSales from "./pages/useCasesPage/ProductSales";
+import HROperation from "./pages/useCasesPage/HROperation";
+import Finance from "./pages/useCasesPage/Finance";
+import Marketing from "./pages/useCasesPage/Marketing";
+import Footer from "./components/landing/Footer";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -29,8 +35,19 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/manual-tools" element={<ManualDataTools />} />
               <Route path="/demo-ai" element={<DemoAi />} /> {/* Add the Demo route */}
+
+              {/* ✅ Use Case Pages */}
+              <Route path="/product-sales" element={<ProductSales />} />
+              <Route path="/hr-operation" element={<HROperation />} />
+              <Route path="/finance" element={<Finance />} />
+              <Route path="/marketing" element={<Marketing />} />
+
+
               <Route path="*" element={<NotFound />} />
             </Routes>
+
+            {/* Footer */}
+            <Footer />
           </BrowserRouter>
         </TooltipProvider>
       </DataOperationsProvider> {/* Close the provider */}
