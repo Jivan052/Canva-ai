@@ -1,5 +1,5 @@
 
-import { LandingHero } from "@/components/landing/LandingHero";
+import LandingHero  from "@/components/landing/LandingHero";
 import HowItWorks from "@/components/landing/HowItWorks";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";

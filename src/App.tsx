@@ -10,6 +10,7 @@ import { DatasetProvider } from "./hooks/useDataset";
 import { DataOperationsProvider } from "@/contexts/DataOperationsContext"; // Add this import
 import { ManualDataTools } from "./pages/ManualDataTools";
 import  DemoAi  from "./pages/Demo"; // Import the DemoAi component
+import ChartDisplay from "./components/charts/CharDisplay";
 
 import ProductSales from "./pages/useCasesPage/ProductSales";
 import HROperation from "./pages/useCasesPage/HROperation";
@@ -30,6 +31,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/manual-tools" element={<ManualDataTools />} />
               <Route path="/demo-ai" element={<DemoAi />} /> {/* Add the Demo route */}
