@@ -15,7 +15,6 @@ import ProductSales from "./pages/useCasesPage/ProductSales";
 import HROperation from "./pages/useCasesPage/HROperation";
 import Finance from "./pages/useCasesPage/Finance";
 import Marketing from "./pages/useCasesPage/Marketing";
-import Blog from "./pages/blogPage/Blog";
 import Footer from "./components/landing/Footer";
 
 const queryClient = new QueryClient();
@@ -40,8 +39,6 @@ const App = () => (
               <Route path="/hr-operation" element={<HROperation />} />
               <Route path="/finance" element={<Finance />} />
               <Route path="/marketing" element={<Marketing />} />
-
-              <Route path="/blog" element={<Blog />} />
 
 
               <Route path="*" element={<NotFound />} />

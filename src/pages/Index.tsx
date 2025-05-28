@@ -8,7 +8,6 @@ import HowWeHelpYou from "@/components/landing/HowWeHelpYou";
 import Review from "@/components/landing/Review";
 import FAQs from "@/components/landing/FAQs";
 import UseCasesDropdown from "@/components/UseCasesDropdown";
-import Footer from "@/components/landing/Footer";
 
 const Index = () => {
   return (
@@ -27,7 +26,6 @@ const Index = () => {
             <a href="#how-it-works" className="text-sm hover:underline">How It Works</a>
             <a href="#how-we-help-you" className="text-sm hover:underline">Services</a>
             <UseCasesDropdown />
-            <Link to ="/blog">Blog</Link>
             <Link to="/manual-tools">
             <Button variant="outline" className="gap-2">
               <Settings2 className="h-4 w-4" />
