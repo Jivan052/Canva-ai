@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 export default function HowItWorks() {
   const features = [
     {
-      image: "https://1e5dcb836f18f1acfca4290485cb7c8f.cdn.bubble.io/cdn-cgi/image/w=96,h=139,f=auto,dpr=1.5,fit=contain/f1692896443139x848319302730489200/AGE%20%282%29.png",
+      image: "https://res.cloudinary.com/djbjfsshe/image/upload/v1748474570/file_tnvki2.png",
       alt: "Data Upload",
       title: "Easy Data Upload",
       description: "Drag and drop your Excel files or connect to Google Sheets in seconds"
@@ -18,19 +18,18 @@ export default function HowItWorks() {
       description: "DeepSeek R1 automatically analyzes your data and generates valuable insights"
     },
     {
-      image: "https://1e5dcb836f18f1acfca4290485cb7c8f.cdn.bubble.io/cdn-cgi/image/w=96,h=135,f=auto,dpr=1.5,fit=contain/f1692898761029x626197141845966500/AGE%20%2812%29.png",
-      alt: "Data Visualization",
+      image: "https://res.cloudinary.com/djbjfsshe/image/upload/v1748474569/visualisation_apf1yk.png",
       title: "Dynamic Visualizations",
       description: "View your data through interactive charts and customizable dashboards"
     },
     {
-      image: "https://1e5dcb836f18f1acfca4290485cb7c8f.cdn.bubble.io/cdn-cgi/image/w=96,h=132,f=auto,dpr=1.5,fit=contain/f1693321717307x561948489983081100/AGE%20%2831%29.png",
+      image: "https://res.cloudinary.com/djbjfsshe/image/upload/v1748474570/insight_gz28mb.png",
       alt: "Smart Insights",
       title: "Smart Insights",
       description: "Get automated recommendations and discover hidden patterns in your data"
     },
     {
-      image: "https://1e5dcb836f18f1acfca4290485cb7c8f.cdn.bubble.io/cdn-cgi/image/w=96,h=145,f=auto,dpr=1.5,fit=contain/f1693322449320x188185820792450050/AGE%20%2833%29.png",
+      image: "https://res.cloudinary.com/djbjfsshe/image/upload/v1748474569/results_cy5xdd.png",
       alt: "Export Results",
       title: "Export Results",
       description: "Download reports, charts, and insights in multiple formats for sharing"

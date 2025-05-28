@@ -8,7 +8,6 @@ import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import { DatasetProvider } from "./hooks/useDataset";
 import { DataOperationsProvider } from "@/contexts/DataOperationsContext"; // Add this import
-import { ManualDataTools } from "./pages/ManualDataTools";
 import  DemoAi  from "./pages/Demo"; // Import the DemoAi component
 import ChartDisplay from "./components/charts/CharDisplay";
 
@@ -24,6 +23,7 @@ const queryClient = new QueryClient();
 
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import ScrollToTop from "./pages/ScrollToTop";
 
 function ScrollToHash() {
   const location = useLocation();
@@ -54,6 +54,7 @@ const App = () => (
           
           <BrowserRouter>
             <ScrollToHash /> {/* Add this component to handle scrolling to hash links */}
+            <ScrollToTop /> {/* Add this component to scroll to top on route change */}
             <Routes>
 
               
@@ -61,7 +62,6 @@ const App = () => (
               <Route path="/" element={<Index />} />
               
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/manual-tools" element={<ManualDataTools />} />
               <Route path="/demo-ai" element={<DemoAi />} /> {/* Add the Demo route */}
 
               {/* ✅ Use Case Pages */}
