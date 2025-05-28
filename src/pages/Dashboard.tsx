@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MultiResourceImport } from "@/components/data-tools/MultiResourceImport";
-import axios from 'axios';
+
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -35,21 +35,7 @@ export default function Dashboard() {
   const [showCleanModal, setShowCleanModal] = useState<boolean>(false);
   const [showMultiResourceModal, setShowMultiResourceModal] = useState<boolean>(false);
 
-const sendFileToBackend = async (file: File) => {
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append('customPrompt', 'what is average quantityordered');
 
-  try {
-    const response = await axios.post(
-      "https://allan30joseph.app.n8n.cloud/webhook-test/upload-dataset",
-      formData
-    );
-    console.log("Response:", response.data);
-  } catch (error) {
-    console.error("Upload failed:", error);
-  }
-};
 
 
   // Handle file upload
@@ -71,7 +57,7 @@ const sendFileToBackend = async (file: File) => {
             throw new Error("CSV appears to be empty or invalid");
           }
           initializeData(jsonData);
-          await sendFileToBackend(file);
+          
           
           toast({
             title: "File uploaded successfully",
@@ -86,7 +72,6 @@ const sendFileToBackend = async (file: File) => {
           }
           
           initializeData(dataArray);
-          await sendFileToBackend(file);
           
           toast({
             title: "File uploaded successfully",
