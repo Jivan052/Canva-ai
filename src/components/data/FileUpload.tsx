@@ -3,6 +3,8 @@ import { FileSpreadsheet, Upload, X, Check, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import axios from "axios";
+import { csvToJson } from "@/lib/utils/fileHelpers";
 
 interface FileUploadProps {
   onFileAnalyze?: (file: File, prompt: string) => Promise<void>;
@@ -34,10 +36,90 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
     handleFiles(droppedFiles);
   };
 
-  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      handleFiles(e.target.files);
-    }
+  const sendFileToBackend = async (file: File) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append('customPrompt', 'what is average quantityordered');
+
+  try {
+    const response = await axios.post(
+      "https://allan30joseph.app.n8n.cloud/webhook-test/upload-dataset",
+      formData
+    );
+    console.log("Response:", response.data);
+  } catch (error) {
+    console.error("Upload failed:", error);
+  }
+};
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    // Reset input value to allow selecting the same file again
+    e.currentTarget.value = '';
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const content = event.target?.result as string;
+      try {
+        // Handle different file types
+        if (file.name.toLowerCase().endsWith('.csv')) {
+          const jsonData = csvToJson(content);
+          if (!jsonData || !jsonData.length) {
+            throw new Error("CSV appears to be empty or invalid");
+          }
+        
+          await sendFileToBackend(file);
+          
+          toast({
+            title: "File uploaded successfully",
+            description: `Loaded ${file.name} with ${jsonData.length} rows.`,
+          });
+        } else if (file.name.toLowerCase().endsWith('.json')) {
+          const jsonData = JSON.parse(content);
+          const dataArray = Array.isArray(jsonData) ? jsonData : [jsonData];
+          
+          if (!dataArray.length) {
+            throw new Error("JSON data appears to be empty");
+          }
+          
+          
+          await sendFileToBackend(file);
+          
+          toast({
+            title: "File uploaded successfully",
+            description: `Loaded ${file.name} with ${dataArray.length} rows.`,
+          });
+        } else {
+          toast({
+            title: "Unsupported file format",
+            description: "Please upload a CSV or JSON file.",
+            variant: "destructive",
+          });
+          return;
+        }
+      } catch (error) {
+        console.error("Error processing file:", error);
+        toast({
+          title: "Error processing file",
+          description: typeof error === 'object' && error !== null && 'message' in error 
+            ? String(error.message)
+            : "The file couldn't be processed. Check the format and try again.",
+          variant: "destructive",
+        });
+      }
+    };
+    
+    reader.onerror = () => {
+      toast({
+        title: "Error reading file",
+        description: "The file couldn't be read. It might be corrupted or too large.",
+        variant: "destructive",
+      });
+    };
+    
+    reader.readAsText(file);
   };
 
   const handleFiles = (files: FileList) => {
@@ -163,7 +245,7 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
                   type="file" 
                   className="hidden"
                   accept=".xlsx,.xls,.csv" 
-                  onChange={handleFileInput} 
+                  onChange={handleFileUpload} 
                 />
                 Browse Files
               </label>
