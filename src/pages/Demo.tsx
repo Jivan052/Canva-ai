@@ -13,18 +13,21 @@ import { ChatbotWidget } from "./ChatbotWidget";
 import { useInsight } from "@/contexts/InsightContext";
 
 const DemoAi = () => {
-  const [activeTab, setActiveTab] = useState("insights");
+  const [activeTab, setActiveTab] = useState("upload");
   const { dataInsights } = useInsight();
   console.log("Data Insights:", dataInsights);
   console.log("Data Insights type:", typeof dataInsights);
   console.log("Is Array:", Array.isArray(dataInsights));
   
   // Transform dataInsights into chart data format
+ 
   const transformDataForCharts = () => {
     if (!dataInsights || !Array.isArray(dataInsights) || dataInsights.length === 0) return null;
     
     const charts = [];
     const metrics = [];
+
+ 
     
     dataInsights.forEach((insight, insightIndex) => {
       if (insight.visualization?.charts) {

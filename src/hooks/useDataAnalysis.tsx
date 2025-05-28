@@ -31,6 +31,7 @@ export function useDataAnalysis(options?: UseDataAnalysisOptions) {
 
     return () => clearInterval(interval);
   };
+  
 
   const { refetch, isLoading, isError } = useQuery({
     queryKey: ['dataAnalysis'],
