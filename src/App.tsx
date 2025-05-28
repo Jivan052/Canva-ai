@@ -17,6 +17,7 @@ import HROperation from "./pages/useCasesPage/HROperation";
 import Finance from "./pages/useCasesPage/Finance";
 import Marketing from "./pages/useCasesPage/Marketing";
 import Footer from "./components/landing/Footer";
+import { InsightProvider } from "./contexts/InsightContext";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
+          <InsightProvider>
           
           <BrowserRouter>
             <Routes>
@@ -49,6 +51,7 @@ const App = () => (
             {/* Footer */}
             <Footer />
           </BrowserRouter>
+          </InsightProvider>
         </TooltipProvider>
       </DataOperationsProvider> {/* Close the provider */}
     </DatasetProvider>

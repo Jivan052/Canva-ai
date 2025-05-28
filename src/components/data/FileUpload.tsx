@@ -5,6 +5,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 import { csvToJson } from "@/lib/utils/fileHelpers";
+import { useInsight } from "@/contexts/InsightContext";
+
 
 interface FileUploadProps {
   onFileAnalyze?: (file: File, prompt: string) => Promise<void>;
@@ -18,6 +20,8 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
   const [prompt, setPrompt] = useState("");
   const [hasAnalyzedFile, setHasAnalyzedFile] = useState(false); // Track if file has been analyzed
   const { toast } = useToast();
+
+  const { setInsights } = useInsight();
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -43,10 +47,11 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
 
   try {
     const response = await axios.post(
-      "https://allan30joseph.app.n8n.cloud/webhook-test/upload-dataset",
+      "https://allan30joseph.app.n8n.cloud/webhook/upload-dataset",
       formData
     );
     console.log("Response:", response.data);
+    setInsights(response.data);
   } catch (error) {
     console.error("Upload failed:", error);
   }
