@@ -79,7 +79,7 @@ export default function HowWeHelpYou() {
   ];
 
   return (
-    <section className="py-20 px-4 md:px-6 bg-background">
+    <section id="how-we-help-you" className="py-20 px-4 md:px-6 bg-background">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <div className="text-center mb-16 space-y-4">

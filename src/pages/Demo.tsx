@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useDataAnalysis } from "@/hooks/useDataAnalysis";
 import { Button } from "@/components/ui/button";
 import { FileSpreadsheet, BarChart, PieChart, LineChart } from "lucide-react";
-import { ChatbotWidget } from "./ChatbotWidget"; // Import your chatbot widget from the same directory
+import { ChatbotWidget } from "./ChatbotWidget"; 
 
 const DemoAi = () => {
   const [activeTab, setActiveTab] = useState("insights");
