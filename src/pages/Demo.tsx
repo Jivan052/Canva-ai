@@ -11,9 +11,10 @@ import { Button } from "@/components/ui/button";
 import { FileSpreadsheet, BarChart, PieChart, LineChart } from "lucide-react";
 import { ChatbotWidget } from "./ChatbotWidget"; 
 
+
 const DemoAi = () => {
   const [activeTab, setActiveTab] = useState("insights");
-  
+ 
   // Simple handler for chatbot prompts
   const handleChatPrompt = async (prompt: string): Promise<string> => {
     // For demonstration purposes, return contextual responses based on keywords
