@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 interface Message {
   id: string;
@@ -14,19 +15,18 @@ interface ChatbotProps {
   onSendPrompt?: (prompt: string) => Promise<string>;
 }
 
-export function Chatbot({ onSendPrompt }: ChatbotProps) {
+export function ChatbotWidget({ onSendPrompt }: ChatbotProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       type: 'bot',
-      content: 'Hello! I can help you analyze your data further. What would you like to know?',
+      content: 'Hello! I can help you analyze your data. What would you like to know?',
       timestamp: new Date()
     }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -55,12 +55,12 @@ export function Chatbot({ onSendPrompt }: ChatbotProps) {
       let botResponse = '';
       
       if (onSendPrompt) {
-        // Send to n8n workflow
+        // Send to handler function
         botResponse = await onSendPrompt(currentPrompt);
       } else {
         // Mock response for development
         await new Promise(resolve => setTimeout(resolve, 1500));
-        botResponse = `I received your prompt: "${currentPrompt}". This is a mock response. In the real implementation, this would be the response from your n8n workflow.`;
+        botResponse = `I received your question about "${currentPrompt}". This is a mock response.`;
       }
 
       const botMessage: Message = {
@@ -72,6 +72,7 @@ export function Chatbot({ onSendPrompt }: ChatbotProps) {
 
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
+      console.error('Error in chat processing:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
@@ -104,40 +105,40 @@ export function Chatbot({ onSendPrompt }: ChatbotProps) {
         </CardTitle>
       </CardHeader>
       
-      <CardContent className="flex flex-col flex-1 p-4 pt-0">
+      <CardContent className="flex-1 flex flex-col">
         {/* Messages Container */}
         <div className="flex-1 overflow-y-auto mb-4 space-y-4 pr-2">
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex items-start gap-3 ${
+              className={`flex items-start gap-2 ${
                 message.type === 'user' ? 'justify-end' : 'justify-start'
               }`}
             >
               {message.type === 'bot' && (
-                <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Bot className="h-4 w-4 text-blue-600" />
+                <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                  <Bot className="h-4 w-4 text-primary" />
                 </div>
               )}
               
               <div
-                className={`max-w-[80%] rounded-lg px-3 py-2 ${
+                className={`max-w-[80%] rounded-lg px-3 py-2 text-sm ${
                   message.type === 'user'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-900'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted text-foreground'
                 }`}
               >
-                <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                <p>{message.content}</p>
                 <span className={`text-xs mt-1 block ${
-                  message.type === 'user' ? 'text-blue-100' : 'text-gray-500'
+                  message.type === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
                 }`}>
                   {formatTime(message.timestamp)}
                 </span>
               </div>
 
               {message.type === 'user' && (
-                <div className="flex-shrink-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                  <User className="h-4 w-4 text-white" />
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                  <User className="h-4 w-4 text-primary-foreground" />
                 </div>
               )}
             </div>
@@ -145,14 +146,14 @@ export function Chatbot({ onSendPrompt }: ChatbotProps) {
           
           {/* Loading indicator */}
           {isLoading && (
-            <div className="flex items-start gap-3 justify-start">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                <Bot className="h-4 w-4 text-blue-600" />
+            <div className="flex items-start gap-2 justify-start">
+              <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                <Bot className="h-4 w-4 text-primary" />
               </div>
-              <div className="bg-gray-100 rounded-lg px-3 py-2">
+              <div className="bg-muted rounded-lg px-3 py-2">
                 <div className="flex items-center gap-2">
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  <span className="text-sm text-gray-600">Thinking...</span>
+                  <span className="text-sm text-muted-foreground">Thinking...</span>
                 </div>
               </div>
             </div>
@@ -163,21 +164,18 @@ export function Chatbot({ onSendPrompt }: ChatbotProps) {
 
         {/* Input Area */}
         <div className="flex gap-2">
-          <input
-            ref={inputRef}
-            type="text"
+          <Input
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Ask me anything about your data..."
-            className="flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Ask me about your data..."
+            className="flex-1"
             disabled={isLoading}
           />
           <Button
             onClick={handleSendMessage}
             disabled={!inputValue.trim() || isLoading}
-            size="sm"
-            className="px-3"
+            size="icon"
           >
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" />
