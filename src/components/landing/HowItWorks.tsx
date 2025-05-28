@@ -1,4 +1,7 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, LucideIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 
 export default function HowItWorks() {
   const features = [
@@ -35,45 +38,80 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 px-6 md:px-10 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            How It Works
+    <section id="how-it-works" className="py-20 px-6 md:px-10 bg-background/40 overflow-hidden relative">
+      {/* Gradient backgrounds for visual interest */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
+      
+      <div className="container mx-auto max-w-7xl relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16 space-y-4">
+          <div className="flex items-center justify-center">
+            <Badge variant="outline" className="px-4 py-1 text-sm border-primary/20 bg-primary/5 text-primary">
+              Process
+            </Badge>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+            <span className="relative inline-block text-transparent bg-gradient-to-r from-primary to-purple-500 bg-clip-text">
+              How It Works
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Transform your data into actionable insights with our simple 5-step process
           </p>
+          <Separator className="max-w-md mx-auto" />
         </div>
 
         <div className="relative">
-          {/* Connecting Line - Only visible on large screens and properly contained */}
-          <div className="hidden lg:block absolute top-20 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-200 via-purple-200 to-blue-200 mx-20"></div>
+          {/* Connecting Line - Only visible on large screens */}
+          <div className="hidden lg:block absolute top-[4.5rem] left-0 right-0 h-0.5 bg-gradient-to-r from-primary/10 via-purple-500/30 to-primary/10"></div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-12 lg:gap-6 relative z-10">
             {features.map((feature, index) => (
-              <div key={index} className="flex flex-col items-center text-center group">
+              <div 
+                key={index} 
+                className="flex flex-col items-center text-center group"
+              >
                 {/* Circular Image Container */}
                 <div className="relative mb-6">
-                  <div className="w-36 h-36 bg-gradient-to-br from-slate-800 via-gray-900 to-black rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:shadow-3xl group-hover:from-slate-700 group-hover:via-gray-800 group-hover:to-slate-900 overflow-hidden border-4 border-white/20 backdrop-blur-sm relative before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-300">
+                  <div className={cn(
+                    "w-28 h-28 rounded-full flex items-center justify-center",
+                    "shadow-lg transform transition-all duration-500",
+                    "group-hover:scale-110 group-hover:shadow-xl",
+                    "bg-gradient-to-br from-background to-muted",
+                    "border border-border/50 group-hover:border-primary/20",
+                    "overflow-hidden backdrop-blur-sm",
+                    "before:absolute before:inset-0 before:rounded-full",
+                    "before:bg-gradient-to-br before:from-white/5 before:to-transparent",
+                    "before:opacity-0 group-hover:before:opacity-100",
+                    "before:transition-opacity before:duration-300"
+                  )}>
                     <img 
                       src={feature.image} 
                       alt={feature.alt}
-                      className="w-24 h-24 object-contain filter brightness-0 invert relative z-10"
+                      className="w-16 h-16 object-contain relative z-10"
                     />
                   </div>
+                  
                   {/* Step Number */}
-                  <div className="absolute -top-1 -right-1 w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-md">
+                  <div className={cn(
+                    "absolute -top-1 -right-1 w-8 h-8 rounded-full",
+                    "flex items-center justify-center text-sm font-bold",
+                    "bg-gradient-to-br from-primary to-purple-500",
+                    "text-primary-foreground shadow-md transition-transform duration-300",
+                    "group-hover:scale-110"
+                  )}>
                     {index + 1}
                   </div>
                 </div>
 
+
                 {/* Content */}
                 <div className="space-y-3">
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
+                  <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-200">
                     {feature.title}
                   </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed max-w-xs mx-auto">
+                  <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">
                     {feature.description}
                   </p>
                 </div>
