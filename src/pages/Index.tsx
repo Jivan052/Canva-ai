@@ -8,11 +8,13 @@ import HowWeHelpYou from "@/components/landing/HowWeHelpYou";
 import Review from "@/components/landing/Review";
 import FAQs from "@/components/landing/FAQs";
 import UseCasesDropdown from "@/components/UseCasesDropdown";
+import Navbar from "@/components/landing/Navbar";
 
 const Index = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navigation */}
+      <Navbar />
       
       {/* Hero Section */}
       <LandingHero />
