@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Instagram, Linkedin, Twitter, Github, ExternalLink,
   Mail, ChevronRight
