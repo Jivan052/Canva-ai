@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Marc Seymour",
+    "title": "Founder, Botforce (AI Conversation platform)",
+    "location": "South Africa",
+    "review": "DataSquirrel AI has revolutionized our retail analytics. The real-time insights help us make data-driven decisions that directly impact our bottom line.",
+    "category": "AI & Consulting",
+    "rating": 5,
+    "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face&auto=format"
+  },
+  {
+    "id": 2,
+    "name": "Shreyas Pandit",
+    "title": "Founder, Right Spade (Stock Trading)",
+    "location": "India",
+    "review": "Love your software! It has completely transformed how we analyze market data and present insights to our clients. The intuitive interface makes complex financial data accessible and actionable.",
+    "category": "Financial Services",
+    "rating": 5,
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format"
+  },
+  {
+    "id": 3,
+    "name": "Dr. Neomie Da Costa",
+    "title": "Doctor, Mental Health support (Charitable Org)",
+    "location": "UK",
+    "review": "Astounding service with great customer care. Information very clearly portrayed and easy to follow. App is literally a game-changer for data crunching. Highly recommended.",
+    "category": "Healthcare",
+    "rating": 5,
+    "avatar": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face&auto=format"
+  },
+  {
+    "id": 4,
+    "name": "Sarah Johnson",
+    "title": "Marketing Director, TechFlow Solutions",
+    "location": "USA",
+    "review": "The analytics capabilities have transformed how we understand our customer data. The intuitive interface makes complex data visualization accessible to our entire team.",
+    "category": "Marketing",
+    "rating": 5,
+    "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format"
+  },
+  {
+    "id": 5,
+    "name": "Ahmed Hassan",
+    "title": "Business Analyst, Global Retail Corp",
+    "location": "UAE",
+    "review": "DataSquirrel AI has revolutionized our retail analytics. The real-time insights help us make data-driven decisions that directly impact our bottom line.",
+    "category": "Retail",
+    "rating": 5,
+    "avatar": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face&auto=format"
+  },
+  {
+    "id": 6,
+    "name": "Lisa Chen",
+    "title": "HR Director, Innovation Labs",
+    "location": "Canada",
+    "review": "The reporting features are exceptional. We can now track employee engagement metrics with unprecedented clarity and create meaningful reports for stakeholders.",
+    "category": "Human Resources",
+    "rating": 5,
+    "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format"
+  }
+]
