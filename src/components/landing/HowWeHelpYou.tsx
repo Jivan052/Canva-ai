@@ -3,57 +3,57 @@ import { Zap, Sparkles, MousePointer, FileText, Users, RefreshCw, Clock, Rocket,
 export default function HowWeHelpYou() {
   const helpCards = [
     {
-      icon: <Zap className="h-8 w-8" />,
+      icon: <Zap className="h-6 w-6" />,
       title: "Instant Insights",
-      description: "Instantly see the story your data is hiding. Just send / upload/ connect your data, and our AI agents will create compelling visuals for you, allowing you to dive into insights right away.",
+      description: "Instantly see the story your data is hiding. Just send / upload/ connect your data, and our AI agents will create compelling visuals for you,.",
       gradient: "from-blue-500 to-cyan-500"
     },
     {
-      icon: <Sparkles className="h-8 w-8" />,
+      icon: <Sparkles className="h-6 w-6" />,
       title: "Effortless Data Cleaning",
-      description: "Say goodbye to format, typo, input errors and handling multi-currency —DataSquirrel fixes them all automatically, so you can clean your data effortlessly, no formulas required.",
+      description: "Say goodbye to format, typo, input errors and handling multi-currency —DataSquirrel fixes them all automatically, so you can clean.",
       gradient: "from-purple-500 to-pink-500"
     },
     {
-      icon: <MousePointer className="h-8 w-8" />,
+      icon: <MousePointer className="h-6 w-6" />,
       title: "1-Click Explore & Play",
-      description: "Save yourself the headache of manual adjustments—customize with one-click selections like date grouping, segmentation, filtering, heatmap tables, theme changes, and more.",
+      description: "Save yourself the headache of manual adjustments—customize with one-click selections like date grouping, segmentation, filtering, heatmap tables.",
       gradient: "from-green-500 to-emerald-500"
     },
     {
-      icon: <FileText className="h-8 w-8" />,
+      icon: <FileText className="h-6 w-6" />,
       title: "Customizable Reports",
-      description: "Create multiple reports tailored to different audiences. Include only the relevant charts, KPIs, or tabular data, and share them as dashboards, presentations, or PDFs.",
+      description: "Create multiple reports tailored to different audiences. Include only the relevant charts, KPIs, or tabular data, and share them as dashboards.",
       gradient: "from-orange-500 to-red-500"
     },
     {
-      icon: <Users className="h-8 w-8" />,
+      icon: <Users className="h-6 w-6" />,
       title: "Seamless Collaboration",
-      description: "Share interactive visuals via email or a link. Leave comments & annotations directly on charts to facilitate discussions and decision-making with your team.",
+      description: "Share interactive visuals via email or a link. Leave comments & annotations directly on charts to facilitate discussions.",
       gradient: "from-indigo-500 to-blue-500"
     },
     {
-      icon: <RefreshCw className="h-8 w-8" />,
+      icon: <RefreshCw className="h-6 w-6" />,
       title: "Automated Workflows",
-      description: "No more repetitive work. Updated data is processed just as it was the first time. Schedule updates and reporting daily, weekly, monthly or quarterly or yearly.",
+      description: "No more repetitive work. Updated data is processed just as it was the first time. Schedule updates and reporting daily.",
       gradient: "from-teal-500 to-cyan-500"
     },
     {
-      icon: <Clock className="h-8 w-8" />,
+      icon: <Clock className="h-6 w-6" />,
       title: "Save 80% of your time",
-      description: "Experience how quickly DataSquirrel cleans and converts your data into actionable insights. No learning curve. No formulas, pivot tables or coding.",
+      description: "Experience how quickly DataSquirrel cleans and converts your data into actionable insights. No learning curve.",
       gradient: "from-amber-500 to-yellow-500"
     },
     {
-      icon: <Rocket className="h-8 w-8" />,
+      icon: <Rocket className="h-6 w-6" />,
       title: "Built to be productive!",
-      description: "DataSquirrel is designed for on-demand analysis like no other platform. It automates data combining, cleaning, pivoting, and visualizing—providing instant insights and ready-to-share analytics.",
+      description: "DataSquirrel is designed for on-demand analysis like no other platform. It automates data combining, cleaning, pivoting, and visualizing—providing.",
       gradient: "from-rose-500 to-pink-500"
     },
     {
-      icon: <Shield className="h-8 w-8" />,
+      icon: <Shield className="h-6 w-6" />,
       title: "Secure Data Processing",
-      description: "Our web-based platform ensures GDPR/PDPA compliance, keeping your data secure and anonymizing sensitive information by default. Plus, your raw data is never sent to LLM.",
+      description: "Our web-based platform ensures GDPR/PDPA compliance, keeping your data secure and anonymizing sensitive information by default.",
       gradient: "from-slate-600 to-gray-700"
     }
   ];
@@ -66,7 +66,7 @@ export default function HowWeHelpYou() {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             How We Help You
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Discover the powerful features that make DataSquirrel your ultimate data analysis companion
           </p>
         </div>
@@ -76,7 +76,7 @@ export default function HowWeHelpYou() {
           {helpCards.map((card, index) => (
             <div
               key={index}
-              className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden"
+              className="group relative bg-white rounded-2xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden"
             >
               {/* Background Gradient Overlay */}
               <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
@@ -85,7 +85,7 @@ export default function HowWeHelpYou() {
               <div className="relative z-10 mb-6">
                 <div className="flex items-center space-x-4">
                   {/* Icon Container */}
-                  <div className={`w-14 h-14 bg-gradient-to-br ${card.gradient} rounded-2xl flex items-center justify-center text-white shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-2 flex-shrink-0`}>
+                  <div className={`w-10 h-10 bg-gradient-to-br ${card.gradient} rounded-2xl flex items-center justify-center text-white shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-2 flex-shrink-0`}>
                     {card.icon}
                   </div>
                   

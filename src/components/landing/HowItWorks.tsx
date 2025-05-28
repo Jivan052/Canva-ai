@@ -38,10 +38,10 @@ export default function HowItWorks() {
     <section id="how-it-works" className="py-20 pt-10 px-6 md:px-10 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
             How It Works
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Transform your data into actionable insights with our simple 5-step process
           </p>
         </div>
@@ -55,11 +55,11 @@ export default function HowItWorks() {
               <div key={index} className="flex flex-col items-center text-center group">
                 {/* Circular Image Container */}
                 <div className="relative mb-6">
-                  <div className="w-36 h-36 bg-gradient-to-br from-slate-800 via-gray-900 to-black rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:shadow-3xl group-hover:from-slate-700 group-hover:via-gray-800 group-hover:to-slate-900 overflow-hidden border-4 border-white/20 backdrop-blur-sm relative before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-300">
+                  <div className="w-28 h-28 bg-gradient-to-br from-slate-800 via-gray-900 to-black rounded-full flex items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:shadow-3xl group-hover:from-slate-700 group-hover:via-gray-800 group-hover:to-slate-900 overflow-hidden border-4 border-white/20 backdrop-blur-sm relative before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-300">
                     <img 
                       src={feature.image} 
                       alt={feature.alt}
-                      className="w-24 h-24 object-contain filter brightness-0 invert relative z-10"
+                      className="w-16 h-16 object-contain filter brightness-0 invert relative z-10"
                     />
                   </div>
                   {/* Step Number */}
