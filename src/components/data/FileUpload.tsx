@@ -1,18 +1,20 @@
-
 import { useState } from "react";
-import { FileSpreadsheet, Upload, X, Check } from "lucide-react";
+import { FileSpreadsheet, Upload, X, Check, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 
 interface FileUploadProps {
-  onFileAnalyze?: (file: File) => Promise<void>;
+  onFileAnalyze?: (file: File, prompt: string) => Promise<void>;
+  onPromptSend?: (prompt: string) => Promise<void>;
 }
 
-export function FileUpload({ onFileAnalyze }: FileUploadProps) {
+export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [prompt, setPrompt] = useState("");
+  const [hasAnalyzedFile, setHasAnalyzedFile] = useState(false); // Track if file has been analyzed
   const { toast } = useToast();
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -45,6 +47,8 @@ export function FileUpload({ onFileAnalyze }: FileUploadProps) {
       
       if (fileExt === 'xlsx' || fileExt === 'xls' || fileExt === 'csv') {
         setFile(selectedFile);
+        // Reset the analyzed state when new file is selected
+        setHasAnalyzedFile(false);
       } else {
         toast({
           title: "Invalid file format",
@@ -55,26 +59,62 @@ export function FileUpload({ onFileAnalyze }: FileUploadProps) {
     }
   };
 
-  const uploadFile = async () => {
-    if (!file) return;
-    
+  const handleAnalyzeOrSend = async () => {
+    if (!prompt.trim()) {
+      toast({
+        title: "Prompt required",
+        description: "Please enter a prompt before proceeding",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsUploading(true);
     
     try {
-      if (onFileAnalyze) {
-        await onFileAnalyze(file);
+      if (!hasAnalyzedFile && file) {
+        // First time: send file + prompt
+        if (onFileAnalyze) {
+          await onFileAnalyze(file, prompt);
+          setHasAnalyzedFile(true);
+          toast({
+            title: "Analysis successful",
+            description: "Your file has been analyzed with the provided prompt",
+          });
+        } else {
+          // Mock file analysis with prompt
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          setHasAnalyzedFile(true);
+          toast({
+            title: "Analysis successful",
+            description: "Your file has been analyzed with the provided prompt",
+          });
+        }
       } else {
-        // Mock upload process - in real app this would be an API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        toast({
-          title: "Upload successful",
-          description: "Your file has been uploaded and is being analyzed",
-        });
+        // Subsequent times: send only prompt
+        if (onPromptSend) {
+          await onPromptSend(prompt);
+          toast({
+            title: "Prompt sent",
+            description: "Your prompt has been processed",
+          });
+        } else {
+          // Mock prompt sending
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          toast({
+            title: "Prompt sent",
+            description: "Your prompt has been processed",
+          });
+        }
       }
+      
+      // Clear prompt after successful submission
+      setPrompt("");
+      
     } catch (error) {
       toast({
-        title: "Upload failed",
-        description: "There was an issue uploading your file",
+        title: "Process failed",
+        description: "There was an issue processing your request",
         variant: "destructive"
       });
     } finally {
@@ -84,6 +124,21 @@ export function FileUpload({ onFileAnalyze }: FileUploadProps) {
 
   const removeFile = () => {
     setFile(null);
+    setHasAnalyzedFile(false);
+  };
+
+  const getButtonText = () => {
+    if (isUploading) {
+      return hasAnalyzedFile || !file ? "Sending..." : "Analyzing...";
+    }
+    return hasAnalyzedFile || !file ? "Send Prompt" : "Analyze File";
+  };
+
+  const getButtonIcon = () => {
+    if (hasAnalyzedFile || !file) {
+      return <Send className="h-4 w-4" />;
+    }
+    return <Upload className="h-4 w-4" />;
   };
 
   return (
@@ -118,10 +173,16 @@ export function FileUpload({ onFileAnalyze }: FileUploadProps) {
           <div className="p-4 border rounded-md">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <FileSpreadsheet className="h-8 w-8" />
+                <div className="flex items-center space-x-2">
+                  <FileSpreadsheet className="h-8 w-8" />
+                  {hasAnalyzedFile && <Check className="h-4 w-4 text-green-600" />}
+                </div>
                 <div>
                   <p className="font-medium">{file.name}</p>
-                  <p className="text-sm text-muted-foreground">{(file.size / 1024).toFixed(2)} KB</p>
+                  <p className="text-sm text-muted-foreground">
+                    {(file.size / 1024).toFixed(2)} KB
+                    {hasAnalyzedFile && " • Analyzed"}
+                  </p>
                 </div>
               </div>
               
@@ -129,13 +190,37 @@ export function FileUpload({ onFileAnalyze }: FileUploadProps) {
                 <X className="h-4 w-4" />
               </Button>
             </div>
+          </div>
+        )}
+
+        {/* Prompt textarea - shown when file is selected OR file has been analyzed */}
+        {(file || hasAnalyzedFile) && (
+          <div className="mt-4">
+            <label className="block text-sm font-medium mb-2">
+              {hasAnalyzedFile ? "Send another prompt:" : "Enter your prompt for analysis:"}
+            </label>
+            <textarea
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="Enter your prompt here..."
+              className="w-full p-3 border rounded-md resize-vertical min-h-20"
+              disabled={isUploading}
+            />
             
-            <div className="mt-6 flex justify-end">
-              <Button onClick={uploadFile} disabled={isUploading} className="gap-2">
+            <div className="mt-4 flex justify-end">
+              <Button 
+                onClick={handleAnalyzeOrSend} 
+                disabled={isUploading || !prompt.trim()} 
+                className="gap-2"
+              >
                 {isUploading ? (
-                  <>Processing <span className="animate-pulse">...</span></>
+                  <>
+                    {getButtonText()} <span className="animate-pulse">...</span>
+                  </>
                 ) : (
-                  <>Analyze <Upload className="h-4 w-4" /></>
+                  <>
+                    {getButtonText()} {getButtonIcon()}
+                  </>
                 )}
               </Button>
             </div>
@@ -144,6 +229,7 @@ export function FileUpload({ onFileAnalyze }: FileUploadProps) {
         
         <div className="mt-4 text-xs text-muted-foreground">
           Supported formats: .xlsx, .xls, .csv
+          {hasAnalyzedFile && " • File already analyzed, now sending prompts only"}
         </div>
       </CardContent>
     </Card>
