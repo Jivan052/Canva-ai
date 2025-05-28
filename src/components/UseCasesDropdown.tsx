@@ -26,7 +26,7 @@ export default function UseCasesDropdown(): JSX.Element {
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="text-sm hover:underline"
+        className="block text-sm  hover:scale-105 hover:font-bold hover:text-black/80"
       >
         Use cases
       </button>
