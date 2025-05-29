@@ -239,12 +239,6 @@ export default function Dashboard() {
           
           <div className="flex items-center gap-1 md:gap-2">
             
-            <Button variant="outline" size="sm" onClick={() => setShowCleanModal(true)}>
-              <Sparkles className="mr-1 md:mr-2 h-3 md:h-4 w-3 md:w-4 text-amber-500" />
-              <span className="hidden xs:inline">AI Auto-Clean</span>
-              <span className="xs:hidden">Clean</span>
-            </Button>
-            
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="px-2 sm:px-3">
@@ -323,21 +317,6 @@ export default function Dashboard() {
               </DropdownMenuContent>
             </DropdownMenu>
             
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <Settings className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Options</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => setShowCleanModal(true)}>
-                  <Sparkles className="mr-2 h-4 w-4 text-amber-500" />
-                  <span>AI Auto-Clean</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
             
             <Button
               size="icon"

@@ -45,6 +45,8 @@ export function DataTransformTools() {
   const [splitColumnOpen, setSplitColumnOpen] = useState(false);
   const [mergeColumnsOpen, setMergeColumnsOpen] = useState(false);
   const [sortDataOpen, setSortDataOpen] = useState(false);
+  const [roundDataOpen, setRoundDataOpen] = useState(false);
+
   
   // State for form values
   const [selectedColumn, setSelectedColumn] = useState<string>("");
@@ -59,6 +61,12 @@ export function DataTransformTools() {
   const [keepOriginals, setKeepOriginals] = useState<boolean>(false);
   const [sortColumn, setSortColumn] = useState<string>("");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [columnsToRound, setColumnsToRound] = useState<string[]>([]);
+  // const [decimalPlaces, setDecimalPlaces] = useState<number>(2);
+  const [roundColumn, setRoundColumn] = useState<string>("");
+const [decimalPlaces, setDecimalPlaces] = useState<number>(2);
+const [keepOriginalRounded, setKeepOriginalRounded] = useState<boolean>(false);
+
 
   // Handle column rename
   const handleRenameColumn = () => {
@@ -109,6 +117,27 @@ export function DataTransformTools() {
     
     setSortDataOpen(false);
   };
+
+  // Handle rounding for a single column
+const handleRoundValues = () => {
+  if (!roundColumn || isNaN(decimalPlaces)) return;
+
+  const roundConfig = [{
+    column: roundColumn,
+    decimals: decimalPlaces,
+    keepOriginal: keepOriginalRounded,
+  }];
+
+  transform.roundValues(roundConfig); // Assumes transform.roundValues expects this format
+
+  // Reset state
+  setRoundDataOpen(false);
+  setRoundColumn("");
+  setDecimalPlaces(2);
+  setKeepOriginalRounded(false);
+};
+
+
 
   return (
     <div className="space-y-6">
@@ -463,16 +492,94 @@ export function DataTransformTools() {
           </DialogContent>
         </Dialog>
         
+
+
+        {/* Round data dialog */}
+<Dialog open={roundDataOpen} onOpenChange={setRoundDataOpen}>
+  <DialogTrigger asChild>
+    <OperationButton
+      icon={Calculator} // You can choose another icon if you want
+      label="Round Data"
+      description="Round values to specific decimals"
+      disabled={isProcessing}
+    />
+  </DialogTrigger>
+  <DialogContent className="sm:max-w-[425px]">
+    <DialogHeader>
+      <DialogTitle>Round Data</DialogTitle>
+      <DialogDescription>
+        Round numeric values in a column to a specified number of decimal places.
+      </DialogDescription>
+    </DialogHeader>
+    <div className="grid gap-4 py-4">
+      <div>
+        <Label htmlFor="roundColumn">Select column</Label>
+        <Select 
+          value={roundColumn} 
+          onValueChange={setRoundColumn}
+        >
+          <SelectTrigger id="roundColumn">
+            <SelectValue placeholder="Select numeric column" />
+          </SelectTrigger>
+          <SelectContent>
+            {columns.map(column => (
+              <SelectItem key={column} value={column}>
+                {column}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div>
+        <Label htmlFor="decimalPlaces">Decimal places</Label>
+        <Input
+          id="decimalPlaces"
+          type="number"
+          min="0"
+          max="10"
+          value={decimalPlaces}
+          onChange={(e) => setDecimalPlaces(Number(e.target.value))}
+          placeholder="e.g., 2"
+        />
+      </div>
+      <div className="flex items-center space-x-2">
+        <Checkbox 
+          id="keepOriginalRounded" 
+          checked={keepOriginalRounded}
+          onCheckedChange={(checked) => setKeepOriginalRounded(!!checked)}
+        />
+        <Label htmlFor="keepOriginalRounded">Keep original column</Label>
+      </div>
+    </div>
+    <DialogFooter>
+      <Button 
+        variant="outline" 
+        onClick={() => setRoundDataOpen(false)}
+      >
+        Cancel
+      </Button>
+      <Button 
+        onClick={handleRoundValues}
+        disabled={!roundColumn || isNaN(decimalPlaces)}
+      >
+        Apply
+      </Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+
+            
+
         {/* Placeholder for other operations */}
-        <OperationButton
+        {/* <OperationButton
           icon={Calculator}
           label="Create Calculated Column"
           description="Add a column with formula"
           disabled={true}
           tooltip="Coming soon"
-        />
+        /> */}
         
-        <OperationButton
+        {/* <OperationButton
           icon={SlidersHorizontal}
           label="Filter Rows"
           description="Show only matching records"
@@ -486,7 +593,7 @@ export function DataTransformTools() {
           description="Summarize data by groups"
           disabled={true}
           tooltip="Coming soon"
-        />
+        /> */}
       </div>
       
       <Card>
@@ -503,6 +610,9 @@ export function DataTransformTools() {
             </p>
             <p>
               <strong>Sort strategically:</strong> Sorting helps spot patterns and outliers in your data.
+            </p>
+            <p>
+              <strong>Round carefully:</strong> Decide which columns to round, and how many decimal places to keep.
             </p>
           </div>
         </CardContent>
