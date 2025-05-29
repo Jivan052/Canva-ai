@@ -53,12 +53,10 @@ export function ChatbotWidget({ onSendPrompt }: ChatbotProps) {
 
     try {
       let botResponse = '';
-      
+
       if (onSendPrompt) {
-        // Send to handler function
         botResponse = await onSendPrompt(currentPrompt);
       } else {
-        // Mock response for development
         await new Promise(resolve => setTimeout(resolve, 1500));
         botResponse = `I received your question about "${currentPrompt}". This is a mock response.`;
       }
