@@ -6,6 +6,7 @@ export default function HowItWorks() {
   const features = [
     {
       image: "https://cdn.iconscout.com/icon/premium/png-256-thumb/upload-data-2488607-2085698.png",
+
       alt: "Data Upload",
       title: "Easy Data Upload",
       description: "Drag and drop your Excel files or connect to Google Sheets in seconds"
@@ -24,12 +25,14 @@ export default function HowItWorks() {
     },
     {
       image: "https://www.vhv.rs/dpng/d/503-5033236_insights-png-transparent-png.png",
+
       alt: "Smart Insights",
       title: "Smart Insights",
       description: "Get automated recommendations and discover hidden patterns in your data"
     },
     {
       image: "https://st4.depositphotos.com/18674256/21427/v/450/depositphotos_214276152-stock-illustration-dashboard-vector-icon-isolated-on.jpg",
+
       alt: "Export Results",
       title: "Export Results",
       description: "Download reports, charts, and insights in multiple formats for sharing"

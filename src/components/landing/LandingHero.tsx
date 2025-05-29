@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ArrowRight, Sparkles, Play, TrendingUp, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom"; // Uncomment when using in your project
 
 export default function LandingHero() {
   const [isVisible, setIsVisible] = useState(false);
   const [currentWord, setCurrentWord] = useState(0);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [showPlayButton, setShowPlayButton] = useState(true);
+  const videoRef = useRef(null);
 
   const rotatingWords = ["AI Insights", "Smart Analytics", "Data Magic", "Visual Stories"];
   const rotatingColors = [
@@ -30,6 +35,36 @@ export default function LandingHero() {
     { icon: "🎯", title: "99% Accuracy", desc: "AI-powered insights" },
     { icon: "📊", title: "Beautiful Charts", desc: "Auto-generated visuals" }
   ];
+
+  const handleVideoHover = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsVideoPlaying(true);
+      setShowPlayButton(false);
+    }
+  };
+
+  const handleVideoLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      setIsVideoPlaying(false);
+      setShowPlayButton(true);
+    }
+  };
+
+  const handleVideoClick = () => {
+    if (videoRef.current) {
+      if (isVideoPlaying) {
+        videoRef.current.pause();
+        setIsVideoPlaying(false);
+        setShowPlayButton(true);
+      } else {
+        videoRef.current.play();
+        setIsVideoPlaying(true);
+        setShowPlayButton(false);
+      }
+    }
+  };
 
   return (
     <section className="relative flex items-center justify-center overflow-hidden bg-background pt-10">
@@ -88,29 +123,20 @@ export default function LandingHero() {
             
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-10">
-              <Button 
-              size="lg" 
-              className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
-              asChild
-              >
-              <a href="/dashboard">
-                <span className="flex items-center gap-2">
-                Get Started
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
-                {/* Subtle shimmer effect */}
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-all duration-700"></span>
-              </a>
-              </Button>
-              
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="group flex items-center gap-2 px-6 py-6 border-muted-foreground/20 hover:border-primary/50 hover:text-primary"
-              >
-                <Play className="w-4 h-4" />
-                <span>Watch Demo</span>
-              </Button>
+              <Link to="/dashboard">
+                <Button 
+                  size="lg" 
+                  className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                >
+                
+                    <span className="flex items-center gap-2">
+                      Get Started
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
+                  {/* Subtle shimmer effect */}
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-all duration-700"></span>
+                </Button>
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0">
@@ -127,19 +153,52 @@ export default function LandingHero() {
             </div>
           </div>
 
-          {/* Right column - Image */}
+          {/* Right column - Video */}
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-            <div className="relative">
-              {/* Main image container */}
-              <div className="relative overflow-hidden rounded-2xl shadow-xl border border-border/30">
-                <img 
-                  src="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp" 
-                  alt="Data Analytics Dashboard"
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                />
+            <div className="relative group">
+              {/* Main video container */}
+              <div 
+                className="relative overflow-hidden rounded-2xl shadow-xl border border-border/30 cursor-pointer"
+                onMouseEnter={handleVideoHover}
+                onMouseLeave={handleVideoLeave}
+                onClick={handleVideoClick}
+              >
+                <video 
+                  ref={videoRef}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  muted
+                  loop
+                  playsInline
+                  poster="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp"
+                >
+                  {/* Add your video source here */}
+                  <source src="https://www.youtube.com/watch?v=0E3uj5Ks25E&pp=ygUWZGVtbyBhaSBkYXRhIGFuYWx5dGljcw%3D%3D" />
+                  {/* Fallback image if video fails */}
+                  <img 
+                    src="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp" 
+                    alt="Data Analytics Dashboard"
+                    className="w-full h-full object-cover"
+                  />
+                </video>
+                
+                {/* Play button overlay */}
+                {showPlayButton && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-opacity duration-300">
+                    <div className="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+                      <Play className="w-6 h-6 text-primary ml-1" />
+                    </div>
+                  </div>
+                )}
                 
                 {/* Subtle gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-indigo-600/5 opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Video playing indicator */}
+                {isVideoPlaying && (
+                  <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium animate-pulse">
+                    PLAYING
+                  </div>
+                )}
               </div>
               
               {/* Floating stat cards */}
@@ -168,7 +227,6 @@ export default function LandingHero() {
           </div>
         </div>
       </div>
-
 
       {/* Custom animation styles */}
       <style dangerouslySetInnerHTML={{

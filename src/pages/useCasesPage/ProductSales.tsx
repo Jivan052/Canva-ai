@@ -1,6 +1,8 @@
 import React from "react";
-import { CheckCircle, BarChart3, Users, TrendingUp, DollarSign, PieChart, Repeat, Grid2X2, UserCheck } from "lucide-react";
+import { CheckCircle, BarChart3, Users, TrendingUp, DollarSign, PieChart, Repeat, Grid2X2, UserCheck} from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
+import { Link } from "react-router-dom";
+
 
 const bulletPoints = [
   {
@@ -108,9 +110,13 @@ export default function ProductSales() {
             <p className="text-gray-600 max-w-xl mx-auto mb-6">
             Stop guessing and start making data-driven decisions with confidence.
             </p>
-            <button className="bg-blue-600 text-white py-3 px-6 rounded-full hover:bg-blue-700 transition duration-300">
-            Get an Instant AI Analysis
-            </button>
+            <div className="flex justify-center mt-6">
+  <Link to="/dashboard" className="inline-block">
+    <button className="bg-blue-600 text-white py-3 px-6 rounded-full transition-all duration-300 hover:bg-blue-700 hover:scale-105 hover:font-semibold">
+      Get an Instant AI Analysis
+    </button>
+  </Link>
+</div>
         </div>
         </section>
     </>

@@ -66,7 +66,7 @@ export default function Navbar() {
             </Link> 
 
           <UseCasesDropdown />
-          <Link to="/manual-tools">
+          <Link to="/dashboard">
             <Button variant="outline" className="gap-2">
               <Settings2 className="h-4 w-4" />
               Manual Data Tools
@@ -130,7 +130,7 @@ export default function Navbar() {
         <UseCasesDropdown />
 
         {/* Tool Buttons */}
-        <Link to="/manual-tools" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
           <Button variant="outline" className="w-full gap-2">
             <Settings2 className="h-4 w-4" />
             Manual Data Tools
