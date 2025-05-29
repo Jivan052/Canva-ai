@@ -66,7 +66,7 @@ export default function Navbar() {
             </Link> 
 
           <UseCasesDropdown />
-          <Link to="/manual-tools">
+          <Link to="/dashboard">
             <Button variant="outline" className="gap-2">
               <Settings2 className="h-4 w-4" />
               Manual Data Tools
