@@ -21,14 +21,11 @@ export default function HowItWorks() {
     },
     {
       icon: BarChart3,
-      title: "Interactive Analysis",
-      description: "Explore your data with customizable charts, pivot tables, and statistical tools"
+      title: "Manual Transformations",
+      description: "Apply custom transformations, aggregations, and calculations to your datasets"
+     
     },
-    {
-      icon: FileText,
-      title: "Generate Reports",
-      description: "Create detailed reports with your cleaned data and analysis findings"
-    },
+   
     {
       icon: Download,
       title: "Export Clean Data",
@@ -157,7 +154,13 @@ export default function HowItWorks() {
           {/* Connecting Line */}
           <div className="hidden lg:block absolute top-[4.5rem] left-0 right-0 h-0.5 bg-gradient-to-r from-primary/10 via-purple-500/30 to-primary/10"></div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-6 relative z-10">
+          <div
+  className={cn(
+    "grid grid-cols-1 sm:grid-cols-2 gap-12 relative z-10",
+    activeWorkflow === 'manual' ? "lg:grid-cols-4 gap-y-20 lg:gap-x-12" : "lg:grid-cols-5 gap-x-6"
+  )}
+>
+
             {currentWorkflow.map((step, index) => {
               const IconComponent = step.icon;
               return (
