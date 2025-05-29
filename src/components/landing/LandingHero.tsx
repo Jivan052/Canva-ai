@@ -123,7 +123,7 @@ export default function LandingHero() {
             
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-10">
-              <Link to="/demo-ai">
+              <Link to="/dashboard">
                 <Button 
                   size="lg" 
                   className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
@@ -172,7 +172,7 @@ export default function LandingHero() {
                   poster="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp"
                 >
                   {/* Add your video source here */}
-                  <source src="https://www.youtube.com/watch?v=vfdleG_BQZg" />
+                  <source src="https://www.youtube.com/watch?v=0E3uj5Ks25E&pp=ygUWZGVtbyBhaSBkYXRhIGFuYWx5dGljcw%3D%3D" />
                   {/* Fallback image if video fails */}
                   <img 
                     src="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp" 
@@ -181,18 +181,24 @@ export default function LandingHero() {
                   />
                 </video>
                 
-                {/* Play button overlay */}
+                {/* Play button overlay
                 {showPlayButton && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-opacity duration-300">
                     <div className="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
                       <Play className="w-6 h-6 text-primary ml-1" />
                     </div>
                   </div>
-                )}
+                )} */}
                 
                 {/* Subtle gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                {/* <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div> */}
                 
+                {/* Video playing indicator */}
+                {/* {isVideoPlaying && (
+                  <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium animate-pulse">
+                    PLAYING
+                  </div>
+                )} */}
               </div>
               
               {/* Floating stat cards */}
