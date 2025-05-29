@@ -1,147 +1,147 @@
 import React from "react";
-import {
-  BarChart3,
-  TrendingUp,
-  PieChart,
-  Megaphone,
-  UserCheck,
-  Eye,
-  ThumbsUp,
-  Globe,
-  Link2,
-} from "lucide-react";
+import { CheckCircle, BarChart3, Users, TrendingUp, DollarSign, PieChart, Repeat, Grid2X2, UserCheck, Target, Clock, FileText, GraduationCap, Calculator, Shield, TrendingDown, AlertTriangle, Megaphone, Star, Video, MapPin} from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
-import { Link } from "react-router-dom";
 
 const bulletPoints = [
   {
-    icon: TrendingUp,
-    title: "Campaign ROI Analysis",
+    icon: Target,
+    title: "Campaign Performance Analysis",
     description:
-      "Track which marketing campaigns deliver the highest return on investment and double down on what works."
+      "Evaluate ROI across various channels to identify the most effective platforms for student acquisition and maximize your marketing investment."
   },
   {
-    icon: PieChart,
-    title: "Channel Performance Breakdown",
+    icon: Star,
+    title: "Influencer Impact Assessment",
     description:
-      "Compare email, social, SEO, and paid channels to understand where your most engaged users come from."
+      "Measure the effectiveness of collaborations with over 2,000 micro-influencers by tracking engagement metrics and conversion rates for optimal partnerships."
   },
   {
-    icon: Megaphone,
-    title: "Ad Spend Optimization",
+    icon: Video,
+    title: "Content Strategy Optimization",
     description:
-      "See where ad dollars are being wasted and reallocate budget to high-performing campaigns automatically."
+      "Analyze student engagement with different content types to refine content strategies and improve retention across all marketing channels."
   },
   {
-    icon: UserCheck,
+    icon: MapPin,
+    title: "Regional Demand Forecasting",
+    description:
+      "Predict demand for courses in different regions, aiding in targeted marketing and resource allocation for maximum market penetration."
+  },
+  {
+    icon: BarChart3,
+    title: "Attribution Modeling",
+    description:
+      "Track the complete customer journey across touchpoints to understand which marketing activities drive conversions and optimize budget allocation."
+  },
+  {
+    icon: Users,
     title: "Audience Segmentation",
     description:
-      "Segment customers by engagement, geography, or demographics to personalize your messaging."
+      "Segment your audience based on behavior, demographics, and preferences to create highly targeted campaigns that resonate with each group."
   },
   {
-    icon: Eye,
-    title: "Impression & Reach Analytics",
+    icon: TrendingUp,
+    title: "Lead Quality Scoring",
     description:
-      "Measure your visibility across platforms to see how far your message is spreading."
+      "Evaluate lead quality across different channels and campaigns to focus efforts on sources that generate high-converting prospects."
   },
   {
-    icon: ThumbsUp,
-    title: "Engagement & Conversion Analysis",
+    icon: Repeat,
+    title: "Marketing Automation Insights",
     description:
-      "Identify which content resonates most with your audience and drives the most conversions."
-  },
-  {
-    icon: Globe,
-    title: "Traffic Source Insights",
-    description:
-      "Analyze organic, direct, referral, and paid traffic to better allocate resources."
-  },
-  {
-    icon: Link2,
-    title: "Customer Journey Mapping",
-    description:
-      "Visualize how users move from awareness to action across multiple touchpoints."
+      "Analyze automated campaign performance and user engagement to optimize email sequences, nurture campaigns, and retention strategies."
   }
 ];
 
 export default function Marketing() {
+  
   return (
     <>
-      <Navbar />
-      <section className="p-6 md:p-10 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 text-gray-900">
-            Unlock Smarter Marketing Decisions with Data
-          </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Our AI-powered platform reveals what’s working—and what isn’t—so you can focus on driving measurable marketing results.
-          </p>
-        </div>
-
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            Eliminate Guesswork from Your Marketing Strategy
-          </h2>
-          <p className="text-gray-600 max-w-4xl mx-auto">
-            Raw marketing data is full of insight—but it’s often buried in spreadsheets and dashboards. Our tools bring clarity to your campaigns in minutes.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {bulletPoints.map(({ icon: Icon, title, description }, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl shadow p-6 transition-transform duration-300 hover:shadow-xl hover:scale-[1.02] group"
-            >
-              <Icon className="text-blue-600 w-8 h-8 mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:font-bold transition duration-300">
-                {title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+    <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50 to-red-50">
+        <section className="px-6 md:px-10 py-16 max-w-7xl mx-auto">
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium mb-6">
+              <Megaphone className="w-4 h-4 mr-2" />
+              Marketing Analytics Platform
             </div>
-          ))}
-        </div>
-
-        <div className="mt-16 bg-blue-50 rounded-xl p-6 md:p-10 text-center">
-          <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            Marketing Intelligence with a Human Edge
-          </h2>
-          <p className="text-gray-700 max-w-3xl mx-auto mb-6">
-            AI helps you act faster, but human experts help you act smarter. We tailor your marketing data to align with your business goals.
-          </p>
-          <p className="text-gray-700 max-w-3xl mx-auto mb-6">
-            <strong>Need campaign-specific insights?</strong> Our analysts will dive into the details and help refine your strategy.
-          </p>
-          <p className="text-gray-700 max-w-3xl mx-auto mb-6">
-            <strong>Custom dashboard setup?</strong> We’ll configure reports that show what you need to see—no more, no less.
-          </p>
-          <p className="text-gray-700 max-w-3xl mx-auto">
-            Combine the power of automation with the insight of real humans for game-changing marketing performance.
-          </p>
-        </div>
-
-        <div className="text-center mt-16">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-            Ready to Outperform Your Competition?
-          </h2>
-          <p className="text-gray-600 max-w-3xl mx-auto mb-6">
-            Don’t settle for vanity metrics. Use AI to drive actual growth, real conversions, and better ROI.
-          </p>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">
-            Let the Data Tell You What Works
-          </h3>
-          <p className="text-gray-600 max-w-xl mx-auto mb-6">
-            Focus on strategies that bring results—backed by intelligent analysis.
-          </p>
-          <div className="flex justify-center mt-6">
-            <Link to="/dashboard" className="inline-block">
-              <button className="bg-blue-600 text-white py-3 px-6 rounded-full transition-all duration-300 hover:bg-blue-700 hover:scale-105 hover:font-semibold">
-                Start Your Marketing Audit
-              </button>
-            </Link>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+              Turn Your Marketing Data into <br />
+              <span className="text-transparent bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text"> Growth Acceleration</span>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              Our AI-powered platform transforms complex marketing data into clear insights, helping you optimize campaigns, maximize ROI, and drive sustainable student acquisition and engagement.
+            </p>
           </div>
-        </div>
-      </section>
+
+          {/* Subtitle Section */}
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Amplify Your Marketing Impact</h2>
+            <p className="text-md text-gray-600 max-w-5xl mx-auto leading-relaxed">
+              Marketing data from multiple channels creates a complex puzzle, but the insights within drive growth. Our AI platform connects all your marketing touchpoints, automatically analyzing performance to reveal the strategies that convert prospects into loyal students.
+            </p>
+          </div>
+
+          {/* Bullet Points Section */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-8 text-center">Powerful Marketing Analytics Features</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              {bulletPoints.map(({ icon: Icon, title, description }, index) => (
+                <div key={index} className="flex items-start space-x-4 p-4 hover:bg-white/50 rounded-xl transition-all duration-300">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+                      <Icon className="text-white w-6 h-6" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">{title}</h4>
+                    <p className="text-gray-600 leading-relaxed">{description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dashboard Preview Image */}
+          <div className="mb-16">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-5xl mx-auto">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Visualize Your Marketing Success</h3>
+                <p className="text-gray-600">Dynamic dashboards that make campaign performance crystal clear</p>
+              </div>
+              <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-video flex items-center justify-center">
+                <div className="text-center">
+                  <Megaphone className="w-24 h-24 text-slate-400 mx-auto mb-4" />
+                  <p className="text-slate-500 text-lg font-medium">Interactive Marketing Dashboard</p>
+                  <p className="text-slate-400 text-sm">Real-time campaign analytics and insights</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          {/* CTA Section */}
+          <div className="text-center">
+            <div>
+              <h2 className="text-2xl font-bold mb-4">We Are Here to Help</h2>
+              <p className=" max-w-3xl mx-auto mb-6 text-md">
+                Marketing success shouldn't be left to guesswork. Whether you're launching new campaigns, optimizing existing strategies, or scaling your student acquisition efforts, our expert team is ready to help you achieve breakthrough results.
+              </p>
+              <h3 className="text-2xl font-semibold mb-4">Ready to Supercharge Your Marketing ROI?</h3>
+              <p className="max-w-xl mx-auto mb-8">
+                Stop wasting ad spend and start driving predictable, profitable growth with data-driven marketing.
+              </p>
+              <button 
+                onClick={() => window.location.href = '/dashboard'}
+                className="bg-white text-orange-600 py-4 px-8 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-orange-50 hover:scale-105 shadow-lg"
+              >
+                Get an Instant AI Analysis
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 }

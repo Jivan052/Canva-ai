@@ -1,138 +1,147 @@
 import React from "react";
-import {
-  Banknote,
-  LineChart,
-  BarChart3,
-  Receipt,
-  FileBarChart,
-  DollarSign,
-  CreditCard,
-  TrendingDown,
-  ShieldCheck
-} from "lucide-react";
+import { CheckCircle, BarChart3, Users, TrendingUp, DollarSign, PieChart, Repeat, Grid2X2, UserCheck, Target, Clock, FileText, GraduationCap, Calculator, Shield, TrendingDown, AlertTriangle} from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
-import { Link } from "react-router-dom";
 
 const bulletPoints = [
   {
-    icon: Banknote,
-    title: "Cash Flow Tracking",
+    icon: TrendingUp,
+    title: "Revenue Stream Analysis",
     description:
-      "Gain real-time insights into inflows and outflows. Understand your liquidity position instantly."
-  },
-  {
-    icon: LineChart,
-    title: "Budget vs. Actual Analysis",
-    description:
-      "Compare forecasts with actual spend to control costs and identify overspending areas quickly."
-  },
-  {
-    icon: DollarSign,
-    title: "Revenue & Expense Breakdown",
-    description:
-      "Drill into revenue streams and cost centers to spot patterns and areas for improvement."
-  },
-  {
-    icon: CreditCard,
-    title: "Accounts Payable & Receivable",
-    description:
-      "Monitor overdue invoices and upcoming payments. Improve cash collection cycles and vendor relationships."
-  },
-  {
-    icon: FileBarChart,
-    title: "Financial Ratios & KPIs",
-    description:
-      "Track margins, burn rate, profitability, and more — all in one place, updated in real-time."
-  },
-  {
-    icon: Receipt,
-    title: "Departmental Spend Visibility",
-    description:
-      "Understand where each team is spending. Hold departments accountable with clear data."
+      "Break down revenue contributions from online courses, offline centers, and partnerships to identify growth opportunities and optimize your income channels."
   },
   {
     icon: TrendingDown,
-    title: "Cost Optimization Opportunities",
+    title: "Cost Management",
     description:
-      "Identify inefficiencies and reduce unnecessary spend using AI-driven recommendations."
+      "Monitor expenses across departments and centers to identify areas for cost reduction without compromising quality and maximize operational efficiency."
   },
   {
-    icon: ShieldCheck,
-    title: "Audit & Compliance Readiness",
+    icon: BarChart3,
+    title: "Financial Forecasting",
     description:
-      "Stay prepared for audits with centralized records, clean ledgers, and risk monitoring dashboards."
+      "Predict future revenues and expenses based on current trends, aiding in strategic planning and investment decisions for sustainable growth."
+  },
+  {
+    icon: Shield,
+    title: "Compliance Monitoring",
+    description:
+      "Ensure adherence to financial regulations and standards across all operations while maintaining transparency and accountability."
+  },
+  {
+    icon: Calculator,
+    title: "Budget Planning & Tracking",
+    description:
+      "Create detailed budgets and track performance against targets to maintain financial discipline and achieve strategic objectives."
+  },
+  {
+    icon: PieChart,
+    title: "Profitability Analysis",
+    description:
+      "Analyze profit margins across different business units and offerings to understand what drives your bottom line performance."
+  },
+  {
+    icon: DollarSign,
+    title: "Cash Flow Management",
+    description:
+      "Monitor cash inflows and outflows to ensure liquidity and optimize working capital for smooth business operations."
+  },
+  {
+    icon: AlertTriangle,
+    title: "Risk Assessment",
+    description:
+      "Identify financial risks and vulnerabilities early to implement mitigation strategies and protect your business stability."
   }
 ];
 
 export default function Finance() {
+  
   return (
     <>
-      <Navbar />
-      <section className="p-6 md:p-10 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 text-gray-900">
-            Make Every Financial Decision Count
-          </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Our AI-powered finance dashboards help you visualize burn, track cash flow, and improve fiscal control — no manual reports needed.
-          </p>
-        </div>
-
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            See the Full Picture — From Spend to Strategy
-          </h2>
-          <p className="text-gray-600 max-w-4xl mx-auto">
-            Get timely insights into your company’s financial health. Reduce waste, forecast smarter, and empower your finance team to lead with clarity.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {bulletPoints.map(({ icon: Icon, title, description }, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl shadow p-6 transition-transform duration-300 hover:shadow-xl hover:scale-[1.02] group"
-            >
-              <Icon className="text-blue-600 w-8 h-8 mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:font-bold transition duration-300">
-                {title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+    <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50">
+        <section className="px-6 md:px-10 py-16 max-w-7xl mx-auto">
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium mb-6">
+              <DollarSign className="w-4 h-4 mr-2" />
+              Financial Analytics Platform
             </div>
-          ))}
-        </div>
-
-        <div className="mt-16 bg-blue-50 rounded-xl p-6 md:p-10 text-center">
-          <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            Finance Analytics That Drives Strategy
-          </h2>
-          <p className="text-gray-700 max-w-3xl mx-auto mb-6">
-            Whether you’re fundraising, scaling, or cutting costs — our platform gives you financial clarity instantly, without hiring a full FP&A team.
-          </p>
-          <p className="text-gray-700 max-w-3xl mx-auto mb-6">
-            <strong>Need board-ready visuals?</strong> Export dashboards as clean, executive-grade reports.
-          </p>
-          <p className="text-gray-700 max-w-3xl mx-auto">
-            Stay compliant. Stay efficient. And make every dollar accountable.
-          </p>
-        </div>
-
-        <div className="text-center mt-16">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-            Get Control Over Your Financial Future
-          </h2>
-          <p className="text-gray-600 max-w-3xl mx-auto mb-6">
-            Eliminate surprises with proactive finance insights. Empower your CFO and team to lead with data confidence.
-          </p>
-          <div className="flex justify-center mt-6">
-            <Link to="/dashboard" className="inline-block">
-              <button className="bg-blue-600 text-white py-3 px-6 rounded-full transition-all duration-300 hover:bg-blue-700 hover:scale-105 hover:font-semibold">
-                Launch Finance Dashboard
-              </button>
-            </Link>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+              Transform Your Financial Data into <br />
+              <span className="text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text"> Strategic Intelligence</span>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              Our AI-powered platform converts complex financial data into clear, actionable insights, empowering you to make confident decisions that drive profitability and growth.
+            </p>
           </div>
-        </div>
-      </section>
+
+          {/* Subtitle Section */}
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Master Your Financial Performance</h2>
+            <p className="text-md text-gray-600 max-w-5xl mx-auto leading-relaxed">
+              Financial data holds the key to your business success, but it's often locked away in complex spreadsheets and reports. Our AI platform automatically processes your financial information, revealing the critical insights you need to optimize performance and accelerate growth.
+            </p>
+          </div>
+
+          {/* Bullet Points Section */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-8 text-center">Essential Financial Analytics Features</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              {bulletPoints.map(({ icon: Icon, title, description }, index) => (
+                <div key={index} className="flex items-start space-x-4 p-4 hover:bg-white/50 rounded-xl transition-all duration-300">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                      <Icon className="text-white w-6 h-6" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">{title}</h4>
+                    <p className="text-gray-600 leading-relaxed">{description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dashboard Preview Image */}
+          <div className="mb-16">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-5xl mx-auto">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Visualize Your Financial Health</h3>
+                <p className="text-gray-600">Comprehensive dashboards that make financial data accessible and actionable</p>
+              </div>
+              <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-video flex items-center justify-center">
+                <div className="text-center">
+                  <DollarSign className="w-24 h-24 text-slate-400 mx-auto mb-4" />
+                  <p className="text-slate-500 text-lg font-medium">Interactive Financial Dashboard</p>
+                  <p className="text-slate-400 text-sm">Real-time financial analytics and insights</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          {/* CTA Section */}
+          <div className="text-center">
+            <div>
+              <h2 className="text-2xl font-bold mb-4">We Are Here to Help</h2>
+              <p className=" max-w-3xl mx-auto mb-6 text-md">
+                Financial management doesn't have to be complex. Whether you're planning for growth, need compliance support, or want to optimize your financial performance, our expert team is here to guide you every step of the way.
+              </p>
+              <h3 className="text-2xl font-semibold mb-4">Ready to Take Control of Your Finances?</h3>
+              <p className="max-w-xl mx-auto mb-8">
+                Stop flying blind and start making informed financial decisions with complete confidence.
+              </p>
+              <button 
+                onClick={() => window.location.href = '/dashboard'}
+                className="bg-white text-purple-600 py-4 px-8 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-purple-50 hover:scale-105 shadow-lg"
+              >
+                Get an Instant AI Analysis
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 }

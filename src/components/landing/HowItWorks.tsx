@@ -18,20 +18,20 @@ export default function HowItWorks() {
       description: "Automatically analyzes your data and generates valuable insights with Agentic AI"
     },
     {
-      image: "https://png.pngtree.com/png-clipart/20240826/original/pngtree-data-trends-and-analytics-3d-cartoon-icon-visualization-insights-isolated-on-png-image_15859244.png",
+      image: "https://res.cloudinary.com/djbjfsshe/image/upload/v1748474569/visualisation_apf1yk.png",
       alt: "Data Visualization",
       title: "Dynamic Visualizations",
       description: "View your data through interactive charts and dashboards"
     },
     {
-      image: "https://www.vhv.rs/dpng/d/503-5033236_insights-png-transparent-png.png",
+      image: "https://res.cloudinary.com/djbjfsshe/image/upload/v1748474570/insight_gz28mb.png",
 
       alt: "Smart Insights",
       title: "Smart Insights",
       description: "Get automated recommendations and discover hidden patterns in your data"
     },
     {
-      image: "https://st4.depositphotos.com/18674256/21427/v/450/depositphotos_214276152-stock-illustration-dashboard-vector-icon-isolated-on.jpg",
+      image: "https://res.cloudinary.com/djbjfsshe/image/upload/v1748474569/results_cy5xdd.png",
 
       alt: "Export Results",
       title: "Export Results",

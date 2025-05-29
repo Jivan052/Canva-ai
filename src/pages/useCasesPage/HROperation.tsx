@@ -1,145 +1,147 @@
 import React from "react";
-import {
-  UserCheck,
-  Users,
-  BarChart3,
-  Clock,
-  ClipboardCheck,
-  ShieldCheck,
-  Briefcase,
-  Medal,
-  FileText,
-} from "lucide-react";
+import { CheckCircle, BarChart3, Users, TrendingUp, DollarSign, PieChart, Repeat, Grid2X2, UserCheck, Target, Clock, FileText, GraduationCap} from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
-import { Link } from "react-router-dom";
 
 const bulletPoints = [
   {
-    icon: Users,
-    title: "Employee Segmentation",
+    icon: BarChart3,
+    title: "Workforce Analytics",
     description:
-      "Group employees based on performance, department, or experience to tailor training and development initiatives."
+      "Track employee performance, turnover rates, and satisfaction levels to inform HR strategies and make data-driven decisions about your workforce."
+  },
+  {
+    icon: Target,
+    title: "Recruitment Optimization",
+    description:
+      "Analyze hiring processes to reduce time-to-hire and improve candidate quality. Streamline your recruitment funnel for better results."
+  },
+  {
+    icon: DollarSign,
+    title: "Payroll Management",
+    description:
+      "Automate payroll processing and compliance checks to ensure accuracy and adherence to regulations while reducing administrative overhead."
+  },
+  {
+    icon: GraduationCap,
+    title: "Training and Development",
+    description:
+      "Assess the effectiveness of training programs and identify areas for employee skill enhancement to maximize your learning investment."
+  },
+  {
+    icon: Users,
+    title: "Employee Engagement Analysis",
+    description:
+      "Monitor engagement metrics and identify factors that drive employee satisfaction and retention across your organization."
+  },
+  {
+    icon: TrendingUp,
+    title: "Performance Tracking",
+    description:
+      "Analyze individual and team performance patterns to identify top performers and areas needing improvement."
   },
   {
     icon: Clock,
-    title: "Attendance & Shift Analytics",
+    title: "Attendance & Time Management",
     description:
-      "Track patterns in attendance, lateness, and shift preferences for more efficient workforce scheduling."
-  },
-  {
-    icon: ClipboardCheck,
-    title: "Hiring Funnel Insights",
-    description:
-      "Analyze hiring data to find bottlenecks and improve the speed and quality of talent acquisition."
-  },
-  {
-    icon: UserCheck,
-    title: "Onboarding Experience Analysis",
-    description:
-      "Measure how onboarding affects new hire success, engagement, and retention over time."
-  },
-  {
-    icon: Briefcase,
-    title: "Department-Level Productivity",
-    description:
-      "Understand how different departments perform to better allocate resources and set realistic goals."
+      "Track attendance patterns, overtime trends, and time allocation to optimize workforce scheduling and productivity."
   },
   {
     icon: FileText,
-    title: "Policy Compliance Tracking",
+    title: "Compliance Monitoring",
     description:
-      "Monitor adherence to HR policies, safety standards, and regulatory requirements."
-  },
-  {
-    icon: ShieldCheck,
-    title: "Employee Satisfaction & Risk Detection",
-    description:
-      "Identify employee dissatisfaction trends before they lead to turnover or productivity issues."
-  },
-  {
-    icon: Medal,
-    title: "Training Impact Assessment",
-    description:
-      "Measure how training programs improve employee performance and engagement."
+      "Stay on top of HR compliance requirements and track adherence to labor laws and company policies."
   }
 ];
 
 export default function HROperations() {
+  
   return (
     <>
-      <Navbar />
-      <section className="p-6 md:p-10 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 text-gray-900">
-            Turn HR Data Into Strategic Business Decisions
-          </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Our platform helps HR teams unlock actionable insights from employee and organizational data to boost performance and retention.
-          </p>
-        </div>
-
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            Empower Your People Strategy with AI Insights
-          </h2>
-          <p className="text-gray-600 max-w-4xl mx-auto">
-            Say goodbye to spreadsheet overwhelm. Our tools surface critical HR trends that help you make better workforce decisions—faster.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {bulletPoints.map(({ icon: Icon, title, description }, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl shadow p-6 transition-transform duration-300 hover:shadow-xl hover:scale-[1.02] group"
-            >
-              <Icon className="text-blue-600 w-8 h-8 mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:font-bold transition duration-300">
-                {title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+    <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-teal-50">
+        <section className="px-6 md:px-10 py-16 max-w-7xl mx-auto">
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium mb-6">
+              <Users className="w-4 h-4 mr-2" />
+              HR Analytics Platform
             </div>
-          ))}
-        </div>
-
-        <div className="mt-16 bg-blue-50 rounded-xl p-6 md:p-10 text-center">
-          <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            Human-Centric + Data-Driven = Smarter HR
-          </h2>
-          <p className="text-gray-700 max-w-3xl mx-auto mb-6">
-            Traditional HR tools focus on compliance. We focus on **impact**. Use real-time insights to nurture your talent, reduce attrition, and boost engagement.
-          </p>
-          <p className="text-gray-700 max-w-3xl mx-auto mb-6">
-            <strong>Want custom reporting?</strong> We’ll tailor the analysis to your HR priorities—whether that’s retention, DEI, or workforce planning.
-          </p>
-          <p className="text-gray-700 max-w-3xl mx-auto mb-6">
-            <strong>Need expert support?</strong> Our team of analysts is here to help you ask better questions—and find better answers.
-          </p>
-          <p className="text-gray-700 max-w-3xl mx-auto">
-            Let data drive your people decisions—with clarity and confidence.
-          </p>
-        </div>
-
-        <div className="text-center mt-16">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Ready to Elevate Your HR Strategy?</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto mb-6">
-            Whether you're leading a growing startup or a global enterprise, our tools give your HR team a competitive edge.
-          </p>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">
-            Make Every People Decision Count
-          </h3>
-          <p className="text-gray-600 max-w-xl mx-auto mb-6">
-            Start using AI to uncover insights that empower your workforce.
-          </p>
-          <div className="flex justify-center mt-6">
-            <Link to="/dashboard" className="inline-block">
-              <button className="bg-blue-600 text-white py-3 px-6 rounded-full transition-all duration-300 hover:bg-blue-700 hover:scale-105 hover:font-semibold">
-                Try HR Insights Now
-              </button>
-            </Link>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+              Turn Your HR Data into Your <br />
+              <span className="text-transparent bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text"> Strategic Advantage</span>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              Our AI-powered platform transforms complex HR data into actionable insights, helping you make smarter decisions about your most valuable asset - your people.
+            </p>
           </div>
-        </div>
-      </section>
+
+          {/* Subtitle Section */}
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Unlock the Full Potential of Your Workforce</h2>
+            <p className="text-md text-gray-600 max-w-5xl mx-auto leading-relaxed">
+              HR data scattered across systems tells a story, but it's often buried in complexity. Our AI platform brings everything together, automatically analyzing your workforce information to reveal the strategic insights you need to build a thriving organization.
+            </p>
+          </div>
+
+          {/* Bullet Points Section */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-8 text-center">Core HR Analytics Features</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              {bulletPoints.map(({ icon: Icon, title, description }, index) => (
+                <div key={index} className="flex items-start space-x-4 p-4 hover:bg-white/50 rounded-xl transition-all duration-300">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-xl flex items-center justify-center">
+                      <Icon className="text-white w-6 h-6" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">{title}</h4>
+                    <p className="text-gray-600 leading-relaxed">{description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dashboard Preview Image */}
+          <div className="mb-16">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-5xl mx-auto">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Visualize Your HR Insights</h3>
+                <p className="text-gray-600">Comprehensive dashboards that make workforce data easy to understand</p>
+              </div>
+              <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-video flex items-center justify-center">
+                <div className="text-center">
+                  <Users className="w-24 h-24 text-slate-400 mx-auto mb-4" />
+                  <p className="text-slate-500 text-lg font-medium">Interactive HR Dashboard</p>
+                  <p className="text-slate-400 text-sm">Real-time workforce analytics and insights</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          {/* CTA Section */}
+          <div className="text-center">
+            <div>
+              <h2 className="text-2xl font-bold mb-4">We Are Here to Help</h2>
+              <p className=" max-w-3xl mx-auto mb-6 text-md">
+                Managing HR data doesn't have to be overwhelming. Whether you're implementing new processes, need expert guidance, or want to optimize your current operations, our team is ready to support you.
+              </p>
+              <h3 className="text-2xl font-semibold mb-4">Ready to Transform Your HR Operations?</h3>
+              <p className="max-w-xl mx-auto mb-8">
+                Stop managing in the dark and start making strategic HR decisions with confidence.
+              </p>
+              <button 
+                onClick={() => window.location.href = '/dashboard'}
+                className="bg-white text-green-600 py-4 px-8 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-green-50 hover:scale-105 shadow-lg"
+              >
+                Get an Instant AI Analysis
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 }
