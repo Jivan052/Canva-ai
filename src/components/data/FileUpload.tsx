@@ -89,7 +89,7 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
 
     try {
       const response = await axios.post(
-        "https://allan30joseph.app.n8n.cloud/webhook/upload-dataset",
+        "https://karthikeya07.app.n8n.cloud/webhook-test/upload-dataset",
         formData
       );
       console.log("Response:", response.data);

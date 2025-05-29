@@ -55,27 +55,6 @@ export default function HowWeHelpYou() {
       gradient: "from-teal-500 to-cyan-500",
       bgClass: "bg-teal-50 hover:bg-teal-100"
     },
-    {
-      icon: <Clock className="h-6 w-6" />,
-      title: "Save 80% of your time",
-      description: "Quickly clean and convert data into actionable insights. No learning curve, formulas, or coding.",
-      gradient: "from-amber-500 to-yellow-500",
-      bgClass: "bg-amber-50 hover:bg-amber-100"
-    },
-    {
-      icon: <Rocket className="h-6 w-6" />,
-      title: "Built to be productive!",
-      description: "We automate data combining, cleaning, pivoting, and visualizing for instant insights and analytics.",
-      gradient: "from-rose-500 to-pink-500",
-      bgClass: "bg-rose-50 hover:bg-rose-100"
-    },
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Secure Data Processing",
-      description: "GDPR/PDPA compliant, keeping your data secure. Your raw data is never sent to LLM models.",
-      gradient: "from-slate-600 to-gray-700",
-      bgClass: "bg-slate-50 hover:bg-slate-100"
-    }
   ];
 
   return (

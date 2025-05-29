@@ -1,23 +1,23 @@
 [
   {
     "id": 1,
-    "name": "Marc Seymour",
-    "title": "Founder, Botforce (AI Conversation platform)",
-    "location": "South Africa",
-    "review": "DataSquirrel AI has revolutionized our retail analytics. The real-time insights help us make data-driven decisions that directly impact our bottom line.",
+    "name": "Mohammad Shoyeb Ansari",
+    "title": "Student",
+    "location": "India",
+    "review": "Data Camel AI has revolutionized our retail analytics. The real-time insights help us make data-driven decisions that directly impact our bottom line.",
     "category": "AI & Consulting",
     "rating": 5,
-    "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face&auto=format"
+    "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjXLYM4J0DGW6UmO4NyTQbmvnRVsvReoJ-V6CIpxg-CWIVySD1I=s97-p-k-rw-no"
   },
   {
     "id": 2,
-    "name": "Shreyas Pandit",
-    "title": "Founder, Right Spade (Stock Trading)",
+    "name": "Bendi Karthikeya",
+    "title": "Student at PWIOI",
     "location": "India",
     "review": "Love your software! It has completely transformed how we analyze market data and present insights to our clients. The intuitive interface makes complex financial data accessible and actionable.",
     "category": "Financial Services",
     "rating": 5,
-    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format"
+    "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVuVcc3CkhHMbW54xPUsWuUu0G7E8AEDuP3DGt_HnYVWtDKiYU9=s97-p-k-rw-no"
   },
   {
     "id": 3,
@@ -44,7 +44,7 @@
     "name": "Ahmed Hassan",
     "title": "Business Analyst, Global Retail Corp",
     "location": "UAE",
-    "review": "DataSquirrel AI has revolutionized our retail analytics. The real-time insights help us make data-driven decisions that directly impact our bottom line.",
+    "review": "DataCamel AI has revolutionized our retail analytics. The real-time insights help us make data-driven decisions that directly impact our bottom line.",
     "category": "Retail",
     "rating": 5,
     "avatar": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face&auto=format"

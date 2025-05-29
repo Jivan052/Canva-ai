@@ -184,10 +184,6 @@ export default function Dashboard() {
     }
   };
 
-  // Navigate to manual tools
-  const goToManualTools = () => {
-    navigate("/manual-tools");
-  };
 
   return (
     <div className="flex flex-col h-screen bg-background">
@@ -236,31 +232,12 @@ export default function Dashboard() {
                       <OperationHistory className="h-full" />
                     </TabsContent>
                   </Tabs>
-                  <div className="mt-6 pt-4 border-t">
-                    <Button 
-                      variant="outline" 
-                      className="w-full" 
-                      onClick={goToManualTools}
-                    >
-                      <Hammer className="mr-2 h-4 w-4" />
-                      Advanced Data Tools
-                    </Button>
-                  </div>
                 </div>
               </SheetContent>
             </Sheet>
           </div>
           
           <div className="flex items-center gap-1 md:gap-2">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={goToManualTools} 
-              className="hidden md:flex"
-            >
-              <Hammer className="mr-1 md:mr-2 h-3 md:h-4 w-3 md:w-4" />
-              <span>Advanced Tools</span>
-            </Button>
             
             <Button variant="outline" size="sm" onClick={() => setShowCleanModal(true)}>
               <Sparkles className="mr-1 md:mr-2 h-3 md:h-4 w-3 md:w-4 text-amber-500" />
@@ -349,10 +326,6 @@ export default function Dashboard() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Options</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={goToManualTools}>
-                  <Hammer className="mr-2 h-4 w-4" />
-                  <span>Manual Data Tools</span>
-                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setShowCleanModal(true)}>
                   <Sparkles className="mr-2 h-4 w-4 text-amber-500" />
                   <span>AI Auto-Clean</span>
@@ -445,13 +418,7 @@ export default function Dashboard() {
             </div>
           ) : (
             <>
-              <div className="bg-muted/50 p-2 flex items-center justify-between">
-                <span className="text-sm font-medium ml-2">Data Preview</span>
-                <Button variant="ghost" size="sm" onClick={goToManualTools} className="gap-1 text-xs">
-                  Advanced Tools
-                  <ChevronRight className="h-3 w-3" />
-                </Button>
-              </div>
+            <br />
               <DataPreview className="flex-1" />
             </>
           )}
@@ -498,10 +465,6 @@ export default function Dashboard() {
       {isInitialized && (
         <div className="md:hidden border-t bg-card/90 backdrop-blur-sm shadow-[0_-2px_5px_rgba(0,0,0,0.05)]">
           <div className="grid grid-cols-3 p-2 gap-2">
-            <Button variant="outline" size="sm" className="w-full" onClick={goToManualTools}>
-              <Hammer className="mr-1 h-4 w-4" />
-              Advanced
-            </Button>
             
             <Sheet>
               <SheetTrigger asChild>

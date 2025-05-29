@@ -176,21 +176,8 @@ const DemoAi = () => {
           </TabsContent>
           
           <TabsContent value="insights" className="space-y-6 mt-6">
-            {dataInsights && Array.isArray(dataInsights) && dataInsights.length > 0 ? (
-              <>
-                {/* Display insights as cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {dataInsights.map((insight, index) => (
-                    <InsightCard 
-                      key={index} 
-                      insight={insight.insight}
-                      description={insight.description}
-                      suggestion={insight.suggestion}
-                    />
-                  ))}
-                </div>
-                
-                {/* Display metrics cards */}
+
+              {/* Display metrics cards */}
                 {chartData?.metrics && chartData.metrics.length > 0 && (
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {chartData.metrics.map((metric, index) => (
@@ -205,6 +192,21 @@ const DemoAi = () => {
                     ))}
                   </div>
                 )}
+
+            {dataInsights && Array.isArray(dataInsights) && dataInsights.length > 0 ? (
+              <>
+                {/* Display insights as cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {dataInsights.map((insight, index) => (
+                    <InsightCard 
+                      key={index} 
+                      insight={insight.insight}
+                      description={insight.description}
+                      suggestion={insight.suggestion}
+                    />
+                  ))}
+                </div>
+              
                 
                 {/* Display dynamic charts */}
                 {chartData?.charts && chartData.charts.length > 0 && (
