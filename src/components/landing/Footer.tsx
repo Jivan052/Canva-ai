@@ -50,9 +50,8 @@ function Footer() {
         <div className="col-span-2 md:col-span-1 flex flex-col">
         <div className="flex items-center gap-2">
           <h2 className="text-xl font-bold">
-          <span className="text-foreground">Data</span>
           <span className="relative inline-block text-transparent bg-gradient-to-r from-primary to-purple-500 bg-clip-text">
-            Camel
+            QueryBee
           </span>
           </h2>
           <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-5 font-normal border-primary/20 bg-primary/5 text-primary">
@@ -176,7 +175,7 @@ function Footer() {
         <div className="text-xs text-muted-foreground">
         © {currentYear} 
         <span className="relative inline-block text-transparent bg-gradient-to-r from-primary to-purple-500 bg-clip-text ml-1">
-          DataCamel
+          QueryBee
         </span>. 
         All rights reserved.
         </div>
@@ -191,7 +190,7 @@ function Footer() {
           All systems operational
         </span>
         <span className="hidden md:flex">
-          Made with <span className="text-transparent bg-gradient-to-r from-primary to-purple-500 bg-clip-text mx-1">♥</span> by DataCamel Team
+          Made with <span className="text-transparent bg-gradient-to-r from-primary to-purple-500 bg-clip-text mx-1">♥</span> by QueryBee Team
         </span>
         </div>
       </div>
