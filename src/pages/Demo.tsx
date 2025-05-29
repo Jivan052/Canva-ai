@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useDataAnalysis } from "@/hooks/useDataAnalysis";
 import { Button } from "@/components/ui/button";
 import { FileSpreadsheet, BarChart, PieChart, LineChart } from "lucide-react";
-import { ChatbotWidget } from "./ChatbotWidget";
+import  ChatbotWidget  from "./ChatbotWidget";
 import { useInsight } from "@/contexts/InsightContext";
 import { fetchBotReply } from "./fetchBotReply";
 
@@ -17,9 +17,10 @@ import { fetchBotReply } from "./fetchBotReply";
 const DemoAi = () => {
   const [activeTab, setActiveTab] = useState("upload");
   const { dataInsights } = useInsight();
-  console.log("Data Insights:", dataInsights);
-  console.log("Data Insights type:", typeof dataInsights);
-  console.log("Is Array:", Array.isArray(dataInsights));
+ 
+
+  const [chatMessagesData, setChatMessagesData] = useState([]);
+
   
   // Transform dataInsights into chart data format
  
@@ -282,7 +283,12 @@ const DemoAi = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <ChatbotWidget onSendPrompt={fetchBotReply} />
+       <ChatbotWidget
+  messagesData={chatMessagesData}
+  onSendPrompt={fetchBotReply}
+  onUpdateMessagesData={setChatMessagesData}
+/>
+
               </CardContent>
             </Card>
           </TabsContent>
