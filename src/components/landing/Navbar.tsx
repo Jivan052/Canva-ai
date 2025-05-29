@@ -90,7 +90,7 @@ export default function Navbar() {
         {/* CTA Button */}
         <div className="hidden md:block">
           <Button asChild>
-            <Link to="/dashboard">Get Started</Link>
+            <Link to="/demo-ai">Get Started</Link>
           </Button>
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function Navbar() {
 
         {/* Get Started Button */}
         <Button asChild className="w-full">
-          <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
+          <Link to="/demo-ai" onClick={() => setIsMobileMenuOpen(false)}>
             Get Started
           </Link>
         </Button>

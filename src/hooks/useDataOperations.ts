@@ -40,6 +40,23 @@ export function useDataOperations() {
 
   // Data cleaning operations
   const cleanData = {
+
+    // Standardize date formats
+    standardizeDateFormat: (
+      columns: string[],
+      targetFormat: 'ISO' | 'US' | 'EU' | 'custom' = 'ISO',
+      customFormat?: string
+    ) => {
+      executeOperation('clean', 'Standardize Date Format', () => {
+        context.applyOperation(
+          'clean',
+          'Standardize Date Format',
+          { columns, targetFormat, customFormat },
+          (data) => cleaningOps.standardizeDateFormat(data, columns, targetFormat, customFormat)
+        );
+      });
+    },
+
     removeDuplicates: (keys?: string[]) => {
       executeOperation('clean', 'Remove Duplicates', () => {
         context.applyOperation(
@@ -245,6 +262,25 @@ export function useDataOperations() {
     }
   };
 
+
+
+    // Data access methods
+  const getData = useCallback(() => {
+    return context.data;
+  }, [context.data]);
+  
+  const updateData = useCallback((newData: Record<string, any>[]) => {
+    context.applyOperation(
+      'custom',
+      'Update Data',
+      {},
+      () => newData
+    );
+  }, [context]);
+  
+
+
+
   return {
     // Export context values
     data: context.data,
@@ -264,8 +300,12 @@ export function useDataOperations() {
     clean: cleanData,
     transform: transformData,
     
-    // Status
-    isProcessing,
-    lastOperation
+  // Status
+  isProcessing,
+  lastOperation,
+
+  // Data access methods
+  getData,
+  updateData
   };
 }
