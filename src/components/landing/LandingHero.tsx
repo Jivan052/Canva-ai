@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight, Sparkles, Play, TrendingUp, Zap } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { ArrowRight, Sparkles, TrendingUp, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { useNavigate } from "react-router-dom"; // Add this import
+
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
+
 
 export default function LandingHero() {
   const navigate = useNavigate(); // Add this hook
   const [isVisible, setIsVisible] = useState(false);
   const [currentWord, setCurrentWord] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const [showPlayButton, setShowPlayButton] = useState(true);
-  const videoRef = useRef(null);
 
   const rotatingWords = ["AI Insights", "Smart Analytics", "Data Magic", "Visual Stories"];
   const rotatingColors = [
@@ -36,46 +36,6 @@ export default function LandingHero() {
     { icon: "📊", title: "Beautiful Charts", desc: "Auto-generated visuals" }
   ];
 
-  const handleVideoHover = () => {
-    if (videoRef.current) {
-      videoRef.current.play();
-      setIsVideoPlaying(true);
-      setShowPlayButton(false);
-    }
-  };
-
-  const handleVideoLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-      setIsVideoPlaying(false);
-      setShowPlayButton(true);
-    }
-  };
-
-  const handleVideoClick = () => {
-    if (videoRef.current) {
-      if (isVideoPlaying) {
-        videoRef.current.pause();
-        setIsVideoPlaying(false);
-        setShowPlayButton(true);
-      } else {
-        videoRef.current.play();
-        setIsVideoPlaying(true);
-        setShowPlayButton(false);
-      }
-    }
-  };
-
-  // Dedicated click handlers for buttons to prevent conflicts
-  const handleQueryBeeClick = (e) => {
-    e.stopPropagation();
-    navigate('/query-ai'); // or your desired route for AI tool
-  };
-
-  const handleManualToolClick = (e) => {
-    e.stopPropagation();
-    navigate('/dashboard'); // for manual tool
-  };
 
   return (
     <section className="relative flex items-center justify-center overflow-hidden bg-background pt-10">
@@ -134,34 +94,35 @@ export default function LandingHero() {
             
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-10">
-              {/* QueryBee.AI Button */}
-              <Button 
-                size="lg" 
-                onClick={handleQueryBeeClick}
-                className="group relative px-6 py-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg hover:shadow-indigo-500/25 transition-all duration-300 transform hover:scale-105"
-              >
-                <span className="flex items-center gap-2 relative z-10">
-                  <Sparkles className="w-4 h-4" />
-                  QueryBee.AI
-                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
-                {/* Shimmer effect */}
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-all duration-700"></span>
-              </Button>
 
-              {/* Manual Tool Button */}
-              <Button 
-                size="lg" 
-                variant="outline"
-                onClick={handleManualToolClick}
-                className="group relative px-6 py-6 border-2 border-primary/20 hover:border-primary/40 bg-background/80 hover:bg-primary/5 text-foreground shadow-sm hover:shadow-md transition-all duration-300"
-              >
-                <span className="flex items-center gap-2">
-                  <Play className="w-4 h-4" />
-                  Manual Tool
-                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
-              </Button>
+              <Link to="/demo-ai">
+                <div className="relative">
+                  <Button 
+                    size="lg" 
+                    className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                  >
+                    <span className="flex items-center gap-2">
+                      QuerryBee.AI
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
+                  </Button>
+                </div>
+              </Link>
+
+              <Link to="/dashboard">
+                <div className="relative">
+                  <Button 
+                    size="lg" 
+                    className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                  >
+                    <span className="flex items-center gap-2">
+                      Manual Tool
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
+    
+                  </Button>
+                </div>
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0">
@@ -178,16 +139,11 @@ export default function LandingHero() {
             </div>
           </div>
 
-          {/* Right column - Video */}
+          {/* Right column - Image */}
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
             <div className="relative group">
-              {/* Main video container */}
-              <div 
-                className="relative overflow-hidden rounded-2xl shadow-xl border border-border/30 cursor-pointer"
-                onMouseEnter={handleVideoHover}
-                onMouseLeave={handleVideoLeave}
-                onClick={handleVideoClick}
-              >
+              {/* Main image container */}
+              <div className="relative overflow-hidden rounded-2xl shadow-xl border border-border/30">
                 <img 
                   src="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp" 
                   alt="Data Analytics Dashboard"

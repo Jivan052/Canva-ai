@@ -112,9 +112,11 @@ export default function Finance() {
               </div>
               <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-video flex items-center justify-center">
                 <div className="text-center">
-                  <DollarSign className="w-24 h-24 text-slate-400 mx-auto mb-4" />
-                  <p className="text-slate-500 text-lg font-medium">Interactive Financial Dashboard</p>
-                  <p className="text-slate-400 text-sm">Real-time financial analytics and insights</p>
+                  <img 
+                    src="https://res.cloudinary.com/djbjfsshe/image/upload/v1748539443/finance_u9mqro.jpg" 
+                    alt="HR Dashboard Preview" 
+                    className="w-full h-auto rounded-lg shadow-lg"
+                  />
                 </div>
               </div>
             </div>

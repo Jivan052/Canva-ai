@@ -3,7 +3,7 @@ import { FileUpload } from "@/components/data/FileUpload";
 import { GoogleSheetConnect } from "@/components/data/GoogleSheetConnect";
 import { InsightCard } from "@/components/insights/InsightCard";
 import { DataChart } from "@/components/visualizations/DataChart";
-import { DashboardLayout } from "@/layouts/DashboardLayout";
+// import { DashboardLayout } from "@/layouts/DashboardLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDataAnalysis } from "@/hooks/useDataAnalysis";
@@ -12,6 +12,7 @@ import { FileSpreadsheet, BarChart, PieChart, LineChart, Download, Loader2 } fro
 import  ChatbotWidget  from "./ChatbotWidget";
 import { useInsight } from "@/contexts/InsightContext";
 import { fetchBotReply } from "./fetchBotReply";
+import Navbar from "@/components/landing/Navbar";
 
 const DemoAi = () => {
   const [activeTab, setActiveTab] = useState("upload");
@@ -234,7 +235,10 @@ const DemoAi = () => {
   const chartData = transformDataForCharts();
 
   return (
-    <DashboardLayout showAIStatus={true} aiStatus={layoutStatus} progress={progress}>
+    <>
+    <Navbar />
+
+    <div className="container mx-auto px-4 py-8">
       <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
@@ -407,7 +411,8 @@ const DemoAi = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </DashboardLayout>
+    </div>
+    </>
   );
 };
 

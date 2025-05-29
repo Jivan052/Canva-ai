@@ -61,7 +61,7 @@ export default function Navbar() {
           <Link to="/demo-ai">
             <Button variant="outline" className="gap-2">
               <Settings2 className="h-4 w-4" />
-              QuerryBee.AI
+              QueryBee.AI
             </Button>
           </Link>
 
@@ -145,7 +145,7 @@ export default function Navbar() {
         <Link to="/demo-ai" onClick={() => setIsMobileMenuOpen(false)}>
           <Button variant="outline" className="w-full gap-2">
             <Settings2 className="h-4 w-4" />
-            QuerryBee.AI
+            QueryBee.AI
           </Button>
         </Link>
 
