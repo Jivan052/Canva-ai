@@ -58,7 +58,7 @@ const DemoAi = () => {
             type: chart.chartType === 'bar' ? 'bar' : chart.chartType === 'line' ? 'line' : 'pie',
             xKey: 'name',
             yKeys: ['value'],
-            color: chart.color
+            color: "#3B82F6"
           });
         });
       }
