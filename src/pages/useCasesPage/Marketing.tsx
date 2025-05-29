@@ -133,7 +133,7 @@ export default function Marketing() {
                 Stop wasting ad spend and start driving predictable, profitable growth with data-driven marketing.
               </p>
               <button 
-                onClick={() => window.location.href = '/dashboard'}
+                onClick={() => window.location.href = '/demo-ai'}
                 className="bg-white text-orange-600 py-4 px-8 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-orange-50 hover:scale-105 shadow-lg"
               >
                 Get an Instant AI Analysis

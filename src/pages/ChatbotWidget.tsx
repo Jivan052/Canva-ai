@@ -53,10 +53,12 @@ export function ChatbotWidget({ onSendPrompt }: ChatbotProps) {
 
     try {
       let botResponse = '';
-
+      
       if (onSendPrompt) {
+        // Send to handler function
         botResponse = await onSendPrompt(currentPrompt);
       } else {
+        // Mock response for development
         await new Promise(resolve => setTimeout(resolve, 1500));
         botResponse = `I received your question about "${currentPrompt}". This is a mock response.`;
       }
@@ -96,16 +98,16 @@ export function ChatbotWidget({ onSendPrompt }: ChatbotProps) {
 
   return (
     <Card className="w-full h-96 flex flex-col">
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-3 flex-shrink-0">
         <CardTitle className="flex items-center gap-2 text-lg">
           <Bot className="h-5 w-5" />
           Data Analysis Assistant
         </CardTitle>
       </CardHeader>
       
-      <CardContent className="flex-1 flex flex-col">
+      <CardContent className="flex-1 flex flex-col min-h-0">
         {/* Messages Container */}
-        <div className="flex-1 overflow-y-auto mb-4 space-y-4 pr-2">
+        <div className="flex-1 overflow-y-auto mb-4 space-y-4 pr-2 min-h-0">
           {messages.map((message) => (
             <div
               key={message.id}
@@ -161,7 +163,7 @@ export function ChatbotWidget({ onSendPrompt }: ChatbotProps) {
         </div>
 
         {/* Input Area */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-shrink-0">
           <Input
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}

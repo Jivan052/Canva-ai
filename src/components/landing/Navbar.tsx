@@ -50,7 +50,7 @@ export default function Navbar() {
                     <BarChart2 className="text-white w-5 h-5" />
                 </div>
                 <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-                    AI Data Canvas
+                    DataCamel
                 </span>
             </Link>
         </div>
@@ -66,7 +66,7 @@ export default function Navbar() {
             </Link> 
 
           <UseCasesDropdown />
-          <Link to="/manual-tools">
+          <Link to="/dashboard">
             <Button variant="outline" className="gap-2">
               <Settings2 className="h-4 w-4" />
               Manual Data Tools
@@ -90,7 +90,7 @@ export default function Navbar() {
         {/* CTA Button */}
         <div className="hidden md:block">
           <Button asChild>
-            <Link to="/dashboard">Get Started</Link>
+            <Link to="/demo-ai">Get Started</Link>
           </Button>
         </div>
       </div>
@@ -100,7 +100,7 @@ export default function Navbar() {
   <div className="fixed inset-0 bg-black/30 z-40 flex justify-end md:hidden">
     <div
       ref={mobileMenuRef}
-      className="w-80 bg-white h-1/2 px-6 py-4 mt-6 shadow-xl overflow-y-auto rounded-lg"
+      className="w-60 bg-white h-80 px-6 mt-6 shadow-xl overflow-y-auto rounded-lg"
     >
       {/* Close Button */}
       <div className="flex justify-end mb-4">
@@ -130,7 +130,7 @@ export default function Navbar() {
         <UseCasesDropdown />
 
         {/* Tool Buttons */}
-        <Link to="/manual-tools" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
           <Button variant="outline" className="w-full gap-2">
             <Settings2 className="h-4 w-4" />
             Manual Data Tools
@@ -146,7 +146,7 @@ export default function Navbar() {
 
         {/* Get Started Button */}
         <Button asChild className="w-full">
-          <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
+          <Link to="/demo-ai" onClick={() => setIsMobileMenuOpen(false)}>
             Get Started
           </Link>
         </Button>

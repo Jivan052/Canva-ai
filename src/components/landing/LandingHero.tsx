@@ -123,7 +123,7 @@ export default function LandingHero() {
             
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-10">
-              <Link to="/dashboard">
+              <Link to="/demo-ai">
                 <Button 
                   size="lg" 
                   className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"

@@ -133,7 +133,7 @@ export default function HROperations() {
                 Stop managing in the dark and start making strategic HR decisions with confidence.
               </p>
               <button 
-                onClick={() => window.location.href = '/dashboard'}
+                onClick={() => window.location.href = '/demo-ai'}
                 className="bg-white text-green-600 py-4 px-8 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-green-50 hover:scale-105 shadow-lg"
               >
                 Get an Instant AI Analysis
