@@ -80,7 +80,7 @@ export function trimWhitespace(
     // Get all non-null values for this column
     const values = data
       .map(row => row[col])
-      .filter(val => val !== null && val !== undefined && val !== '' && val !== 'null' && val !== 'NULL');
+      .filter(val => val !== null && val !== undefined && val !== '' && val !== 'null' && val !== 'NULL' && val !== 'N/A' && val !== 'n/a');
 
     // If no valid values found, set default to null
     if (values.length === 0) {
@@ -139,6 +139,13 @@ export function trimWhitespace(
           value === '' || 
           value === 'null' || 
           value === 'NULL' ||
+          value === 'N/A' ||
+          value === 'n/a' ||
+          value === 'undefined' ||
+          value === 'NaN' ||
+          value === 'nan' ||
+          value === 'None' ||
+          value === 'none' ||
           (typeof value === 'string' && value.trim() === '')) {
         newRow[col] = columnDefaults[col];
       }
