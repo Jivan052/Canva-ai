@@ -5,7 +5,8 @@ import { Separator } from "@/components/ui/separator";
 export default function HowItWorks() {
   const features = [
     {
-      image: "https://1e5dcb836f18f1acfca4290485cb7c8f.cdn.bubble.io/cdn-cgi/image/w=96,h=139,f=auto,dpr=1.5,fit=contain/f1692896443139x848319302730489200/AGE%20%282%29.png",
+      image: "https://cdn.iconscout.com/icon/premium/png-256-thumb/upload-data-2488607-2085698.png",
+
       alt: "Data Upload",
       title: "Easy Data Upload",
       description: "Drag and drop your Excel files or connect to Google Sheets in seconds"
@@ -14,22 +15,24 @@ export default function HowItWorks() {
       image: "https://cdn-icons-png.flaticon.com/512/10328/10328811.png",
       alt: "AI Analysis",
       title: "AI-Powered Analysis",
-      description: "DeepSeek R1 automatically analyzes your data and generates valuable insights"
+      description: "Automatically analyzes your data and generates valuable insights with Agentic AI"
     },
     {
-      image: "https://1e5dcb836f18f1acfca4290485cb7c8f.cdn.bubble.io/cdn-cgi/image/w=96,h=135,f=auto,dpr=1.5,fit=contain/f1692898761029x626197141845966500/AGE%20%2812%29.png",
+      image: "https://png.pngtree.com/png-clipart/20240826/original/pngtree-data-trends-and-analytics-3d-cartoon-icon-visualization-insights-isolated-on-png-image_15859244.png",
       alt: "Data Visualization",
       title: "Dynamic Visualizations",
-      description: "View your data through interactive charts and customizable dashboards"
+      description: "View your data through interactive charts and dashboards"
     },
     {
-      image: "https://1e5dcb836f18f1acfca4290485cb7c8f.cdn.bubble.io/cdn-cgi/image/w=96,h=132,f=auto,dpr=1.5,fit=contain/f1693321717307x561948489983081100/AGE%20%2831%29.png",
+      image: "https://www.vhv.rs/dpng/d/503-5033236_insights-png-transparent-png.png",
+
       alt: "Smart Insights",
       title: "Smart Insights",
       description: "Get automated recommendations and discover hidden patterns in your data"
     },
     {
-      image: "https://1e5dcb836f18f1acfca4290485cb7c8f.cdn.bubble.io/cdn-cgi/image/w=96,h=145,f=auto,dpr=1.5,fit=contain/f1693322449320x188185820792450050/AGE%20%2833%29.png",
+      image: "https://st4.depositphotos.com/18674256/21427/v/450/depositphotos_214276152-stock-illustration-dashboard-vector-icon-isolated-on.jpg",
+
       alt: "Export Results",
       title: "Export Results",
       description: "Download reports, charts, and insights in multiple formats for sharing"

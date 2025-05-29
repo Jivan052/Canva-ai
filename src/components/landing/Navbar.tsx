@@ -57,7 +57,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/#how-it-works" className="block text-sm  hover:scale-105 hover:font-bold hover:text-black/80">
+            <Link to="/#how-it-works" className="block text-sm  hover:scale-105 hover:font-bold hover:text-black/80  ">
 
                 How It Works
              </Link>
