@@ -2,6 +2,8 @@
  * Utility functions for transforming data
  */
 
+import { Columns } from "lucide-react";
+
 /**
  * Rename columns in the dataset
  * @param data The dataset to transform
@@ -403,6 +405,39 @@ export function convertDataTypes(
     return newRow;
   });
 }
+
+
+// RoundOff the columns
+export function roundValues(
+  data: Record<string, any>[],
+  columns: Array<{
+    column: string;
+    decimals?: number; // Optional: how many decimal places to round to
+  }>
+): Record<string, any>[] {
+  if (!data.length || !columns.length) return [...data];
+
+  return data.map(row => {
+    const newRow = { ...row };
+
+    columns.forEach(({ column, decimals = 2 }) => {
+      const value = newRow[column];
+
+      if (typeof value === 'number') {
+        const factor = Math.pow(10, decimals);
+        newRow[column] = Math.round(value * factor) / factor;
+      } else if (!isNaN(Number(value))) {
+        // Handle numeric strings
+        const numValue = Number(value);
+        const factor = Math.pow(10, decimals);
+        newRow[column] = Math.round(numValue * factor) / factor;
+      }
+    });
+
+    return newRow;
+  });
+}
+
 
 /**
  * Format date columns to a specified format
