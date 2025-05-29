@@ -40,6 +40,7 @@ export default function HowItWorks() {
   ];
 
   return (
+    <>
     <section id="how-it-works" className="py-20 px-6 md:px-10 bg-background/40 overflow-hidden relative">
       {/* Gradient backgrounds for visual interest */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent"></div>
@@ -123,5 +124,6 @@ export default function HowItWorks() {
         </div>
       </div>
     </section>
+    </>
   );
 }
