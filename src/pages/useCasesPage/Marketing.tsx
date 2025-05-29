@@ -112,9 +112,11 @@ export default function Marketing() {
               </div>
               <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-video flex items-center justify-center">
                 <div className="text-center">
-                  <Megaphone className="w-24 h-24 text-slate-400 mx-auto mb-4" />
-                  <p className="text-slate-500 text-lg font-medium">Interactive Marketing Dashboard</p>
-                  <p className="text-slate-400 text-sm">Real-time campaign analytics and insights</p>
+                  <img 
+                    src="https://res.cloudinary.com/djbjfsshe/image/upload/v1748537766/hr_ppnxvj.jpg" 
+                    alt="HR Dashboard Preview" 
+                    className="w-full h-auto rounded-lg shadow-lg"
+                  />
                 </div>
               </div>
             </div>
