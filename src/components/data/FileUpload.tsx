@@ -94,7 +94,9 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
 
     try {
       const response = await axios.post(
-        "https://karthikeya07.app.n8n.cloud/webhook-test/upload-dataset",
+
+        "https://allan30joseph.app.n8n.cloud/webhook/upload-dataset",
+
         formData
       );
       console.log("Response:", response.data);
@@ -138,7 +140,7 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
   const sendPromptToBackend = async (promptText: string) => {
     try {
       const response = await axios.post(
-        "https://allan30joseph.app.n8n.cloud/webhook-test/chat",
+        "https://allan30joseph.app.n8n.cloud/webhook/chat",
         {
           customPrompt: "average sales of each product",
           promptOnly: true // Flag to indicate this is a prompt-only request

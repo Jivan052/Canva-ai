@@ -1,6 +1,8 @@
 export const fetchBotReply = async (prompt: string): Promise<string> => {
   try {
-    const response = await fetch('https://karthikeya07.app.n8n.cloud/webhook-test/chat', {
+
+    const response = await fetch('https://allan30joseph.app.n8n.cloud/webhook/chat', {
+
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -13,7 +15,9 @@ export const fetchBotReply = async (prompt: string): Promise<string> => {
     }
 
     const data = await response.json();
-    return data.reply || 'Received response but no reply text was found.';
+    console.log(data)
+    return data.text || 'Received response but no reply text was found.';
+    
   } catch (error) {
     console.error('Error sending prompt:', error);
     return 'Sorry, there was an error reaching the server.';
