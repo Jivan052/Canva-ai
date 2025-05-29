@@ -100,7 +100,7 @@ export default function Navbar() {
   <div className="fixed inset-0 bg-black/30 z-40 flex justify-end md:hidden">
     <div
       ref={mobileMenuRef}
-      className="w-80 bg-white h-1/2 px-6 py-4 mt-6 shadow-xl overflow-y-auto rounded-lg"
+      className="w-60 bg-white h-80 px-6 mt-6 shadow-xl overflow-y-auto rounded-lg"
     >
       {/* Close Button */}
       <div className="flex justify-end mb-4">
