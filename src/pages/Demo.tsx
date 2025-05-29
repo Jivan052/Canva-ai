@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { FileSpreadsheet, BarChart, PieChart, LineChart } from "lucide-react";
 import { ChatbotWidget } from "./ChatbotWidget";
 import { useInsight } from "@/contexts/InsightContext";
+import { fetchBotReply } from "./fetchBotReply";
 
 
 const DemoAi = () => {
@@ -279,7 +280,7 @@ const DemoAi = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <ChatbotWidget onSendPrompt={handleChatPrompt} />
+                <ChatbotWidget onSendPrompt={fetchBotReply} />
               </CardContent>
             </Card>
           </TabsContent>

@@ -7,6 +7,7 @@ import axios from "axios";
 import { csvToJson } from "@/lib/utils/fileHelpers";
 import { useInsight } from "@/contexts/InsightContext";
 import { Spinner, ProcessingOverlay } from "@/components/ui/Spinner";
+import { useRef } from "react";
 
 interface FileUploadProps {
   onFileAnalyze?: (file: File, prompt: string) => Promise<void>;
@@ -24,6 +25,7 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
   const { toast } = useToast();
 
   const { setDataInsights } = useInsight();
+  const promptInputRef = useRef<HTMLTextAreaElement>(null);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -77,9 +79,12 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
   };
 
   const sendFileToBackend = async (file: File) => {
+    // Get the current prompt value from the ref
+    const currentPrompt = promptInputRef.current?.value || prompt;
+    
     const formData = new FormData();
     formData.append("file", file);
-    formData.append('customPrompt', prompt || 'what is average quantityordered');
+    formData.append('customPrompt', currentPrompt || 'what is average quantityordered');
 
     setIsUploading(true);
     setProcessingStatus("Uploading file...");
@@ -89,7 +94,7 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
 
     try {
       const response = await axios.post(
-        "https://allan30joseph.app.n8n.cloud/webhook/upload-dataset",
+        "https://allan30joseph.app.n8n.cloud/webhook-test/upload-dataset",
         formData
       );
       console.log("Response:", response.data);
@@ -130,6 +135,35 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
     }
   };
 
+  const sendPromptToBackend = async (promptText: string) => {
+    try {
+      const response = await axios.post(
+        "https://allan30joseph.app.n8n.cloud/webhook-test/chat",
+        {
+          customPrompt: "average sales of each product",
+          promptOnly: true // Flag to indicate this is a prompt-only request
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      
+      console.log("Prompt response:", response.data);
+      
+      // Process response if needed
+      if (response.data && response.data.output) {
+        setDataInsights(response.data.output);
+      }
+      
+      return response.data;
+    } catch (error) {
+      console.error("Prompt send failed:", error);
+      throw error;
+    }
+  };
+
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
@@ -160,7 +194,10 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
   };
 
   const handleAnalyzeOrSend = async () => {
-    if (!prompt.trim() && !file) {
+    // Get the current prompt value from the ref
+    const currentPrompt = promptInputRef.current?.value || prompt;
+    
+    if (!currentPrompt.trim() && !file) {
       toast({
         title: "Input required",
         description: "Please enter a prompt or upload a file",
@@ -180,10 +217,10 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
         setProcessingStatus("Processing prompt...");
         
         if (onPromptSend) {
-          await onPromptSend(prompt);
+          await onPromptSend(currentPrompt);
         } else {
-          // Simulate processing
-          await new Promise(resolve => setTimeout(resolve, 1500));
+          // Send prompt to n8n backend
+          await sendPromptToBackend(currentPrompt);
         }
         
         toast({
@@ -194,6 +231,9 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
       
       // Clear prompt after successful submission
       setPrompt("");
+      if (promptInputRef.current) {
+        promptInputRef.current.value = "";
+      }
       
     } catch (error) {
       toast({
@@ -203,6 +243,15 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
       });
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  const handlePromptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setPrompt(value);
+    // Sync the ref value with state
+    if (promptInputRef.current) {
+      promptInputRef.current.value = value;
     }
   };
 
@@ -288,11 +337,12 @@ export function FileUpload({ onFileAnalyze, onPromptSend }: FileUploadProps) {
         {(file || hasAnalyzedFile) && (
           <div className="mt-4">
             <label className="block text-sm font-medium mb-2">
-              {hasAnalyzedFile ? "Send another prompt:" : "Enter your prompt for analysis:"}
+              {hasAnalyzedFile ? "Send another prompt:" : "prompt "}
             </label>
             <textarea
+              ref={promptInputRef}
               value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
+              onChange={handlePromptChange}
               placeholder="Enter your prompt here..."
               className="w-full p-3 border rounded-md resize-vertical min-h-20"
               disabled={isUploading}
