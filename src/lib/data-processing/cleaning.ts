@@ -74,13 +74,43 @@ export function trimWhitespace(
   if (targetColumns.length === 0) return data;
 
   const columnDefaults: Record<string, any> = {};
+  const columnsToKeep: string[] = [];
+  const totalRows = data.length;
 
-  // Calculate replacement values for each column
+  // First pass: Check null percentage and decide which columns to keep/process
   for (const col of targetColumns) {
+    // Count null values in this column
+    const nullCount = data.filter(row => {
+      const value = row[col];
+      return value === null || 
+             value === undefined || 
+             value === '' || 
+             value === 'null' || 
+             value === 'NULL' ||
+             value === 'N/A' ||
+             value === 'n/a' ||
+             value === 'undefined' ||
+             value === 'NaN' ||
+             value === 'nan' ||
+             value === 'None' ||
+             value === 'none' ||
+             (typeof value === 'string' && value.trim() === '');
+    }).length;
+
+    const nullPercentage = (nullCount / totalRows) * 100;
+
+    // If 70% or more nulls, skip this column (it will be removed)
+    if (nullPercentage >= 70) {
+      continue;
+    }
+
+    // Column has less than 70% nulls, so keep it and calculate replacement values
+    columnsToKeep.push(col);
+
     // Get all non-null values for this column
     const values = data
       .map(row => row[col])
-      .filter(val => val !== null && val !== undefined && val !== '' && val !== 'null' && val !== 'NULL' && val !== 'N/A' && val !== 'n/a');
+      .filter(val => val !== null && val !== undefined && val !== '' && val !== 'null' && val !== 'NULL' && val !== 'N/A' && val !== 'n/a' && val !== 'undefined' && val !== 'NaN' && val !== 'nan' && val !== 'None' && val !== 'none' && !(typeof val === 'string' && val.trim() === ''));
 
     // If no valid values found, set default to null
     if (values.length === 0) {
@@ -126,12 +156,13 @@ export function trimWhitespace(
     }
   }
 
-  // Replace null values in the data
+  // Replace null values in the data and remove columns with 70%+ nulls
   return data.map(row => {
-    const newRow = { ...row };
+    const newRow: Record<string, any> = {};
     
-    for (const col of targetColumns) {
-      const value = newRow[col];
+    // Only keep columns that have less than 70% null values
+    for (const col of columnsToKeep) {
+      const value = row[col];
       
       // Check for various null representations
       if (value === null || 
@@ -148,44 +179,11 @@ export function trimWhitespace(
           value === 'none' ||
           (typeof value === 'string' && value.trim() === '')) {
         newRow[col] = columnDefaults[col];
+      } else {
+        newRow[col] = value;
       }
     }
     
-    return newRow;
-  });
-}
-
-
-
-
-/**
- * Drop columns that are empty (all values are null or empty string)
- * @param data Array of data objects
- * @returns Data with empty columns removed
- */
-export function dropEmptyColumns(
-  data: Record<string, any>[]
-): Record<string, any>[] {
-  if (data.length === 0) return [];
-  
-  const columns = Object.keys(data[0]);
-  const emptyColumns = columns.filter(col => {
-    return data.every(row => 
-      row[col] === null || 
-      row[col] === undefined || 
-      row[col] === ''
-    );
-  });
-  
-  if (emptyColumns.length === 0) {
-    return data;
-  }
-  
-  return data.map(row => {
-    const newRow = { ...row };
-    emptyColumns.forEach(col => {
-      delete newRow[col];
-    });
     return newRow;
   });
 }

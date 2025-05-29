@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { FileUpload } from "@/components/data/FileUpload";
 import { GoogleSheetConnect } from "@/components/data/GoogleSheetConnect";
 import { InsightCard } from "@/components/insights/InsightCard";
@@ -8,29 +8,120 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDataAnalysis } from "@/hooks/useDataAnalysis";
 import { Button } from "@/components/ui/button";
-import { FileSpreadsheet, BarChart, PieChart, LineChart } from "lucide-react";
+import { FileSpreadsheet, BarChart, PieChart, LineChart, Download, Loader2 } from "lucide-react";
 import  ChatbotWidget  from "./ChatbotWidget";
 import { useInsight } from "@/contexts/InsightContext";
 import { fetchBotReply } from "./fetchBotReply";
 
-
 const DemoAi = () => {
   const [activeTab, setActiveTab] = useState("upload");
   const { dataInsights } = useInsight();
- 
-
   const [chatMessagesData, setChatMessagesData] = useState([]);
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+  const chartsRef = useRef(null);
 
+  // Function to generate and download PDF
+  const downloadChartsAsPDF = async () => {
+    if (!chartData?.charts || chartData.charts.length === 0) {
+      alert("No charts available to download");
+      return;
+    }
+
+    setIsGeneratingPDF(true);
+    
+    try {
+      // Dynamic import of html2canvas and jsPDF
+      const html2canvas = (await import('html2canvas')).default;
+      const jsPDF = (await import('jspdf')).default;
+      
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 10;
+      
+      // Add title page
+      pdf.setFontSize(20);
+      pdf.text('Data Visualization Report', margin, 30);
+      pdf.setFontSize(12);
+      pdf.text(`Generated on: ${new Date().toLocaleDateString()}`, margin, 45);
+      pdf.text(`Total Charts: ${chartData.charts.length}`, margin, 55);
+      
+      // Get all chart elements
+      const chartElements = chartsRef.current?.querySelectorAll('[data-chart-container]');
+      
+      if (chartElements && chartElements.length > 0) {
+        for (let i = 0; i < chartElements.length; i++) {
+          const element = chartElements[i];
+          
+          // Add new page for each chart (except first)
+          if (i > 0) {
+            pdf.addPage();
+          } else {
+            // For first chart, add some space after title
+            pdf.text('', margin, 70);
+          }
+          
+          // Capture the chart element
+          const canvas = await html2canvas(element, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff'
+          });
+          
+          const imgData = canvas.toDataURL('image/png');
+          
+          // Calculate dimensions to fit the page
+          const imgWidth = pageWidth - (margin * 2);
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+          
+          // Add chart title
+          const chartTitle = chartData.charts[i]?.title || `Chart ${i + 1}`;
+          pdf.setFontSize(16);
+          pdf.text(chartTitle, margin, i === 0 ? 80 : 30);
+          
+          // Add chart image
+          const yPosition = i === 0 ? 90 : 40;
+          if (imgHeight <= pageHeight - yPosition - margin) {
+            pdf.addImage(imgData, 'PNG', margin, yPosition, imgWidth, imgHeight);
+          } else {
+            // If image is too tall, scale it down
+            const scaledHeight = pageHeight - yPosition - margin;
+            const scaledWidth = (canvas.width * scaledHeight) / canvas.height;
+            pdf.addImage(imgData, 'PNG', margin, yPosition, scaledWidth, scaledHeight);
+          }
+          
+          // Add description if available
+          const description = chartData.charts[i]?.description;
+          if (description && description.length > 0) {
+            pdf.setFontSize(10);
+            const descY = yPosition + Math.min(imgHeight, pageHeight - yPosition - margin) + 10;
+            if (descY < pageHeight - margin) {
+              // Split long descriptions into multiple lines
+              const splitDescription = pdf.splitTextToSize(description, pageWidth - (margin * 2));
+              pdf.text(splitDescription, margin, descY);
+            }
+          }
+        }
+      }
+      
+      // Save the PDF
+      pdf.save(`data-visualizations-${new Date().toISOString().split('T')[0]}.pdf`);
+      
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Error generating PDF. Please try again.');
+    } finally {
+      setIsGeneratingPDF(false);
+    }
+  };
   
   // Transform dataInsights into chart data format
- 
   const transformDataForCharts = () => {
     if (!dataInsights || !Array.isArray(dataInsights) || dataInsights.length === 0) return null;
     
     const charts = [];
     const metrics = [];
-
- 
     
     dataInsights.forEach((insight, insightIndex) => {
       if (insight.visualization?.charts) {
@@ -178,22 +269,21 @@ const DemoAi = () => {
           </TabsContent>
           
           <TabsContent value="insights" className="space-y-6 mt-6">
-
-              {/* Display metrics cards */}
-                {chartData?.metrics && chartData.metrics.length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {chartData.metrics.map((metric, index) => (
-                      <Card key={index}>
-                        <CardContent className="p-6">
-                          <div className="text-2xl font-bold">
-                            {metric.unit === '₹' ? '₹' : ''}{metric.value.toLocaleString()}{metric.unit === '%' ? '%' : ''}
-                          </div>
-                          <p className="text-sm text-muted-foreground">{metric.title}</p>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                )}
+            {/* Display metrics cards */}
+            {chartData?.metrics && chartData.metrics.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {chartData.metrics.map((metric, index) => (
+                  <Card key={index}>
+                    <CardContent className="p-6">
+                      <div className="text-2xl font-bold">
+                        {metric.unit === '₹' ? '₹' : ''}{metric.value.toLocaleString()}{metric.unit === '%' ? '%' : ''}
+                      </div>
+                      <p className="text-sm text-muted-foreground">{metric.title}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
 
             {dataInsights && Array.isArray(dataInsights) && dataInsights.length > 0 ? (
               <>
@@ -209,7 +299,6 @@ const DemoAi = () => {
                   ))}
                 </div>
               
-                
                 {/* Display dynamic charts */}
                 {chartData?.charts && chartData.charts.length > 0 && (
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -245,19 +334,44 @@ const DemoAi = () => {
           
           <TabsContent value="visualize" className="space-y-6 mt-6">
             {chartData?.charts && chartData.charts.length > 0 ? (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {chartData.charts.map((chart) => (
-                  <DataChart
-                    key={`viz-${chart.id}`}
-                    title={chart.title}
-                    description={chart.description}
-                    data={chart.data}
-                    type={chart.type}
-                    xKey={chart.xKey}
-                    yKeys={chart.yKeys}
-                  />
-                ))}
-              </div>
+              <>
+                {/* Download Button */}
+                <div className="flex justify-end mb-6">
+                  <Button 
+                    onClick={downloadChartsAsPDF}
+                    disabled={isGeneratingPDF}
+                    className="flex items-center gap-2"
+                  >
+                    {isGeneratingPDF ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Generating PDF...
+                      </>
+                    ) : (
+                      <>
+                        <Download className="h-4 w-4" />
+                        Download PDF
+                      </>
+                    )}
+                  </Button>
+                </div>
+                
+                {/* Charts Container */}
+                <div ref={chartsRef} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {chartData.charts.map((chart) => (
+                    <div key={`viz-${chart.id}`} data-chart-container>
+                      <DataChart
+                        title={chart.title}
+                        description={chart.description}
+                        data={chart.data}
+                        type={chart.type}
+                        xKey={chart.xKey}
+                        yKeys={chart.yKeys}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </>
             ) : (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="mb-4 p-4 rounded-full bg-secondary">
@@ -283,12 +397,11 @@ const DemoAi = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-       <ChatbotWidget
-  messagesData={chatMessagesData}
-  onSendPrompt={fetchBotReply}
-  onUpdateMessagesData={setChatMessagesData}
-/>
-
+                <ChatbotWidget
+                  messagesData={chatMessagesData}
+                  onSendPrompt={fetchBotReply}
+                  onUpdateMessagesData={setChatMessagesData}
+                />
               </CardContent>
             </Card>
           </TabsContent>
