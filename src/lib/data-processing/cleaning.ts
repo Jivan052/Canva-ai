@@ -63,51 +63,127 @@ export function trimWhitespace(
  * @param columns Columns to check for nulls (if not provided, all columns are checked)
  * @returns Filtered data array
  */
-export function removeNullRows(
+ export function removeNullRows(
   data: Record<string, any>[],
-  columns?: string[]
+  columnsToReplace?: string[]
 ): Record<string, any>[] {
-  if (data.length === 0) return [];
+  if (!Array.isArray(data) || data.length === 0) return [];
   
-  const columnsToCheck = columns || Object.keys(data[0]);
-  
-  return data.filter(row => {
-    return columnsToCheck.every(col => 
-      row[col] !== null && 
-      row[col] !== undefined && 
-      row[col] !== ''
-    );
-  });
-}
+  // If no specific columns provided, check all columns
+  const targetColumns = columnsToReplace || Object.keys(data[0] || {});
+  if (targetColumns.length === 0) return data;
 
-/**
- * Drop columns that are empty (all values are null or empty string)
- * @param data Array of data objects
- * @returns Data with empty columns removed
- */
-export function dropEmptyColumns(
-  data: Record<string, any>[]
-): Record<string, any>[] {
-  if (data.length === 0) return [];
-  
-  const columns = Object.keys(data[0]);
-  const emptyColumns = columns.filter(col => {
-    return data.every(row => 
-      row[col] === null || 
-      row[col] === undefined || 
-      row[col] === ''
-    );
-  });
-  
-  if (emptyColumns.length === 0) {
-    return data;
-  }
-  
-  return data.map(row => {
-    const newRow = { ...row };
-    emptyColumns.forEach(col => {
-      delete newRow[col];
+  const columnDefaults: Record<string, any> = {};
+  const columnsToKeep: string[] = [];
+  const totalRows = data.length;
+
+  // First pass: Check null percentage and decide which columns to keep/process
+  for (const col of targetColumns) {
+    // Count null values in this column
+    const nullCount = data.filter(row => {
+      const value = row[col];
+      return value === null || 
+             value === undefined || 
+             value === '' || 
+             value === 'null' || 
+             value === 'NULL' ||
+             value === 'N/A' ||
+             value === 'n/a' ||
+             value === 'undefined' ||
+             value === 'NaN' ||
+             value === 'nan' ||
+             value === 'None' ||
+             value === 'none' ||
+             (typeof value === 'string' && value.trim() === '');
+    }).length;
+
+    const nullPercentage = (nullCount / totalRows) * 100;
+
+    // If 70% or more nulls, skip this column (it will be removed)
+    if (nullPercentage >= 70) {
+      continue;
+    }
+
+    // Column has less than 70% nulls, so keep it and calculate replacement values
+    columnsToKeep.push(col);
+
+    // Get all non-null values for this column
+    const values = data
+      .map(row => row[col])
+      .filter(val => val !== null && val !== undefined && val !== '' && val !== 'null' && val !== 'NULL' && val !== 'N/A' && val !== 'n/a' && val !== 'undefined' && val !== 'NaN' && val !== 'nan' && val !== 'None' && val !== 'none' && !(typeof val === 'string' && val.trim() === ''));
+
+    // If no valid values found, set default to null
+    if (values.length === 0) {
+      columnDefaults[col] = null;
+      continue;
+    }
+
+    const sample = values[0];
+
+    // Check if column is numeric
+    const isNumeric = values.every(val => {
+      const num = Number(val);
+      return !isNaN(num) && isFinite(num);
     });
+
+    if (isNumeric) {
+      // Calculate mean for numeric columns
+      const numericValues = values.map(Number);
+      const mean = numericValues.reduce((acc, val) => acc + val, 0) / numericValues.length;
+      
+      // Round to 2 decimal places to avoid floating point precision issues
+      columnDefaults[col] = Math.round(mean * 100) / 100;
+    } else {
+      // Calculate mode for categorical columns
+      const freqMap = new Map<any, number>();
+      
+      for (const val of values) {
+        const key = String(val).trim(); // Convert to string and trim whitespace
+        freqMap.set(key, (freqMap.get(key) || 0) + 1);
+      }
+
+      let mode = values[0];
+      let maxCount = 0;
+      
+      for (const [key, count] of freqMap.entries()) {
+        if (count > maxCount) {
+          maxCount = count;
+          mode = key;
+        }
+      }
+
+      columnDefaults[col] = mode;
+    }
+  }
+
+  // Replace null values in the data and remove columns with 70%+ nulls
+  return data.map(row => {
+    const newRow: Record<string, any> = {};
+    
+    // Only keep columns that have less than 70% null values
+    for (const col of columnsToKeep) {
+      const value = row[col];
+      
+      // Check for various null representations
+      if (value === null || 
+          value === undefined || 
+          value === '' || 
+          value === 'null' || 
+          value === 'NULL' ||
+          value === 'N/A' ||
+          value === 'n/a' ||
+          value === 'undefined' ||
+          value === 'NaN' ||
+          value === 'nan' ||
+          value === 'None' ||
+          value === 'none' ||
+          (typeof value === 'string' && value.trim() === '')) {
+        newRow[col] = columnDefaults[col];
+      } else {
+        newRow[col] = value;
+      }
+    }
+    
     return newRow;
   });
 }

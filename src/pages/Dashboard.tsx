@@ -199,7 +199,7 @@ export default function Dashboard() {
             
                 <BarChart2 className="text-white w-5 h-5" />
               </div>
-            <span className="font-bold text-lg">AI Data Canvas</span>
+            <span className="font-bold text-lg">QueryBee</span>
             </Link>
           </div>
           
@@ -376,7 +376,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <h2 className="text-xl md:text-2xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-                  Welcome to AI Data Canvas
+                  Welcome to QueryBee
                 </h2>
                 <p className="mb-8 text-muted-foreground">
                   Import a dataset to get started with AI-powered data cleaning and transformation.

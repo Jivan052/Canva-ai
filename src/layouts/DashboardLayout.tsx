@@ -56,7 +56,7 @@ export function DashboardLayout({
               <div className="w-8 h-8 bg-black rounded-md flex items-center justify-center">
                 <BarChart2 className="text-white w-5 h-5" />
               </div>
-              <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">AI Data Canvas</span>
+              <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">QueryBee</span>
             </Link>
           </div>
 

@@ -50,7 +50,7 @@ export default function Navbar() {
                     <BarChart2 className="text-white w-5 h-5" />
                 </div>
                 <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-                    DataCamel
+                    QueryBee
                 </span>
             </Link>
         </div>

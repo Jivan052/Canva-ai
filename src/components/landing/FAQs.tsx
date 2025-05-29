@@ -15,24 +15,24 @@ export default function FAQs() {
 
   const faqs = [
     {
-      question: "What types of data does DataCamel support?",
-      answer: "DataCamel supports a wide variety of data formats including Excel files (.xlsx, .xls), CSV files, Google Sheets, and direct database connections. We can handle structured data from sales reports, financial statements, customer databases, inventory systems, and more."
+      question: "What types of data does QueryBee support?",
+      answer: "QueryBee supports a wide variety of data formats including Excel files (.xlsx, .xls), CSV files, Google Sheets, and direct database connections. We can handle structured data from sales reports, financial statements, customer databases, inventory systems, and more."
     },
     {
       question: "Can I connect my data and set automatic updates on it?",
-      answer: "Yes! DataCamel offers seamless integration with popular data sources like Google Sheets, databases, and cloud storage. You can set up automatic data refreshes to ensure your insights are always up-to-date without manual intervention."
+      answer: "Yes! QueryBee offers seamless integration with popular data sources like Google Sheets, databases, and cloud storage. You can set up automatic data refreshes to ensure your insights are always up-to-date without manual intervention."
     },
     {
       question: "Can I analyze spreadsheets with multiple tabs?",
-      answer: "Absolutely! DataCamel can process and analyze complex Excel workbooks with multiple sheets and tabs. Our AI automatically detects relationships between different sheets and provides comprehensive analysis across all your data."
+      answer: "Absolutely! QueryBee can process and analyze complex Excel workbooks with multiple sheets and tabs. Our AI automatically detects relationships between different sheets and provides comprehensive analysis across all your data."
     },
     {
       question: "What is the onboarding process?",
       answer: "Getting started is simple: 1) Sign up for your account, 2) Upload your data or connect your data sources, 3) Let our AI analyze and clean your data, 4) Review automated insights and visualizations, 5) Customize dashboards to your needs. The entire process takes just minutes!"
     },
     {
-      question: "Can my non-tech business teams use DataCamel without prior training, unlike Tableau or Power BI?",
-      answer: "Yes! DataCamel is designed specifically for non-technical users. Unlike complex tools like Tableau or Power BI that require extensive training, DataCamel's AI handles the technical complexity automatically, providing insights in plain English that anyone can understand and act upon."
+      question: "Can my non-tech business teams use QueryBee without prior training, unlike Tableau or Power BI?",
+      answer: "Yes! QueryBee is designed specifically for non-technical users. Unlike complex tools like Tableau or Power BI that require extensive training, DataCamel's AI handles the technical complexity automatically, providing insights in plain English that anyone can understand and act upon."
     },
     {
       question: "Why do you emphasize so much on Cleaning Datasets prior to analysis?",
@@ -67,7 +67,7 @@ export default function FAQs() {
           </h2>
           
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to know about DataSquirrel. Can't find the answer you're looking for?{' '}
+            Everything you need to know about QueryBee. Can't find the answer you're looking for?{' '}
             <span className="text-primary font-medium underline underline-offset-4 cursor-pointer hover:text-primary/80 transition-colors">
               Reach out to our team
             </span>.
