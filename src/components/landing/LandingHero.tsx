@@ -163,32 +163,12 @@ export default function LandingHero() {
                 onMouseLeave={handleVideoLeave}
                 onClick={handleVideoClick}
               >
-                <video 
-                  ref={videoRef}
+                <img 
+                  src="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp" 
+                  alt="Data Analytics Dashboard"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  muted
-                  loop
-                  playsInline
-                  poster="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp"
-                >
-                  {/* Add your video source here */}
-                  <source src="https://www.youtube.com/watch?v=vfdleG_BQZg" />
-                  {/* Fallback image if video fails */}
-                  <img 
-                    src="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp" 
-                    alt="Data Analytics Dashboard"
-                    className="w-full h-full object-cover"
-                  />
-                </video>
+                />
                 
-                {/* Play button overlay */}
-                {showPlayButton && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-opacity duration-300">
-                    <div className="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
-                      <Play className="w-6 h-6 text-primary ml-1" />
-                    </div>
-                  </div>
-                )}
                 
                 {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
