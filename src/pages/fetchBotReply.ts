@@ -1,6 +1,6 @@
 export const fetchBotReply = async (prompt: string): Promise<string> => {
   try {
-    const response = await fetch('https://allan30joseph.app.n8n.cloud/webhook-test/chat', {
+    const response = await fetch('https://karthikeya07.app.n8n.cloud/webhook-test/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
