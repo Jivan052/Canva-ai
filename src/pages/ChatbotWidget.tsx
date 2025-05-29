@@ -13,7 +13,7 @@ const renderMarkdown = (text) => {
 };
 
 // Mock UI components
-const Button = ({ children, onClick, disabled, size, className, ...props }) => {
+const Button = ({ children, onClick, disabled, size, className = '', ...props }) => {
   const baseClasses = "inline-flex items-center justify-center rounded-md font-medium transition-colors";
   const sizeClasses = { icon: "h-9 w-9", default: "h-9 px-4 py-2" };
   const disabledClasses = disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700 cursor-pointer";
