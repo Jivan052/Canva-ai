@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -38,7 +37,7 @@ export function DataChart({
   type = "line",
   xKey,
   yKeys,
-  colors = ["#000000", "#666666", "#999999", "#cccccc"],
+  colors = ["#2563eb", "#16a34a", "#dc2626", "#ea580c", "#7c3aed", "#0891b2", "#be185d"], // Multi-color palette
 }: DataChartProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -144,7 +143,7 @@ export function DataChart({
                 cy="50%"
                 labelLine={false}
                 outerRadius={100}
-                fill="#8884d8"
+                fill="#2563eb"
                 dataKey="value"
                 onMouseEnter={(_, index) => setActiveIndex(index)}
               >
