@@ -247,33 +247,39 @@ export default function Dashboard() {
                   <ChevronRight className="h-3 w-3 ml-0 xs:ml-1 opacity-70" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuLabel>Import Data</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild className="cursor-pointer">
                   <label className="flex w-full items-center cursor-pointer">
-                    <FileSpreadsheet className="mr-2 h-4 w-4" />
-                    CSV File
-                    <input
-                      type="file"
-                      accept=".csv"
-                      className="sr-only"
-                      onChange={handleFileUpload}
-                      onClick={(e) => e.stopPropagation()}
-                    />
+                  <FileSpreadsheet className="mr-2 h-4 w-4" />
+                  CSV File
+                  <input
+                    type="file"
+                    accept=".csv"
+                    className="sr-only"
+                    onChange={(e) => {
+                    console.log('CSV file selected:', e.target.files?.[0]);
+                    handleFileUpload(e);
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  />
                   </label>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="cursor-pointer">
                   <label className="flex w-full items-center cursor-pointer">
-                    <Database className="mr-2 h-4 w-4" />
-                    JSON File
-                    <input
-                      type="file"
-                      accept=".json"
-                      className="sr-only"
-                      onChange={handleFileUpload}
-                      onClick={(e) => e.stopPropagation()}
-                    />
+                  <Database className="mr-2 h-4 w-4" />
+                  JSON File
+                  <input
+                    type="file"
+                    accept=".json"
+                    className="sr-only"
+                    onChange={(e) => {
+                    console.log('JSON file selected:', e.target.files?.[0]);
+                    handleFileUpload(e);
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  />
                   </label>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -444,6 +450,7 @@ export default function Dashboard() {
       {isInitialized && (
         <div className="md:hidden border-t bg-card/90 backdrop-blur-sm shadow-[0_-2px_5px_rgba(0,0,0,0.05)]">
           <div className="grid grid-cols-3 p-2 gap-2">
+
             
             <Sheet>
               <SheetTrigger asChild>

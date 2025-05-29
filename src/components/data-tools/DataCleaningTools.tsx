@@ -43,6 +43,10 @@ export function DataCleaningTools() {
   const [textCaseOpen, setTextCaseOpen] = useState(false);
   const [specialCharsOpen, setSpecialCharsOpen] = useState(false);
   const [findReplaceOpen, setFindReplaceOpen] = useState(false);
+  const [dateFormatOpen, setDateFormatOpen] = useState(false);
+  const [dateFormat, setDateFormat] = useState<'ISO' | 'US' | 'EU' | 'custom'>('ISO');
+  const [customFormat, setCustomFormat] = useState("yyyy-MM-dd");
+  
   
   // State for form values
   const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
@@ -53,6 +57,21 @@ export function DataCleaningTools() {
   const [replaceValue, setReplaceValue] = useState("");
   const [caseSensitive, setCaseSensitive] = useState(true);
   const [pattern, setPattern] = useState("[^a-zA-Z0-9 ]");
+
+
+    const handleDateFormatSubmit = () => {
+    if (selectedColumns.length === 0) return;
+    
+    clean.standardizeDateFormat(
+      selectedColumns,
+      dateFormat,
+      dateFormat === 'custom' ? customFormat : undefined
+    );
+    
+    setDateFormatOpen(false);
+    setSelectedColumns([]);
+  };
+
 
   const handleRemoveDuplicates = () => {
     clean.removeDuplicates();
@@ -396,13 +415,89 @@ export function DataCleaningTools() {
         </Dialog>
         
         {/* Placeholder for other operations */}
-        <OperationButton
-          icon={CalendarClock}
-          label="Fix Date Format"
-          description="Standardize date formats"
-          disabled={true}
-          tooltip="Coming soon"
-        />
+        {/* Date Format Standardization Dialog */}
+        <Dialog open={dateFormatOpen} onOpenChange={setDateFormatOpen}>
+          <DialogTrigger asChild>
+            <OperationButton
+              icon={CalendarClock}
+              label="Fix Date Format"
+              description="Standardize date formats"
+              disabled={isProcessing}
+            />
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Standardize Date Format</DialogTitle>
+              <DialogDescription>
+                Convert dates in selected columns to a consistent format.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div>
+                <Label htmlFor="columns">Select date columns</Label>
+                <ColumnSelector
+                  columns={columns}
+                  selectedColumns={selectedColumns}
+                  onSelectedColumnsChange={setSelectedColumns}
+                  className="mt-1"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="dateFormat">Date format</Label>
+                <Select
+                  value={dateFormat}
+                  onValueChange={(value) => setDateFormat(value as any)}
+                >
+                  <SelectTrigger id="dateFormat">
+                    <SelectValue placeholder="Select date format" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ISO">ISO (YYYY-MM-DD)</SelectItem>
+                    <SelectItem value="US">US (MM/DD/YYYY)</SelectItem>
+                    <SelectItem value="EU">European (DD/MM/YYYY)</SelectItem>
+                    <SelectItem value="custom">Custom Format</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              {dateFormat === "custom" && (
+                <div className="grid gap-2">
+                  <Label htmlFor="customFormat">Custom format</Label>
+                  <Input
+                    id="customFormat"
+                    value={customFormat}
+                    onChange={(e) => setCustomFormat(e.target.value)}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Use: yyyy (year), MM (month), dd (day), M (month without leading zero), d (day without leading zero)
+                  </p>
+                </div>
+              )}
+              <div className="text-sm text-muted-foreground bg-muted p-3 rounded-md">
+                <p className="font-medium mb-1">Format examples:</p>
+                <ul className="space-y-1">
+                  <li><span className="font-mono">ISO:</span> 2023-04-25</li>
+                  <li><span className="font-mono">US:</span> 04/25/2023</li>
+                  <li><span className="font-mono">EU:</span> 25/04/2023</li>
+                  <li><span className="font-mono">Custom:</span> as specified</li>
+                </ul>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button 
+                variant="outline" 
+                onClick={() => setDateFormatOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button 
+                onClick={handleDateFormatSubmit}
+                disabled={selectedColumns.length === 0}
+              >
+                Apply
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
       
       <Card>

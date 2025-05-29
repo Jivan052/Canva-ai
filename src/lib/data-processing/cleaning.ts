@@ -296,3 +296,79 @@ export function findAndReplace(
     return newRow;
   });
 }
+
+/**
+ * Standardize date formats in specified columns
+ * @param data Array of data objects
+ * @param columns Columns containing dates to format
+ * @param targetFormat Target date format ('ISO', 'US', 'EU', 'custom')
+ * @param customFormat Custom format string (e.g., 'yyyy-MM-dd') when targetFormat is 'custom'
+ * @returns Data with standardized date formats
+ */
+export function standardizeDateFormat(
+  data: Record<string, any>[],
+  columns: string[],
+  targetFormat: 'ISO' | 'US' | 'EU' | 'custom' = 'ISO',
+  customFormat?: string
+): Record<string, any>[] {
+  if (data.length === 0) return [];
+
+  const formatDate = (dateValue: any): string => {
+    if (!dateValue || dateValue === '') return dateValue;
+    
+    let date: Date;
+    
+    // Try to parse the date
+    if (dateValue instanceof Date) {
+      date = dateValue;
+    } else {
+      date = new Date(dateValue);
+    }
+    
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      return dateValue; // Return original value if can't parse
+    }
+    
+    // Format based on target format
+    switch (targetFormat) {
+      case 'ISO':
+        return date.toISOString().split('T')[0]; // YYYY-MM-DD
+      case 'US':
+        return date.toLocaleDateString('en-US'); // MM/DD/YYYY
+      case 'EU':
+        return date.toLocaleDateString('en-GB'); // DD/MM/YYYY
+      case 'custom':
+        if (!customFormat) return date.toISOString().split('T')[0];
+        return formatCustomDate(date, customFormat);
+      default:
+        return date.toISOString().split('T')[0];
+    }
+  };
+
+  const formatCustomDate = (date: Date, format: string): string => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    return format
+      .replace(/yyyy/g, year.toString())
+      .replace(/MM/g, month)
+      .replace(/dd/g, day)
+      .replace(/yy/g, year.toString().slice(-2))
+      .replace(/M/g, (date.getMonth() + 1).toString())
+      .replace(/d/g, date.getDate().toString());
+  };
+
+  return data.map(row => {
+    const newRow = { ...row };
+    
+    columns.forEach(col => {
+      if (newRow[col] !== null && newRow[col] !== undefined) {
+        newRow[col] = formatDate(newRow[col]);
+      }
+    });
+    
+    return newRow;
+  });
+}
