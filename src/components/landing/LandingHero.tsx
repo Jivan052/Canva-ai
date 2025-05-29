@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight, Sparkles, Play, TrendingUp, Zap } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { ArrowRight, Sparkles, TrendingUp, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-// import { Link } from "react-router-dom"; // Uncomment when using in your project
 
 export default function LandingHero() {
   const [isVisible, setIsVisible] = useState(false);
   const [currentWord, setCurrentWord] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const [showPlayButton, setShowPlayButton] = useState(true);
-  const videoRef = useRef(null);
 
   const rotatingWords = ["AI Insights", "Smart Analytics", "Data Magic", "Visual Stories"];
   const rotatingColors = [
@@ -35,36 +31,6 @@ export default function LandingHero() {
     { icon: "🎯", title: "99% Accuracy", desc: "AI-powered insights" },
     { icon: "📊", title: "Beautiful Charts", desc: "Auto-generated visuals" }
   ];
-
-  const handleVideoHover = () => {
-    if (videoRef.current) {
-      videoRef.current.play();
-      setIsVideoPlaying(true);
-      setShowPlayButton(false);
-    }
-  };
-
-  const handleVideoLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-      setIsVideoPlaying(false);
-      setShowPlayButton(true);
-    }
-  };
-
-  const handleVideoClick = () => {
-    if (videoRef.current) {
-      if (isVideoPlaying) {
-        videoRef.current.pause();
-        setIsVideoPlaying(false);
-        setShowPlayButton(true);
-      } else {
-        videoRef.current.play();
-        setIsVideoPlaying(true);
-        setShowPlayButton(false);
-      }
-    }
-  };
 
   return (
     <section className="relative flex items-center justify-center overflow-hidden bg-background pt-10">
@@ -124,33 +90,32 @@ export default function LandingHero() {
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-10">
               <Link to="/demo-ai">
-                <Button 
-                  size="lg" 
-                  className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
-                >
-                
+                <div className="relative">
+                  <Button 
+                    size="lg" 
+                    className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                  >
                     <span className="flex items-center gap-2">
                       QuerryBee.AI
                       <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
-                  {/* Subtle shimmer effect */}
-                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-all duration-700"></span>
-                </Button>
+                  </Button>
+                </div>
               </Link>
 
               <Link to="/dashboard">
-                <Button 
-                  size="lg" 
-                  className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
-                >
-                
+                <div className="relative">
+                  <Button 
+                    size="lg" 
+                    className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                  >
                     <span className="flex items-center gap-2">
                       Manual Tool
                       <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
-                  {/* Subtle shimmer effect */}
-                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-all duration-700"></span>
-                </Button>
+    
+                  </Button>
+                </div>
               </Link>
             </div>
 
@@ -168,23 +133,16 @@ export default function LandingHero() {
             </div>
           </div>
 
-          {/* Right column - Video */}
+          {/* Right column - Image */}
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
             <div className="relative group">
-              {/* Main video container */}
-              <div 
-                className="relative overflow-hidden rounded-2xl shadow-xl border border-border/30 cursor-pointer"
-                onMouseEnter={handleVideoHover}
-                onMouseLeave={handleVideoLeave}
-                onClick={handleVideoClick}
-              >
+              {/* Main image container */}
+              <div className="relative overflow-hidden rounded-2xl shadow-xl border border-border/30">
                 <img 
                   src="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp" 
                   alt="Data Analytics Dashboard"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-
                 />
-              
               </div>
               
               {/* Floating stat cards */}
