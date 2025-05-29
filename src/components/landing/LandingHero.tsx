@@ -110,7 +110,7 @@ export default function LandingHero() {
                     className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
                   >
                     <span className="flex items-center gap-2">
-                      Manual Tool
+                      Query Crafter
                       <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
     

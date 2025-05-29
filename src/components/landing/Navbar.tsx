@@ -78,7 +78,7 @@ export default function Navbar() {
           <Link to="/dashboard">
             <Button variant="outline" className="gap-2">
               <Settings2 className="h-4 w-4" />
-              Manual Tool
+              Query Crafter
             </Button>
           </Link>
         </nav>
@@ -138,7 +138,7 @@ export default function Navbar() {
         <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
           <Button variant="outline" className="w-full gap-2">
             <Settings2 className="h-4 w-4" />
-            Manual Tool
+            Query Crafter
           </Button>
         </Link>
 

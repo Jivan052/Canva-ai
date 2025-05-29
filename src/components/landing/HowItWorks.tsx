@@ -106,7 +106,7 @@ export default function HowItWorks() {
                 )}
               >
                 <Settings className="w-4 h-4 mr-2" />
-                Manual Tool
+                Query Crafter
               </Button>
               <Button
                 variant={activeWorkflow === 'automatic' ? 'default' : 'ghost'}
