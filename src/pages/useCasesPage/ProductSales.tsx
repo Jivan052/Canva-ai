@@ -1,8 +1,6 @@
 import React from "react";
 import { CheckCircle, BarChart3, Users, TrendingUp, DollarSign, PieChart, Repeat, Grid2X2, UserCheck} from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
-import { Link } from "react-router-dom";
-
 
 const bulletPoints = [
   {
@@ -59,66 +57,91 @@ export default function ProductSales() {
   
   return (
     <>
-      <Navbar />
-        <section className="p-6 md:p-10 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4 text-gray-900">Transform Your Sales Data into Your Biggest Asset</h1>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Our AI-powered platform simplifies complex sales data, providing clear analysis on what matters most. Stop digging through spreadsheets and start driving growth.
-            </p>
-        </div>
-
-        <div className="text-center mb-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-2">Unlock a Complete View of Your Business Performance</h2>
-            <p className="text-gray-600 max-w-4xl mx-auto">
-            Raw sales data in spreadsheets is full of potential, but it's often trapped in a maze of rows and columns. Our AI platform automates the heavy lifting, instantly analyzing your sales information to reveal the critical insights you need to grow your business.
-            </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {bulletPoints.map(({ icon: Icon, title, description }, index) => (
-            <div key={index} className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition duration-300">
-                <Icon className="text-blue-600 w-8 h-8 mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+    <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <section className="px-6 md:px-10 py-16 max-w-7xl mx-auto">
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Sales Analytics Platform
             </div>
-            ))}
-        </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+              Transform Your Sales Data into Your <br />
+              <span className="text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text"> Biggest Asset</span>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              Our AI-powered platform simplifies complex sales data, providing clear analysis on what matters most. Stop digging through spreadsheets and start driving growth.
+            </p>
+          </div>
 
-        <div className="mt-16 bg-blue-50 rounded-xl p-6 md:p-10 text-center">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4">The Human Touch: Our Unique Hybrid Approach</h2>
-            <p className="text-gray-700 max-w-3xl mx-auto mb-6">
-            Standard AI tools are powerful, but they offer a one-size-fits-all solution. Your business is unique, and so is your data.
+          {/* Subtitle Section */}
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Unlock a Complete View of Your Business Performance</h2>
+            <p className="text-md text-gray-600 max-w-5xl mx-auto leading-relaxed">
+              Raw sales data in spreadsheets is full of potential, but it's often trapped in a maze of rows and columns. Our AI platform automates the heavy lifting, instantly analyzing your sales information to reveal the critical insights you need to grow your business.
             </p>
-            <p className="text-gray-700 max-w-3xl mx-auto mb-6">
-            <strong>Need Customization?</strong> We manually adjust and prepare your sheets to ensure they are perfectly optimized for AI analysis.
-            </p>
-            <p className="text-gray-700 max-w-3xl mx-auto mb-6">
-            <strong>Need a Deeper Dive?</strong> Our data specialists provide custom analysis and reports to answer your specific questions.
-            </p>
-            <p className="text-gray-700 max-w-3xl mx-auto">
-            With us, you get the best of both worlds: the speed of AI and the insight of a human expert.
-            </p>
-        </div>
+          </div>
 
-        <div className="text-center mt-16">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">We Are Here to Help</h2>
-            <p className="text-gray-600 max-w-3xl mx-auto mb-6">
-            Navigating your data can be daunting, but you're not alone. Whether you're just starting out, need a question answered, or require expert guidance, our team is ready to assist.
-            </p>
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Ready to See Your Data in a New Light?</h3>
-            <p className="text-gray-600 max-w-xl mx-auto mb-6">
-            Stop guessing and start making data-driven decisions with confidence.
-            </p>
-            <div className="flex justify-center mt-6">
-  <Link to="/dashboard" className="inline-block">
-    <button className="bg-blue-600 text-white py-3 px-6 rounded-full transition-all duration-300 hover:bg-blue-700 hover:scale-105 hover:font-semibold">
-      Get an Instant AI Analysis
-    </button>
-  </Link>
-</div>
-        </div>
+          {/* Bullet Points Section */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-8 text-center">Key Analytics Features</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              {bulletPoints.map(({ icon: Icon, title, description }, index) => (
+                <div key={index} className="flex items-start space-x-4 p-4 hover:bg-white/50 rounded-xl transition-all duration-300">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                      <Icon className="text-white w-6 h-6" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">{title}</h4>
+                    <p className="text-gray-600 leading-relaxed">{description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dashboard Preview Image */}
+          <div className="mb-16">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-5xl mx-auto">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">See Your Data Come to Life</h3>
+                <p className="text-gray-600">Interactive dashboards that make complex data simple to understand</p>
+              </div>
+              <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-video flex items-center justify-center">
+                <div className="text-center">
+                  <BarChart3 className="w-24 h-24 text-slate-400 mx-auto mb-4" />
+                  <p className="text-slate-500 text-lg font-medium">Interactive Sales Dashboard</p>
+                  <p className="text-slate-400 text-sm">Real-time analytics and insights</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          {/* CTA Section */}
+          <div className="text-center">
+            <div>
+              <h2 className="text-2xl font-bold mb-4">We Are Here to Help</h2>
+              <p className=" max-w-3xl mx-auto mb-6 text-md">
+                Navigating your data can be daunting, but you're not alone. Whether you're just starting out, need a question answered, or require expert guidance, our team is ready to assist.
+              </p>
+              <h3 className="text-2xl font-semibold mb-4">Ready to See Your Data in a New Light?</h3>
+              <p className="max-w-xl mx-auto mb-8">
+                Stop guessing and start making data-driven decisions with confidence.
+              </p>
+              <button 
+                onClick={() => window.location.href = '/dashboard'}
+                className="bg-white text-blue-600 py-4 px-8 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-blue-50 hover:scale-105 shadow-lg"
+              >
+                Get an Instant AI Analysis
+              </button>
+            </div>
+          </div>
         </section>
+      </div>
     </>
   );
 }

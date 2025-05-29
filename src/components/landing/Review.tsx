@@ -56,7 +56,7 @@ const Review = () => {
   };
 
   return (
-    <section className="w-full bg-gradient-to-br from-muted/50 via-background to-muted/30 py-20 px-4 md:px-8 relative">
+    <section className="w-full bg-gradient-to-br from-muted/50 via-background to-muted/30 py-10 pb-0 px-4 md:px-8 relative">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <div className="text-center mb-16 space-y-4">
