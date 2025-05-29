@@ -123,6 +123,21 @@ export default function LandingHero() {
             
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-10">
+              <Link to="/demo-ai">
+                <Button 
+                  size="lg" 
+                  className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                >
+                
+                    <span className="flex items-center gap-2">
+                      QuerryBee.AI
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
+                  {/* Subtle shimmer effect */}
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-all duration-700"></span>
+                </Button>
+              </Link>
+
               <Link to="/dashboard">
                 <Button 
                   size="lg" 
@@ -130,7 +145,7 @@ export default function LandingHero() {
                 >
                 
                     <span className="flex items-center gap-2">
-                      Get Started
+                      Manual Tool
                       <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
                   {/* Subtle shimmer effect */}
@@ -169,16 +184,7 @@ export default function LandingHero() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
 
                 />
-                
-                {/* Subtle gradient overlay */}
-                {/* <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div> */}
-                
-                {/* Video playing indicator */}
-                {/* {isVideoPlaying && (
-                  <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium animate-pulse">
-                    PLAYING
-                  </div>
-                )} */}
+              
               </div>
               
               {/* Floating stat cards */}

@@ -24,6 +24,7 @@ const queryClient = new QueryClient();
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ScrollToTop from "./pages/ScrollToTop";
+import DemoVideo from "./components/landing/DemoVideo";
 
 function ScrollToHash() {
   const location = useLocation();
@@ -69,6 +70,7 @@ const App = () => (
               <Route path="/hr-operation" element={<HROperation />} />
               <Route path="/finance" element={<Finance />} />
               <Route path="/marketing" element={<Marketing />} />
+              <Route path="/watch-demo" element={<DemoVideo />} /> {/* Add the Watch Demo route */}
 
               <Route path="/how-it-works" element={<HowItWorks />} />
               <Route path="/how-we-help-you" element={<HowItWorks />} />

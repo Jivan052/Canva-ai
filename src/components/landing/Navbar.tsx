@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { BarChart2, Settings2, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import UseCasesDropdown from "@/components/UseCasesDropdown";
+import DemoVideo from "./DemoVideo";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -57,7 +58,14 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/#how-it-works" className="block text-sm  hover:scale-105 hover:font-bold hover:text-black/80  ">
+          <Link to="/demo-ai">
+            <Button variant="outline" className="gap-2">
+              <Settings2 className="h-4 w-4" />
+              QuerryBee.AI
+            </Button>
+          </Link>
+
+          <Link to="/#how-it-works" className="block text-sm  hover:scale-105 hover:font-bold hover:text-black/80  ">
 
                 How It Works
              </Link>
@@ -66,16 +74,11 @@ export default function Navbar() {
             </Link> 
 
           <UseCasesDropdown />
+
           <Link to="/dashboard">
             <Button variant="outline" className="gap-2">
               <Settings2 className="h-4 w-4" />
-              Manual Data Tools
-            </Button>
-          </Link>
-          <Link to="/demo-ai">
-            <Button variant="outline" className="gap-2">
-              <Settings2 className="h-4 w-4" />
-              DemoAI
+              Manual Tool
             </Button>
           </Link>
         </nav>
@@ -90,7 +93,9 @@ export default function Navbar() {
         {/* CTA Button */}
         <div className="hidden md:block">
           <Button asChild>
-            <Link to="/demo-ai">Get Started</Link>
+            <Link to="/watch-demo" className="flex items-center gap-2">
+              Watch Demo
+            </Link>
           </Button>
         </div>
       </div>
@@ -133,21 +138,21 @@ export default function Navbar() {
         <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
           <Button variant="outline" className="w-full gap-2">
             <Settings2 className="h-4 w-4" />
-            Manual Data Tools
+            Manual Tool
           </Button>
         </Link>
 
         <Link to="/demo-ai" onClick={() => setIsMobileMenuOpen(false)}>
           <Button variant="outline" className="w-full gap-2">
             <Settings2 className="h-4 w-4" />
-            DemoAI
+            QuerryBee.AI
           </Button>
         </Link>
 
         {/* Get Started Button */}
         <Button asChild className="w-full">
           <Link to="/demo-ai" onClick={() => setIsMobileMenuOpen(false)}>
-            Get Started
+            Watch Demo
           </Link>
         </Button>
       </div>
