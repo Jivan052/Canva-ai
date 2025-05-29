@@ -172,7 +172,7 @@ export default function LandingHero() {
                   poster="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp"
                 >
                   {/* Add your video source here */}
-                  <source src="https://www.youtube.com/watch?v=0E3uj5Ks25E&pp=ygUWZGVtbyBhaSBkYXRhIGFuYWx5dGljcw%3D%3D" />
+                  <source src="https://www.youtube.com/watch?v=vfdleG_BQZg" />
                   {/* Fallback image if video fails */}
                   <img 
                     src="https://osiztechnologiesnew.s3.amazonaws.com/ai-tools-for-data-analytics.webp" 
@@ -193,12 +193,6 @@ export default function LandingHero() {
                 {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                {/* Video playing indicator */}
-                {isVideoPlaying && (
-                  <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium animate-pulse">
-                    PLAYING
-                  </div>
-                )}
               </div>
               
               {/* Floating stat cards */}

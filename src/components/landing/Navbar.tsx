@@ -57,7 +57,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/#how-it-works" className="block text-sm  hover:scale-105 hover:font-bold hover:text-black/80 ">
+            <Link to="/#how-it-works" className="block text-sm  hover:scale-105 hover:font-bold hover:text-black/80  ">
 
                 How It Works
              </Link>
@@ -66,7 +66,7 @@ export default function Navbar() {
             </Link> 
 
           <UseCasesDropdown />
-          <Link to="/dashboard">
+          <Link to="/manual-tools">
             <Button variant="outline" className="gap-2">
               <Settings2 className="h-4 w-4" />
               Manual Data Tools
@@ -130,7 +130,7 @@ export default function Navbar() {
         <UseCasesDropdown />
 
         {/* Tool Buttons */}
-        <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link to="/manual-tools" onClick={() => setIsMobileMenuOpen(false)}>
           <Button variant="outline" className="w-full gap-2">
             <Settings2 className="h-4 w-4" />
             Manual Data Tools
