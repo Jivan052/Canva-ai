@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom"; // Uncomment when using in your project
 
 export default function LandingHero() {
@@ -122,7 +123,7 @@ export default function LandingHero() {
             
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-10">
-              {/* <Link to="/dashboard"> */}
+              <Link to="/dashboard">
                 <Button 
                   size="lg" 
                   className="group relative px-6 py-6 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-primary-foreground shadow-lg hover:shadow-primary/25 transition-all duration-300"
@@ -135,7 +136,7 @@ export default function LandingHero() {
                   {/* Subtle shimmer effect */}
                   <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-all duration-700"></span>
                 </Button>
-              {/* </Link> */}
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0">
