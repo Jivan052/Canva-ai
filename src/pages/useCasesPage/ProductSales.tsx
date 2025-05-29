@@ -113,7 +113,7 @@ export default function ProductSales() {
               <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl aspect-video flex items-center justify-center">
                 <div className="text-center">
                   <img 
-                    src="https://res.cloudinary.com/djbjfsshe/image/upload/v1748537766/hr_ppnxvj.jpg" 
+                    src="https://res.cloudinary.com/djbjfsshe/image/upload/v1748540394/prod_hbfv8d.jpg" 
                     alt="HR Dashboard Preview" 
                     className="w-full h-auto rounded-lg shadow-lg"
                   />
