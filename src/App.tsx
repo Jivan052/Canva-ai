@@ -17,7 +17,7 @@ import Finance from "./pages/useCasesPage/Finance";
 import Marketing from "./pages/useCasesPage/Marketing";
 import Footer from "./components/landing/Footer";
 import { InsightProvider } from "./contexts/InsightContext";
-import HowItWorks from "./components/landing/HowItWorks";
+import ItWorks from "./components/landing/HowItWorks";
 
 const queryClient = new QueryClient();
 
@@ -70,8 +70,8 @@ const App = () => (
               <Route path="/finance" element={<Finance />} />
               <Route path="/marketing" element={<Marketing />} />
 
-              <Route path="/how-it-works" element={<HowItWorks />} />
-              <Route path="/how-we-help-you" element={<HowItWorks />} />
+              <Route path="/how-it-works" element={<ItWorks />} />
+              <Route path="/how-we-help-you" element={<ItWorks />} />
 
 
               <Route path="*" element={<NotFound />} />
