@@ -4,9 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
+
 
 export default function LandingHero() {
+  const navigate = useNavigate(); // Add this hook
   const [isVisible, setIsVisible] = useState(false);
   const [currentWord, setCurrentWord] = useState(0);
 
@@ -31,6 +35,7 @@ export default function LandingHero() {
     { icon: "🎯", title: "99% Accuracy", desc: "AI-powered insights" },
     { icon: "📊", title: "Beautiful Charts", desc: "Auto-generated visuals" }
   ];
+
 
   return (
     <section className="relative flex items-center justify-center overflow-hidden bg-background pt-10">
@@ -89,6 +94,7 @@ export default function LandingHero() {
             
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-10">
+
               <Link to="/demo-ai">
                 <div className="relative">
                   <Button 
@@ -186,7 +192,6 @@ export default function LandingHero() {
           }
         `
       }} />
-
     </section>
   );
 }
