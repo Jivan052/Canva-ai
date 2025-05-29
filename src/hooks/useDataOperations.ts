@@ -227,6 +227,19 @@ export function useDataOperations() {
       });
     },
 
+      roundValues: (
+    roundConfigs: Array<{ column: string, decimals: number }>
+  ) => {
+    executeOperation('transform', 'Round Values', () => {
+      context.applyOperation(
+        'transform',
+        'Round Values',
+        { roundConfigs },
+        (data) => transformationOps.roundValues(data, roundConfigs)
+      );
+    });
+  },
+
     filterData: (
       filters: Array<{
         column: string;
